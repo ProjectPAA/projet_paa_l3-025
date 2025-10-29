@@ -34,6 +34,11 @@ public class Maison {
 		/*Comme ça même si deux instances de Maison (avec des nom égaux) sont des objets différents,
 		 *		leur consommation est forcé d'être la même et de suivre les m-à-j dynamiquement.*/
 	}
+	
+	@Override
+    public String toString() {
+        return "Maison " + nom + " (Consommation: " + this.getConsommation().name() + ", " + this.getConsommation().getkWh() + "kWh)";
+    }
 
 }
 

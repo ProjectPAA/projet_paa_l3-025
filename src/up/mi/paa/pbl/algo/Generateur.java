@@ -33,4 +33,9 @@ public class Generateur {
 	public int getCapacite() {
 		return Generateur.mapGenerateursCapacites.get(this);
 	}
+	
+	@Override
+    public String toString() {
+        return "Générateur " + nom + " (Capacité: " + this.getCapacite() + "kWh)";
+    }
 }

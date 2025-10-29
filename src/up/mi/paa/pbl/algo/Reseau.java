@@ -30,7 +30,7 @@ public class Reseau {
 	}
 	
 	public void addConnexion(Connexion_MG connexion) throws NoSuchElementException {
-		if (!(maisons.contains(connexion.getMaison()) && generateurs.contains(connexion.getGenerateur()))){	//TODO CRITICAL check name-coherence with Connexion_MG
+		if (!(maisons.contains(connexion.getMaison()) && generateurs.contains(connexion.getGenerateur()))){
 		//si la maison ou le générateur de la connexion n'est pas dans le réseau, alors la connexion peut pas être dans le réseau non plus.
 			throw new NoSuchElementException();
 		}

@@ -8,3 +8,4 @@ public class TestProject {
 	}
 
 }
+// my test on IDEA commit test

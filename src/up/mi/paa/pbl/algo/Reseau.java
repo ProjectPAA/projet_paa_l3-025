@@ -41,5 +41,7 @@ public class Reseau {
 	
 	//TODO check an element being in one of the collections
 	//TODO iterators over elements
-	
+
+	// Je test le commit
+
 }

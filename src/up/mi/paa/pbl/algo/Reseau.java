@@ -10,7 +10,7 @@ public class Reseau {
 	private Map<Maison, Generateur> connexions;
 	private transient Map<String, Double> tauxUtilisation;
 	private transient double tauxUtilisationMoyen = 0;
-	// private transient int hashQuandTauxUtilisationCalcule;
+	private transient int hashQuandTauxUtilisationCalcule;
 
 	public Reseau() {
 		this.maisons = new HashMap<>();
@@ -107,7 +107,7 @@ public class Reseau {
 		// To Do to string pour reseau
 	
 	public void updateTauxUtilisation() {
-		// if (this.hashCode() != this.hashQuandTauxUtilisationCalcule) {
+		if (this.hashCode() != this.hashQuandTauxUtilisationCalcule) {
 			// Si le réseau a changé, on recalcule tous les taux d'utilisation et avec la meme boucle on calcul et mémoise le moyen.
 			this.tauxUtilisation.clear();
 			this.tauxUtilisationMoyen = 0;
@@ -122,7 +122,7 @@ public class Reseau {
 				this.tauxUtilisationMoyen += charge / gen.getCapaciteMAx();
 			}
 			this.tauxUtilisationMoyen = tauxUtilisationMoyen / tauxUtilisation.size();
-		//}
+		}
 	}
 	
 	public double disp() {
@@ -155,7 +155,7 @@ public class Reseau {
 	}
 	
 	// La redefinition des ces deux fonctions ne sont pas utiles
-/*	
+	
 	@Override
 	public int hashCode() {
 		return 7*this.maisons.hashCode() + 13*this.generateurs.hashCode() + 19*this.connexions.hashCode(); //Les multiplications font que le Reseau contenant que la Maison et le Generateur M et G n'a pas la même hash que le Reseau contenant la Maison et le Generateur G et M. (car leur hash est le hash de leur nom.)
@@ -171,7 +171,7 @@ public class Reseau {
 			return maisons.equals(((Reseau) other).maisons) && generateurs.equals(((Reseau) other).generateurs) && connexions.equals(((Reseau) other).connexions);
 		}
 	}
-*/
+
 	// TODO to string pour reseau
 
 }

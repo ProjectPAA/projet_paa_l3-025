@@ -77,16 +77,53 @@ public class InterfaceTextuelle {
 		return reseau.verifierConnexions();	
 	}
 	
+	// Afficher le reseau 
+	public static void handleAfficherReseau() {
+		reseau.afficherReseau();
+	}
+	
+	// Menu Secondaire 
+	public static void lancerMenuSecondaire() {
+		boolean enCours = true;
+		while(enCours) {
+			System.out.println("============== Menu Secondaire =================");
+			System.out.println("1. Calculer.");
+			System.out.println("2. Modifier.");
+			System.out.println("3. Afficher le réseau.");
+			System.out.println("4. Fin.");
+			System.out.println("============== Fin : Menu Secondaire =================");
+			
+			String choix = scan.nextLine();
+			switch(choix) {
+			case "1": System.out.println("=> Option non implementée.");
+			break;
+			case "2":System.out.println("=> Option non implementée.");
+			break;
+			case "3": handleAfficherReseau();;
+			break;
+			case "4":
+				enCours = false;
+			break;
+			default:System.out.println("Saisir incorrect !");
+			break;
+				
+			}
+		}
+		System.out.println("\nVous avez quitter le menu secondaire.");
+		}
+	
+	
 	// Le menu principal	
 	private static void lancerMenuPrincipal() {
 	boolean enCours = true;
-		System.out.println("============== Menu =================");
 		while(enCours) {
+			System.out.println("\n============== Menu Principal =================");
 			
 			System.out.println("1. Ajouter un générateur.");
 			System.out.println("2. Ajouter une maison.");
 			System.out.println("3. Ajouter une connexion.");
 			System.out.println("4. Fin.");
+			System.out.println("\n============== Fin : Menu Principal =================");
 			
 			String choix = scan.nextLine();
 			switch(choix) {
@@ -99,6 +136,7 @@ public class InterfaceTextuelle {
 			case "4":
 			if(verifierConnexion()) {
 				enCours = false;
+				lancerMenuSecondaire(); // Menu Secondaire
 			}else {
 				System.out.println("La (es) configuration(s) n'est (ne sont) pas correct ! Veuillez corriger.");
 			}
@@ -109,7 +147,7 @@ public class InterfaceTextuelle {
 			}
 		}
 		
-		System.out.println("Vous avez quitter le menu.");
+		System.out.println("\nVous avez quitter le menu principal.");
 	}
 	public static void main(String[] args) {
 		

@@ -82,7 +82,27 @@ public class Reseau {
 		}
 		return true; // Aucun maison non connectée trouvée
 
-	}
+		public void afficherReseau() {
+			System.out.println("--------- ETAT DU RESEAU -------");
+			// Affichage du generateur 
+			for(Generateur generateur : this.generateurs.values()) {
+				System.out.println(generateur.toString());
+			}
+			
+			for(Maison maison : this.maisons.values()) {
+				System.out.println(maison.toString());
+			}
+			System.out.println("Affichage de connexions");
+			for(Map.Entry<Maison, Generateur> entree : this.connexions.entrySet()) {
+				Maison maison = entree.getKey();
+				Generateur generateur = entree.getValue();
+				System.out.println(maison.getNom() + " ===> " + generateur.getNom());
+			}
+			
+			System.out.println("--------- Fin : ETAT DU RESEAU -------");
+		}
+		
+		// To Do to string pour reseau
 	
 	public void updateTauxUtilisation() {
 		if (this.hashCode() != this.hashQuandTauxUtilisationCalcule) {

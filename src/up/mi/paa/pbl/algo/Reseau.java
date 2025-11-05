@@ -8,15 +8,16 @@ public class Reseau {
 	private Map<String, Maison> maisons;
 	private Map<String, Generateur> generateurs;
 	private Map<Maison, Generateur> connexions;
-	private transient Map<String, Double> tauxUtilisation = new HashMap<String, Double>();
+	private transient Map<String, Double> tauxUtilisation;
 	private transient double tauxUtilisationMoyen = 0;
-	private transient int hashQuandTauxUtilisationCalcule;
+	// private transient int hashQuandTauxUtilisationCalcule;
 
 	public Reseau() {
 		this.maisons = new HashMap<>();
 		this.generateurs = new HashMap<>();
 		this.connexions = new HashMap<>();
-	}
+		this.tauxUtilisation = new HashMap<String, Double>();
+;	}
 
 	public Map<Maison, Generateur> getConnexions() {
 		return connexions;
@@ -81,6 +82,7 @@ public class Reseau {
 			}
 		}
 		return true; // Aucun maison non connectée trouvée
+	}
 
 		public void afficherReseau() {
 			System.out.println("--------- ETAT DU RESEAU -------");
@@ -105,7 +107,7 @@ public class Reseau {
 		// To Do to string pour reseau
 	
 	public void updateTauxUtilisation() {
-		if (this.hashCode() != this.hashQuandTauxUtilisationCalcule) {
+		// if (this.hashCode() != this.hashQuandTauxUtilisationCalcule) {
 			// Si le réseau a changé, on recalcule tous les taux d'utilisation et avec la meme boucle on calcul et mémoise le moyen.
 			this.tauxUtilisation.clear();
 			this.tauxUtilisationMoyen = 0;
@@ -120,7 +122,7 @@ public class Reseau {
 				this.tauxUtilisationMoyen += charge / gen.getCapaciteMAx();
 			}
 			this.tauxUtilisationMoyen = tauxUtilisationMoyen / tauxUtilisation.size();
-		}
+		//}
 	}
 	
 	public double disp() {
@@ -136,18 +138,24 @@ public class Reseau {
 	
 	public double surcharge(double lambda) {
 		this.updateTauxUtilisation();
-				int count_surcharge = 0;
+				// int count_surcharge = 0;
+				double totalSurcharge = 0; // On fait la somme, pas un comptage
 				for (double util:tauxUtilisation.values()) {
-					if (util > 1.0)
-						count_surcharge++;
+					// C'est la formule du PDF (Projet Partie 1)
+					totalSurcharge += Math.max(0, util - 1.0);
+					//if (util > 1.0)
+						//count_surcharge++;
 				}
-				return lambda*count_surcharge;
+				//return lambda*count_surcharge;
+				return lambda*totalSurcharge;
 	}
 	
 	public double calculerCout(double lambda) {
 		return this.disp() + this.surcharge(lambda);
 	}
 	
+	// La redefinition des ces deux fonctions ne sont pas utiles
+/*	
 	@Override
 	public int hashCode() {
 		return 7*this.maisons.hashCode() + 13*this.generateurs.hashCode() + 19*this.connexions.hashCode(); //Les multiplications font que le Reseau contenant que la Maison et le Generateur M et G n'a pas la même hash que le Reseau contenant la Maison et le Generateur G et M. (car leur hash est le hash de leur nom.)
@@ -163,7 +171,7 @@ public class Reseau {
 			return maisons.equals(((Reseau) other).maisons) && generateurs.equals(((Reseau) other).generateurs) && connexions.equals(((Reseau) other).connexions);
 		}
 	}
-
+*/
 	// TODO to string pour reseau
 
 }

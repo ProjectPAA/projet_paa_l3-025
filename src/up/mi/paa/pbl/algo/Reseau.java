@@ -1,15 +1,12 @@
 package up.mi.paa.pbl.algo;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.NoSuchElementException;
-
 import java.util.HashMap;
 import java.util.Map;
+
+// Classe Reseau
 public class Reseau {
-<<<<<<< HEAD
 	private Map<String, Maison> maisons;
 	private Map<String, Generateur> generateurs;
-	private Map<String, String> connexions; // First String is for name Maison et second for Generator
+	private Map<Maison, Generateur> connexions; 
 	
 	public Reseau() {
 		this.maisons = new HashMap<>();
@@ -53,55 +50,35 @@ public class Reseau {
 	
 	// Connexion ajout
 	public void ajouterConnexion(String nomMaison, String nomGenerateur) {
-		if(!this.maisons.containsKey(nomMaison)) {
+		Maison maison = this.maisons.get(nomMaison);
+		Generateur generateur = this.generateurs.get(nomGenerateur);
+		
+		// Est ce que maison existe
+		if(maison == null) {
 			return;
 		}
-		if(!this.generateurs.containsKey(nomGenerateur)) {
+		//Est ce que generateur existe
+		if(generateur == null) {
 			return;
 		}
-		// Tout est Ok
-		this.connexions.put(nomMaison, nomGenerateur);
+		// Maison et Generateur existe donc on fait la connexion
+		this.connexions.put(maison, generateur);
 		System.out.println("Ok : Connexion " + nomMaison + " => " + nomGenerateur + "ajoutée.");
 	}
 	
-=======
-	private Collection<Maison> maisons;
-	private Collection<Generateur> generateurs;
-	private Collection<Connexion_MG> connexions;
-	
-	public Reseau() {
-		this(new ArrayList<Maison>(), new ArrayList<Generateur>(), new ArrayList<Connexion_MG>());
-	}
-	
-	public Reseau(Collection<Maison> Maisons, Collection<Generateur> Generateurs, Collection<Connexion_MG> Connexions) {
-		this.maisons = Maisons;
-		this.generateurs = Generateurs;
-		this.connexions = Connexions;
-	}
-	
-	/*Je suppose que les générateurs ont un namespace à eux, et ils décident s'il faut créer/mettre à jour, par encapsulation.
-	 * Side effect: un même générateur *pourrait* apartenir à deux réseaux, donc deux instances du problème, mais vu que tout est saisi à clavieur ou chargé des fichier, et qu'on opère avec des mis-à-jour,
-	 * 				ça se réalisera jamais de façon cohérent.*/
-	public void addMaison(Maison maison) {
-		this.maisons.add(maison);
-	}
-	
-	public void addGenerateur(Generateur generateur) {
-		this.generateurs.add(generateur);
-	}
-	
-	public void addConnexion(Connexion_MG connexion) throws NoSuchElementException {
-		if (!(maisons.contains(connexion.getMaison()) && generateurs.contains(connexion.getGenerateur()))){
-		//si la maison ou le générateur de la connexion n'est pas dans le réseau, alors la connexion peut pas être dans le réseau non plus.
-			throw new NoSuchElementException();
+	// Verifier si une ou plusieurs maisons ne sont pas connectés
+		public boolean verifierConnexions() {			
+			
+			for(Maison maison : this.maisons.values()) {
+				// Si maison n'est pas dans la map de collecitons connexions
+				if(!this.connexions.containsKey(maison)) {
+					System.out.println("=> Maison non connecté : " + maison.getNom());
+					return false; // on a trouvé un problème
+				}
+			}
+			return true; // Aucun maison non connectée trouvée
+			
 		}
-		else {
-			this.connexions.add(connexion);
-		}
-	}
-	
-	//TODO check an element being in one of the collections
-	//TODO iterators over elements
->>>>>>> master
+
 	
 }

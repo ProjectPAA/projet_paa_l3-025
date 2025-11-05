@@ -51,24 +51,12 @@ public class InterfaceTextuelle {
 	
 	// Verifier si une ou plusieurs maisons ne sont pas connectés
 	public static boolean verifierConnexion() {
-		boolean allIsOk = true;
-		
-		// Foreach sur les clés maison
-		for(String nomMaison : reseau.getMaisons().keySet()) {
-			// Si maison n'est pas dans la map de collecitons connexions
-			if(!reseau.getConnexions().containsKey(nomMaison)) {
-				allIsOk = false;
-				System.out.println("=> Maison non connecté : " + nomMaison);
-			}
-		}
-		
-		return allIsOk;
-		
+		return reseau.verifierConnexions();	
 	}
 	
 	// Le menu principal	
 	private static void lancerMenuPrincipal() {
-boolean enCours = true;
+	boolean enCours = true;
 		
 		while(enCours) {
 			System.out.println("1. Ajouter un générateur.");

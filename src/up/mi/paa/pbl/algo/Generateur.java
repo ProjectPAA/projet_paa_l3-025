@@ -17,13 +17,13 @@ public class Generateur {
 			return Boolean.FALSE;
 		}
 		else {
-			return this.nom.equals(((Generateur) other).getNom());
+			return this.nom.equals(((Generateur) other).getNom()) && this.capaciteMax == ((Generateur) other).getCapaciteMAx();
 		}
 	}
 	
 	@Override
 	public int hashCode() {
-		return this.nom.hashCode();
+		return this.nom.hashCode()*this.capaciteMax;
 	}
 	
 	public String getNom() {

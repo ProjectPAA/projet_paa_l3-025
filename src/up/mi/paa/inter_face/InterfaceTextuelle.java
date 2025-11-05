@@ -2,8 +2,10 @@ package up.mi.paa.inter_face;
 
 import java.util.Scanner;
 
-import up.mi.paa.problem.algo.Reseau;
-import up.mi.paa.problem.algo.TypeConsommation;
+import up.mi.paa.pbl.algo.Reseau;
+import up.mi.paa.pbl.algo.TypeConsommation;
+
+
 
 public class InterfaceTextuelle {
 	private static Scanner scan = new Scanner(System.in);
@@ -74,15 +76,15 @@ boolean enCours = true;
 			System.out.println("3. Ajouter une connexion.");
 			System.out.println("4. Fin.");
 			
-			int val = scan.nextInt();
-			switch(val) {
-			case 1 : handleAjouterGenerateur();
+			String choix = scan.nextLine();
+			switch(choix) {
+			case "1" : handleAjouterGenerateur();
 			break;
-			case 2 : handleAjouterMaison();
+			case "2" : handleAjouterMaison();
 			break;
-			case 3 : handleAjouterConnexion();
+			case "3" : handleAjouterConnexion();
 			break;
-			case 4:
+			case "4":
 			if(verifierConnexion()) {
 				enCours = false;
 			}else {

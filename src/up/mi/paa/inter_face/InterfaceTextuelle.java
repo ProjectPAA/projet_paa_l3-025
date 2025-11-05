@@ -44,7 +44,7 @@ public class InterfaceTextuelle {
 		if(reseau.getMaisons().containsKey(nomMaison) && reseau.getGenerateurs().containsKey(nomGenerateur)) {
 			reseau.ajouterConnexion(nomMaison, nomGenerateur);
 		}
-		if(reseau.getMaisons().containsKey(nomGenerateur) && reseau.getGenerateurs().containsKey(nomMaison)) {
+		else if(reseau.getMaisons().containsKey(nomGenerateur) && reseau.getGenerateurs().containsKey(nomMaison)) {
 			reseau.ajouterConnexion(nomMaison, nomGenerateur);
 		}
 		else {

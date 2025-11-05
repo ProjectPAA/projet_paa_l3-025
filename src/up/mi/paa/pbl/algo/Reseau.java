@@ -14,7 +14,7 @@ public class Reseau {
 		this.connexions = new HashMap<>();
 	}
 
-	public Map<String, String> getConnexions() {
+	public Map<Maison, Generateur> getConnexions() {
 		return connexions;
 	}
 

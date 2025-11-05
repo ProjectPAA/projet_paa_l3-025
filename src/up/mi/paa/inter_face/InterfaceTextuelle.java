@@ -60,7 +60,7 @@ public class InterfaceTextuelle {
 				reseau.ajouterConnexion(nomMaison, nomGenerateur);
 			}
 			else if(reseau.getMaisons().containsKey(nomGenerateur) && reseau.getGenerateurs().containsKey(nomMaison)) {
-				reseau.ajouterConnexion(nomMaison, nomGenerateur);
+				reseau.ajouterConnexion(nomGenerateur, nomMaison);
 			}
 			else {
 				System.out.println("=> ERREUR : La maison ou le générateur n'existe pas.");

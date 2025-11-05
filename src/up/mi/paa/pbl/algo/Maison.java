@@ -1,5 +1,8 @@
 package up.mi.paa.pbl.algo;
 
+<<<<<<< HEAD
+import up.mi.paa.problem.algo.TypeConsommation;
+=======
 import java.util.HashMap;
 
 public class Maison {
@@ -39,7 +42,34 @@ public class Maison {
     public String toString() {
         return "Maison " + nom + " (Consommation: " + this.getConsommation().name() + ", " + this.getConsommation().getkWh() + "kWh)";
     }
+>>>>>>> master
 
+public class Maison {
+	private String nom;
+	private TypeConsommation type;
+	
+	
+	// Constructeur
+	public Maison(String n, TypeConsommation t) {
+		
+		this.nom = n;
+		this.type = t;
+	}
+	
+	
+	public String getNom() {
+		return this.nom;
+	}
+	
+	public TypeConsommation getType() {
+		return this.type;
+	}
+	
+	public void setType(TypeConsommation t) {
+		this.type = t;
+	}
+	
+	
 }
 
 /* friendly */ enum Maison_Consommation { // Mon compilateur a rejeté le friendly exprès.

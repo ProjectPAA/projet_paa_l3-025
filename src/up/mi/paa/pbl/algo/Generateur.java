@@ -2,6 +2,15 @@ package up.mi.paa.pbl.algo;
 
 import java.util.HashMap;
 
+<<<<<<< HEAD
+	private String nom;
+	private int capaciteMax;
+	
+	
+	public Generateur(String n, int val) {
+		this.nom = n;
+		this.capaciteMax = val;
+=======
 public class Generateur {
 	private String nom;
 	private static HashMap<Generateur, Integer> mapGenerateursCapacites = new HashMap<Generateur, Integer>();
@@ -24,12 +33,25 @@ public class Generateur {
 	@Override
 	public int hashCode() {
 		return this.nom.hashCode();
+>>>>>>> master
 	}
 	
 	public String getNom() {
 		return this.nom;
 	}
 	
+<<<<<<< HEAD
+	public int getCapaciteMAx() {
+		return this.capaciteMax;
+	}
+	
+	public void setCapaciteMax(int val) {
+		this.capaciteMax = val;
+	}
+	
+	
+}
+=======
 	public int getCapacite() {
 		return Generateur.mapGenerateursCapacites.get(this);
 	}
@@ -39,3 +61,4 @@ public class Generateur {
         return "Générateur " + nom + " (Capacité: " + this.getCapacite() + "kWh)";
     }
 }
+>>>>>>> master

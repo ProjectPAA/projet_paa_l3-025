@@ -14,42 +14,62 @@ public class InterfaceTextuelle {
 	// Ajouter de generateur depuis le saisie de user
 	private static void handleAjouterGenerateur() {
 		
-		System.out.println("Entrez le nom et la capacité :");
+		System.out.println("Entrez le nom et la capacité (ex: G1 60):");
 		String[] ligne = scan.nextLine().split(" ");
 		
-		String nomGenerateur = ligne[0];
-		int capaciteMax = Integer.parseInt(ligne[1]);
-		
-		reseau.ajouterGenerateur(nomGenerateur, capaciteMax);
+		try {
+			String nomGenerateur = ligne[0];
+			int capaciteMax = Integer.parseInt(ligne[1]);
+			
+			reseau.ajouterGenerateur(nomGenerateur, capaciteMax);
+		} catch (NumberFormatException e) {
+			System.out.println("=> ERREUR : La capacité doit être un nombre");
+		}catch (ArrayIndexOutOfBoundsException e) {
+			System.out.println("=> ERREUR : Vous devez entrer un nom ET une capacité.");
+			
+		}
 				
 	}
 	
 	// Ajouter maison 
 	public static void handleAjouterMaison() {
-		System.out.println("Entrez le nom et type de consommation ex: M1 NORMAL :");
+		System.out.println("Entrez le nom et type de consommation ex: M1 NORMALE :");
 		String[] ligne = scan.nextLine().split(" ");
-		String nomMaison = ligne[0];
-		TypeConsommation type =  TypeConsommation.valueOf(ligne[1].toUpperCase());
+		// on gere les erreurs 
+		try {
+			String nomMaison = ligne[0];
+			TypeConsommation type =  TypeConsommation.valueOf(ligne[1].toUpperCase());
+			
+			reseau.ajouterMaison(nomMaison, type);
+		}catch (IllegalArgumentException e) {
+			System.out.println("=> ERREUR : Type de consommation invalid. Utilisez BASE, NORMALE ou FORTE");
+		}catch (ArrayIndexOutOfBoundsException e){
+			System.out.println("=> ERREUR : Vous devez entrer un non ET un type (ex: M1 NORMALE).");
+		}
 		
-		reseau.ajouterMaison(nomMaison, type);
 	}
 	
 	// Ajouter connexion
 	public static void handleAjouterConnexion() {
 		System.out.println("Donner de la maison et du générateur ex : M1 G1");
 		String[] ligne = scan.nextLine().split(" ");
-		String nomMaison = ligne[0];
-		String nomGenerateur = ligne[1];
+		try {
+			String nomMaison = ligne[0];
+			String nomGenerateur = ligne[1];
+			if(reseau.getMaisons().containsKey(nomMaison) && reseau.getGenerateurs().containsKey(nomGenerateur)) {
+				reseau.ajouterConnexion(nomMaison, nomGenerateur);
+			}
+			else if(reseau.getMaisons().containsKey(nomGenerateur) && reseau.getGenerateurs().containsKey(nomMaison)) {
+				reseau.ajouterConnexion(nomMaison, nomGenerateur);
+			}
+			else {
+				System.out.println("=> ERREUR : La maison ou le générateur n'existe pas.");
+			}
+		}catch (ArrayIndexOutOfBoundsException e) {
+			System.out.println("=> ERREUR : Vous devez entrer une maison ET un générateur.");
+		}
 		
-		if(reseau.getMaisons().containsKey(nomMaison) && reseau.getGenerateurs().containsKey(nomGenerateur)) {
-			reseau.ajouterConnexion(nomMaison, nomGenerateur);
-		}
-		else if(reseau.getMaisons().containsKey(nomGenerateur) && reseau.getGenerateurs().containsKey(nomMaison)) {
-			reseau.ajouterConnexion(nomMaison, nomGenerateur);
-		}
-		else {
-			System.out.println("=> ERREUR : La maison ou le générateur n'existe pas.");
-		}
+		
 	}
 	
 	// Verifier si une ou plusieurs maisons ne sont pas connectés
@@ -62,6 +82,7 @@ public class InterfaceTextuelle {
 	boolean enCours = true;
 		
 		while(enCours) {
+			
 			System.out.println("1. Ajouter un générateur.");
 			System.out.println("2. Ajouter une maison.");
 			System.out.println("3. Ajouter une connexion.");
@@ -69,11 +90,11 @@ public class InterfaceTextuelle {
 			
 			String choix = scan.nextLine();
 			switch(choix) {
-			case "1" : handleAjouterGenerateur();
+			case "1": handleAjouterGenerateur();
 			break;
-			case "2" : handleAjouterMaison();
+			case "2": handleAjouterMaison();
 			break;
-			case "3" : handleAjouterConnexion();
+			case "3": handleAjouterConnexion();
 			break;
 			case "4":
 			if(verifierConnexion()) {

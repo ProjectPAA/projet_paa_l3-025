@@ -32,7 +32,7 @@ public class InterfaceTextuelle {
 	}
 	
 	// Ajouter maison 
-	public static void handleAjouterMaison() {
+	private static void handleAjouterMaison() {
 		System.out.println("Entrez le nom et type de consommation ex: M1 NORMALE :");
 		String[] ligne = scan.nextLine().split(" ");
 		// on gere les erreurs 
@@ -50,7 +50,7 @@ public class InterfaceTextuelle {
 	}
 	
 	// Ajouter connexion
-	public static void handleAjouterConnexion() {
+	private static void handleAjouterConnexion() {
 		System.out.println("Donner de la maison et du générateur ex : M1 G1");
 		String[] ligne = scan.nextLine().split(" ");
 		try {
@@ -73,13 +73,37 @@ public class InterfaceTextuelle {
 	}
 	
 	// Verifier si une ou plusieurs maisons ne sont pas connectés
-	public static boolean verifierConnexion() {
+	private static boolean verifierConnexion() {
 		return reseau.verifierConnexions();	
 	}
 	
 	// Afficher le reseau 
-	public static void handleAfficherReseau() {
+	private static void handleAfficherReseau() {
 		reseau.afficherReseau();
+	}
+	
+	/**
+	 * Gére l'option 1 du menu 2 : Calculer le coût du réseau.
+	 */
+	private static void handleCalculerCout() {
+		double lambda = 10.0;
+		
+		System.out.println("Calcul du coût du réseau (avec lambda = " + lambda + ")...");
+		// Appelle la méthode disp()
+	    double disp = reseau.disp();
+
+	    // Appelle la méthode surcharge()
+	    double surcharge = reseau.surcharge(lambda);
+
+	    // Calcule le coût total
+	    double coutTotal = disp + surcharge;
+
+	    // Affiche les 3 résultats, comme demandé par le PDF 
+	    System.out.println("--------- RÉSULTAT DU CALCUL ---------");
+	    System.out.println("Dispersion (Disp(S)) : " + disp);
+	    System.out.println("Surcharge (Surcharge(S)) : " + surcharge);
+	    System.out.println("COÛT TOTAL (Cout(S)) : " + coutTotal);
+	    System.out.println("--------------------------------------");
 	}
 	
 	// Menu Secondaire 
@@ -95,7 +119,7 @@ public class InterfaceTextuelle {
 			
 			String choix = scan.nextLine();
 			switch(choix) {
-			case "1": System.out.println("=> Option non implementée.");
+			case "1": handleCalculerCout();
 			break;
 			case "2":System.out.println("=> Option non implementée.");
 			break;

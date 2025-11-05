@@ -80,7 +80,7 @@ public class InterfaceTextuelle {
 	// Le menu principal	
 	private static void lancerMenuPrincipal() {
 	boolean enCours = true;
-		
+		System.out.println("============== Menu =================");
 		while(enCours) {
 			
 			System.out.println("1. Ajouter un générateur.");
@@ -108,6 +108,8 @@ public class InterfaceTextuelle {
 				
 			}
 		}
+		
+		Sytem.out.println("Vous avez quitter le menu.");
 	}
 	public static void main(String[] args) {
 		

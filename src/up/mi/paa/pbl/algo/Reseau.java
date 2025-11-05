@@ -63,7 +63,7 @@ public class Reseau {
 		}
 		// Maison et Generateur existe donc on fait la connexion
 		this.connexions.put(maison, generateur);
-		System.out.println("Ok : Connexion " + nomMaison + " => " + nomGenerateur + "ajoutée.");
+		System.out.println("Ok : Connexion " + nomMaison + " => " + nomGenerateur + " ajoutée.");
 	}
 	
 	// Verifier si une ou plusieurs maisons ne sont pas connectés
@@ -80,5 +80,6 @@ public class Reseau {
 			
 		}
 
+		// To Do to string pour reseau
 	
 }

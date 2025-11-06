@@ -76,7 +76,7 @@ public class InterfaceTextuelle {
 
 	private static void handleModifierConnexion() {
 		try {
-			// --- Étape 1 : ancienne connexion ---
+			// Ancienne connexion
 			System.out.println("Veuillez saisir la connexion que vous souhaitez modifier (ex: M1 G1 ou G1 M1):");
 			String[] ancienneSaisie = scan.nextLine().trim().split("\\s+");
 			if (ancienneSaisie.length < 2) throw new ArrayIndexOutOfBoundsException();
@@ -96,10 +96,11 @@ public class InterfaceTextuelle {
 				return;
 			}
 
-			// --- Étape 2 : nouvelle connexion ---
+			// Nouvelle connexion
 			System.out.println("Veuillez saisir la nouvelle connexion (ex: M1 G2 ou G2 M1):");
 			String[] nouvelleSaisie = scan.nextLine().trim().split("\\s+");
-			if (nouvelleSaisie.length < 2) throw new ArrayIndexOutOfBoundsException();
+			if (nouvelleSaisie.length < 2)
+				throw new ArrayIndexOutOfBoundsException();
 
 			Maison maisonNouvelle = null;
 			Generateur nouveauGen = null;
@@ -110,8 +111,9 @@ public class InterfaceTextuelle {
 				if (reseau.getGenerateurs().containsKey(nom)) nouveauGen = reseau.getGenerateurs().get(nom);
 			}
 
-			// Si aucune maison trouvée dans la nouvelle saisie, on garde la même que l'ancienne
-			if (maisonNouvelle == null) maisonNouvelle = maison;
+			// Si aucune maison est trouvée dans la nouvelle saisie, on garde la même que l'ancienne
+			if (maisonNouvelle == null)
+				maisonNouvelle = maison;
 
 			// Validation du générateur
 			if (nouveauGen == null) {
@@ -119,8 +121,7 @@ public class InterfaceTextuelle {
 				return;
 			}
 
-			// --- Étape 3 : modification ---
-			// Supprimer l'ancienne connexion et établir la nouvelle
+			// Supprimer l'ancienne connexion et établie la nouvelle connexion
 			reseau.modifierConnexion(maison.getNom(), ancienGen.getNom(), nouveauGen.getNom());
 
 		} catch (ArrayIndexOutOfBoundsException e) {

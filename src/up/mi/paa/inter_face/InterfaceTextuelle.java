@@ -33,7 +33,7 @@ public class InterfaceTextuelle {
 	
 	// Ajouter maison 
 	private static void handleAjouterMaison() {
-		System.out.println("Entrez le nom et type de consommation ex: M1 NORMALE :");
+		System.out.println("Entrez le nom et type de consommation ex: M1 (BASE/NORMALE/FORTE) :");
 		String[] ligne = scan.nextLine().split(" ");
 		// on gere les erreurs 
 		try {
@@ -70,6 +70,22 @@ public class InterfaceTextuelle {
 		}
 		
 		
+	}
+
+	private static void handleModifierConnexion() {
+		System.out.println("Entrez la maison, l'ancien générateur, et le NOUVEAU (ex: M1 G1 G2):");
+		String[] ligne = scan.nextLine().split(" ");
+
+		try {
+			String nomMaison = ligne[0];
+			String nomAncienGen = ligne[1];
+			String nomNouveauGen = ligne[2];
+
+			reseau.modifierConnexion(nomMaison, nomAncienGen, nomNouveauGen);
+
+		} catch (ArrayIndexOutOfBoundsException e) {
+			System.out.println("=> ERREUR : Vous devez entrer 3 noms (maison ancienGen nouveauGen).");
+		}
 	}
 	
 	// Verifier si une ou plusieurs maisons ne sont pas connectés
@@ -121,7 +137,7 @@ public class InterfaceTextuelle {
 			switch(choix) {
 			case "1": handleCalculerCout();
 			break;
-			case "2":System.out.println("=> Option non implementée.");
+			case "2":handleModifierConnexion();
 			break;
 			case "3": handleAfficherReseau();;
 			break;

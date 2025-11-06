@@ -21,10 +21,7 @@ public class Generateur {
 		}
 	}
 	
-	@Override
-	public int hashCode() {
-		return this.nom.hashCode()*this.capaciteMax;
-	}
+	
 	
 	public String getNom() {
 		return this.nom;
@@ -38,7 +35,10 @@ public class Generateur {
 		this.capaciteMax = val;
 	}
 	
-	
+	@Override
+	public int hashCode() {
+		return this.nom.hashCode()*this.capaciteMax;
+	}
 	
 	@Override
     public String toString() {

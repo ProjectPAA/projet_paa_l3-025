@@ -203,8 +203,7 @@ public class Reseau {
 		return this.disp() + this.surcharge(lambda);
 	}
 	
-<<<<<<< HEAD
-=======
+
 	// La redefinition des ces deux fonctions ne sont pas utiles
 	
 	@Override
@@ -224,6 +223,6 @@ public class Reseau {
 	}
 
 	// TODO to string pour reseau
->>>>>>> 3f0e5e8b5961bfe9c4ad855870d5dd577d83fdab
+
 
 }

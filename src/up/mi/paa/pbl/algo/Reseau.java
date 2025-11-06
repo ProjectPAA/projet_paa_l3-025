@@ -154,24 +154,5 @@ public class Reseau {
 		return this.disp() + this.surcharge(lambda);
 	}
 	
-	// La redefinition des ces deux fonctions ne sont pas utiles
-/*	
-	@Override
-	public int hashCode() {
-		return 7*this.maisons.hashCode() + 13*this.generateurs.hashCode() + 19*this.connexions.hashCode(); //Les multiplications font que le Reseau contenant que la Maison et le Generateur M et G n'a pas la même hash que le Reseau contenant la Maison et le Generateur G et M. (car leur hash est le hash de leur nom.)
-		//TODO make sure no collisions for very large networks.
-	}
-	
-	@Override
-	public boolean equals(Object other) {	//C'est pas vraiment nécessaire de redéfinir ça, mais vu qu'on est là...
-		if (other == null || !(other instanceof Reseau)) {
-			return Boolean.FALSE;
-		}
-		else {
-			return maisons.equals(((Reseau) other).maisons) && generateurs.equals(((Reseau) other).generateurs) && connexions.equals(((Reseau) other).connexions);
-		}
-	}
-*/
-	// TODO to string pour reseau
 
 }

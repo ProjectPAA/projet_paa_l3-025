@@ -49,7 +49,7 @@ public class Reseau {
 			System.out.println("Maison " + this.maisons.get(nom) + " mis à jour.");
 		} else {
 			this.maisons.put(nom, new Maison(nom, t));
-			System.out.println("Ok : Maison " + nom + " ajouté avec succés.");
+			System.out.println("Ok : Maison " + nom + " ajouté avec succès.");
 		}
 	}
 
@@ -69,6 +69,55 @@ public class Reseau {
 		// Maison et Generateur existe donc on fait la connexion
 		this.connexions.put(maison, generateur);
 		System.out.println("Ok : Connexion " + nomMaison + " => " + nomGenerateur + " ajoutée.");
+	}
+
+	public void modifierConnexion(String nomMaison, String nomAncienGen, String nomNouveauGen) {
+
+		Maison maison = this.maisons.get(nomMaison);
+		Generateur ancienGen = this.generateurs.get(nomAncienGen);
+		Generateur nouveauGen = this.generateurs.get(nomNouveauGen);
+
+		// return c'est pour arreter la methode si on rentre dans les si
+		if (maison == null) {
+			System.out.println("Erreur: La maison '" + nomMaison + "' n'existe pas.");
+			return;
+		}
+
+		// Verification de l'ancien generateur
+		if (ancienGen == null) {
+			System.out.println("Erreur: L'ancien générateur '" + nomAncienGen + "' n'existe pas.");
+			return;
+		}
+
+		// Verification du nouveau generateur
+		if (nouveauGen == null) {
+			System.out.println("Erreur: Le nouveau générateur '" + nomNouveauGen + "' n'existe pas.");
+			return;
+		}
+
+		Generateur genActuel = this.connexions.get(maison);
+
+		if (genActuel == null || !genActuel.equals(ancienGen)) {
+			// Un message d'erreur
+			String nomGenActuel;
+			if (genActuel == null) {
+				nomGenActuel = "rien";
+			} else {
+				nomGenActuel = genActuel.getNom();
+			}
+
+			System.out.println("Erreur: La connexion '" + nomMaison + " -> " + nomAncienGen + "' n'existe pas.");
+			System.out.println(" (La maison '" + nomMaison + "' est connectée à '" + nomGenActuel + "')");
+			return;
+		}
+
+		// On effectue la modification
+		// On modifie la map par la nouvelle maison au nouveau generateur
+		this.connexions.put(maison, nouveauGen);
+		// Update apres avoir changer la connexion
+		this.updateTauxUtilisation();
+
+		System.out.println("Connexion modifiée: " + nomMaison + " est maintenant connectée à " + nomNouveauGen + ".");
 	}
 
 	// Verifier si une ou plusieurs maisons ne sont pas connectés

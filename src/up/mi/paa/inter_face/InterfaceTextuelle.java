@@ -76,55 +76,53 @@ public class InterfaceTextuelle {
 
 	private static void handleModifierConnexion() {
 		try {
-			// Demande l'ancienne connexion
-			System.out.println("Veuillez saisir la connexion que vous souhaitez modifier (ex: M1 G1):");
-			String[] ligneAncienne = scan.nextLine().trim().split("\\s+");
+			// Ancienne connexion
+			System.out.println("Veuillez saisir la connexion que vous souhaitez modifier (ex: M1 G1 ou G1 M1):");
+			String[] ancienneSaisie = scan.nextLine().trim().split("\\s+");
+			if (ancienneSaisie.length < 2) throw new ArrayIndexOutOfBoundsException();
 
-			// On vérifie que l'utilisateur a bien tapé 2 mots
-			if (ligneAncienne.length < 2)
+			Maison maison = null;
+			Generateur ancienGen = null;
+
+			// Identifier maison et générateur dans n'importe quel ordre
+			for (String nom : ancienneSaisie) {
+				if (reseau.getMaisons().containsKey(nom)) maison = reseau.getMaisons().get(nom);
+				if (reseau.getGenerateurs().containsKey(nom)) ancienGen = reseau.getGenerateurs().get(nom);
+			}
+
+			// Validation
+			if (maison == null || ancienGen == null || !ancienGen.equals(reseau.getConnexions().get(maison))) {
+				System.out.println("=> ERREUR : La connexion saisie n'existe pas ou est incorrecte.");
+				return;
+			}
+
+			// Nouvelle connexion
+			System.out.println("Veuillez saisir la nouvelle connexion (ex: M1 G2 ou G2 M1):");
+			String[] nouvelleSaisie = scan.nextLine().trim().split("\\s+");
+			if (nouvelleSaisie.length < 2)
 				throw new ArrayIndexOutOfBoundsException();
 
-			String nomMaison = ligneAncienne[0];
-			String nomAncienGen = ligneAncienne[1];
+			Maison maisonNouvelle = null;
+			Generateur nouveauGen = null;
 
-			Maison maison = reseau.getMaisons().get(nomMaison);
-			Generateur genAttendu = reseau.getGenerateurs().get(nomAncienGen);
-
-			// Vérification des null
-			if (maison == null) {
-				System.out.println("=> ERREUR : La maison '" + nomMaison + "' n'existe pas.");
-				return;
-			}
-			if (genAttendu == null) {
-				System.out.println("=> ERREUR : L'ancien générateur '" + nomAncienGen + "' n'existe pas.");
-				return;
+			// Identifier la maison et le nouveau générateur dans n'importe quel ordre
+			for (String nom : nouvelleSaisie) {
+				if (reseau.getMaisons().containsKey(nom)) maisonNouvelle = reseau.getMaisons().get(nom);
+				if (reseau.getGenerateurs().containsKey(nom)) nouveauGen = reseau.getGenerateurs().get(nom);
 			}
 
-			// Vérification que la connexion est existante
-			Generateur genActuel = reseau.getConnexions().get(maison);
+			// Si aucune maison est trouvée dans la nouvelle saisie, on garde la même que l'ancienne
+			if (maisonNouvelle == null)
+				maisonNouvelle = maison;
 
-			if (genActuel == null || !genActuel.equals(genAttendu)) {
-				String nomGenActuel = (genActuel == null) ? "rien" : genActuel.getNom();
-				System.out.println("=> ERREUR : La connexion '" + nomMaison + " -> " + nomAncienGen + "' n'existe pas.");
-				System.out.println(" (La maison '" + nomMaison + "' est connectée à '" + nomGenActuel + "')");
+			// Validation du générateur
+			if (nouveauGen == null) {
+				System.out.println("=> ERREUR : Le nouveau générateur n'existe pas.");
 				return;
 			}
 
-			System.out.println("Veuillez saisir la nouvelle connexion (ex: M1 G2):");
-			String[] ligneNouvelle = scan.nextLine().trim().split("\\s+");
-
-			if (ligneNouvelle.length < 2) throw new ArrayIndexOutOfBoundsException();
-			String nomMaisonNouvelle = ligneNouvelle[0];
-			String nomNouveauGen = ligneNouvelle[1];
-
-			// Vérification que la maison est la même
-			if (!nomMaison.equals(nomMaisonNouvelle)) {
-				System.out.println("=> ERREUR : La maison doit être la même dans les deux saisies.");
-				System.out.println(" (Vous avez saisi '" + nomMaison + "' puis '" + nomMaisonNouvelle + "')");
-				return;
-			}
-
-			reseau.modifierConnexion(nomMaison, nomAncienGen, nomNouveauGen);
+			// Supprimer l'ancienne connexion et établie la nouvelle connexion
+			reseau.modifierConnexion(maison.getNom(), ancienGen.getNom(), nouveauGen.getNom());
 
 		} catch (ArrayIndexOutOfBoundsException e) {
 			System.out.println("=> ERREUR : Format incorrect. Vous devez entrer deux noms séparés par un espace.");

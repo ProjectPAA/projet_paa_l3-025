@@ -31,13 +31,13 @@ public class Maison {
 		if (!(other instanceof Maison)) {
 			return Boolean.FALSE;
 		} else {
-			return this.nom.equals(((Maison) other).getNom()); //la maison est entièrement identifié par son nom.
+			return this.nom.equals(((Maison) other).getNom()) && this.type.equals(((Maison) other).getTypeConsommation());
 		}
 	}
 	
 	@Override
 	public int hashCode() {
-		return this.nom.hashCode(); //la maison est entièrement identifié par son nom.
+		return nom.hashCode()*type.getDemande();
 	}
 	
 	@Override

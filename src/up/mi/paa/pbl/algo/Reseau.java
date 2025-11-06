@@ -114,8 +114,6 @@ public class Reseau {
 		// On effectue la modification
 		// On modifie la map par la nouvelle maison au nouveau generateur
 		this.connexions.put(maison, nouveauGen);
-		// Update apres avoir changer la connexion
-		this.updateTauxUtilisation();
 
 		System.out.println("Connexion modifiée: " + nomMaison + " est maintenant connectée à " + nomNouveauGen + ".");
 	}

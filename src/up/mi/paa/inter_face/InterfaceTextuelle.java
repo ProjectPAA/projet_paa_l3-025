@@ -70,8 +70,58 @@ public class InterfaceTextuelle {
 		}catch (ArrayIndexOutOfBoundsException e) {
 			System.out.println("=> ERREUR : Vous devez entrer une maison ET un générateur.");
 		}
-		
-		
+	}
+
+	private static void handleSupprimerConnexion() {
+		System.out.println("Entrez la maison et le générateur à déconnecter (ex: M1 G1 ou G1 M1) :");
+		String[] ligne = scan.nextLine().trim().split("\\s+");
+
+		try {
+			if (ligne.length < 2) throw new ArrayIndexOutOfBoundsException();
+
+			String nom1 = ligne[0];
+			String nom2 = ligne[1];
+
+			// Identifie qui est la maison et qui est le générateur
+			String nomMaison = null;
+			String nomGenerateur = null;
+
+			if (reseau.getMaisons().containsKey(nom1))
+				nomMaison = nom1;
+			if (reseau.getGenerateurs().containsKey(nom1))
+				nomGenerateur = nom1;
+			if (reseau.getMaisons().containsKey(nom2))
+				nomMaison = nom2;
+			if (reseau.getGenerateurs().containsKey(nom2))
+				nomGenerateur = nom2;
+
+			// Vérifie l'existence des deux
+			if (nomMaison == null || nomGenerateur == null) {
+				System.out.println("=> ERREUR : La maison ou le générateur n'existe pas.");
+				return;
+			}
+
+			Maison maison = reseau.getMaisons().get(nomMaison);
+			Generateur generateur = reseau.getGenerateurs().get(nomGenerateur);
+
+			// Vérifie si la connexion existe
+			Generateur genActuel = reseau.getConnexions().get(maison);
+			if (genActuel == null) {
+				System.out.println("=> ERREUR : La maison '" + nomMaison + "' n'est connectée à aucun générateur.");
+				return;
+			}
+			if (!genActuel.equals(generateur)) {
+				System.out.println("=> ERREUR : La maison '" + nomMaison + "' est connectée à '"
+						+ genActuel.getNom() + "', pas à '" + nomGenerateur + "'.");
+				return;
+			}
+
+			// Supprime la connexion
+			reseau.supprimerConnexion(nomMaison, nomGenerateur);
+
+		} catch (ArrayIndexOutOfBoundsException e) {
+			System.out.println("=> ERREUR : Vous devez entrer deux noms séparés par un espace (ex: M1 G1).");
+		}
 	}
 
 	private static void handleModifierConnexion() {
@@ -84,7 +134,7 @@ public class InterfaceTextuelle {
 			Maison maison = null;
 			Generateur ancienGen = null;
 
-			// Identifier maison et générateur dans n'importe quel ordre
+			// Identifie maison et générateur dans n'importe quel ordre
 			for (String nom : ancienneSaisie) {
 				if (reseau.getMaisons().containsKey(nom)) maison = reseau.getMaisons().get(nom);
 				if (reseau.getGenerateurs().containsKey(nom)) ancienGen = reseau.getGenerateurs().get(nom);
@@ -105,7 +155,7 @@ public class InterfaceTextuelle {
 			Maison maisonNouvelle = null;
 			Generateur nouveauGen = null;
 
-			// Identifier la maison et le nouveau générateur dans n'importe quel ordre
+			// Identifie la maison et le nouveau générateur dans n'importe quel ordre
 			for (String nom : nouvelleSaisie) {
 				if (reseau.getMaisons().containsKey(nom)) maisonNouvelle = reseau.getMaisons().get(nom);
 				if (reseau.getGenerateurs().containsKey(nom)) nouveauGen = reseau.getGenerateurs().get(nom);
@@ -121,7 +171,7 @@ public class InterfaceTextuelle {
 				return;
 			}
 
-			// Supprimer l'ancienne connexion et établie la nouvelle connexion
+			// Supprime l'ancienne connexion et établie la nouvelle connexion
 			reseau.modifierConnexion(maison.getNom(), ancienGen.getNom(), nouveauGen.getNom());
 
 		} catch (ArrayIndexOutOfBoundsException e) {
@@ -202,7 +252,8 @@ public class InterfaceTextuelle {
 			System.out.println("1. Ajouter un générateur.");
 			System.out.println("2. Ajouter une maison.");
 			System.out.println("3. Ajouter une connexion.");
-			System.out.println("4. Fin.");
+			System.out.println("4. Supprimer une connexion.");
+			System.out.println("5. Fin.");
 			System.out.println("\n============== Fin : Menu Principal =================");
 			
 			String choix = scan.nextLine();
@@ -213,7 +264,9 @@ public class InterfaceTextuelle {
 			break;
 			case "3": handleAjouterConnexion();
 			break;
-			case "4":
+			case "4": handleSupprimerConnexion();
+			break;
+			case "5":
 			if(verifierConnexion()) {
 				enCours = false;
 				lancerMenuSecondaire(); // Menu Secondaire

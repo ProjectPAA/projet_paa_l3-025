@@ -82,7 +82,7 @@ public class InterfaceTextuelle {
 			String nom1 = ligne[0];
 			String nom2 = ligne[1];
 
-			// Identifier qui est la maison et qui est le générateur
+			// Identifie qui est la maison et qui est le générateur
 			String nomMaison = null;
 			String nomGenerateur = null;
 
@@ -95,7 +95,7 @@ public class InterfaceTextuelle {
 			if (reseau.getGenerateurs().containsKey(nom2))
 				nomGenerateur = nom2;
 
-			// Vérifier existence des deux
+			// Vérifie l'existence des deux
 			if (nomMaison == null || nomGenerateur == null) {
 				System.out.println("=> ERREUR : La maison ou le générateur n'existe pas.");
 				return;
@@ -117,8 +117,7 @@ public class InterfaceTextuelle {
 			}
 
 			// Supprime la connexion
-			reseau.getConnexions().remove(maison);
-			System.out.println("Connexion supprimée : " + nomMaison + " n'est plus connectée à " + nomGenerateur + ".");
+			reseau.supprimerConnexion(nomMaison, nomGenerateur);
 
 		} catch (ArrayIndexOutOfBoundsException e) {
 			System.out.println("=> ERREUR : Vous devez entrer deux noms séparés par un espace (ex: M1 G1).");

@@ -35,7 +35,7 @@ public class InterfaceTextuelle {
 	
 	// Ajouter maison 
 	private static void handleAjouterMaison() {
-		System.out.println("Entrez le nom et type de consommation ex: M1 (BASE/NORMALE/FORTE) :");
+		System.out.println("Entrez le nom et type de consommation ex: M1 (BASSE/NORMALE/FORTE) :");
 		String[] ligne = scan.nextLine().split(" ");
 		// on gere les erreurs 
 		try {
@@ -44,7 +44,7 @@ public class InterfaceTextuelle {
 			
 			reseau.ajouterMaison(nomMaison, type);
 		}catch (IllegalArgumentException e) {
-			System.out.println("=> ERREUR : Type de consommation invalid. Utilisez BASE, NORMALE ou FORTE");
+			System.out.println("=> ERREUR : Type de consommation invalid. Utilisez BASSE, NORMALE ou FORTE");
 		}catch (ArrayIndexOutOfBoundsException e){
 			System.out.println("=> ERREUR : Vous devez entrer un non ET un type (ex: M1 NORMALE).");
 		}

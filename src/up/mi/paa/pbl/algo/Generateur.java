@@ -1,6 +1,5 @@
 package up.mi.paa.pbl.algo;
 
-import java.util.HashMap;
 
 public class Generateur {
 	private String nom;

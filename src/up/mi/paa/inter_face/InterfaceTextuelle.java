@@ -17,7 +17,7 @@ public class InterfaceTextuelle {
 	private static void handleAjouterGenerateur() {
 		
 		System.out.println("Entrez le nom et la capacité (ex: G1 60):");
-		String[] ligne = scan.nextLine().split(" ");
+		String[] ligne = scan.nextLine().trim().split("\\s+");
 		
 		try {
 			String nomGenerateur = ligne[0];
@@ -36,7 +36,7 @@ public class InterfaceTextuelle {
 	// Ajouter maison 
 	private static void handleAjouterMaison() {
 		System.out.println("Entrez le nom et type de consommation ex: M1 (BASE/NORMALE/FORTE) :");
-		String[] ligne = scan.nextLine().split(" ");
+		String[] ligne = scan.nextLine().trim().split("\\s+");
 		// on gere les erreurs 
 		try {
 			String nomMaison = ligne[0];
@@ -54,7 +54,7 @@ public class InterfaceTextuelle {
 	// Ajouter connexion
 	private static void handleAjouterConnexion() {
 		System.out.println("Donner de la maison et du générateur ex : M1 G1");
-		String[] ligne = scan.nextLine().split(" ");
+		String[] ligne = scan.nextLine().trim().split("\\s+");
 		try {
 			String nomMaison = ligne[0];
 			String nomGenerateur = ligne[1];
@@ -80,16 +80,11 @@ public class InterfaceTextuelle {
 			System.out.println("Veuillez saisir la connexion que vous souhaitez modifier (ex: M1 G1):");
 			String[] ligneAncienne = scan.nextLine().trim().split("\\s+");
 
-			// On vérifie que l'utilisateur a bien tapé 2 mots
-			if (ligneAncienne.length < 2)
-				throw new ArrayIndexOutOfBoundsException();
-
 			String nomMaison = ligneAncienne[0];
 			String nomAncienGen = ligneAncienne[1];
 
 			Maison maison = reseau.getMaisons().get(nomMaison);
 			Generateur genAttendu = reseau.getGenerateurs().get(nomAncienGen);
-
 			// Vérification des null
 			if (maison == null) {
 				System.out.println("=> ERREUR : La maison '" + nomMaison + "' n'existe pas.");
@@ -113,7 +108,6 @@ public class InterfaceTextuelle {
 			System.out.println("Veuillez saisir la nouvelle connexion (ex: M1 G2):");
 			String[] ligneNouvelle = scan.nextLine().trim().split("\\s+");
 
-			if (ligneNouvelle.length < 2) throw new ArrayIndexOutOfBoundsException();
 			String nomMaisonNouvelle = ligneNouvelle[0];
 			String nomNouveauGen = ligneNouvelle[1];
 
@@ -123,8 +117,9 @@ public class InterfaceTextuelle {
 				System.out.println(" (Vous avez saisi '" + nomMaison + "' puis '" + nomMaisonNouvelle + "')");
 				return;
 			}
-
+			
 			reseau.modifierConnexion(nomMaison, nomAncienGen, nomNouveauGen);
+			
 
 		} catch (ArrayIndexOutOfBoundsException e) {
 			System.out.println("=> ERREUR : Format incorrect. Vous devez entrer deux noms séparés par un espace.");

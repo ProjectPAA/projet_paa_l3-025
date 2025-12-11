@@ -2,7 +2,7 @@ package up.mi.paa.pbl.algo;
 
 
 public enum TypeConsommation {
-	BASSE(10), NORMALE(20), FORTE(40);
+	BASSE(10), NORMAL(20), FORTE(40);
 	
 	private final int demande;
 	

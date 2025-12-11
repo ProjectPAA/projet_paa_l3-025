@@ -7,16 +7,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-class FormatParentheseInvalideException extends Exception{
-	public FormatParentheseInvalideException(String message) {
-		super(message);
-	}
-}
-class NombreArgumentIncorrectException extends Exception{
-	public NombreArgumentIncorrectException(String message) {
-		super(message);
-	}
-}
 
 public class ChargeurReseau {
 

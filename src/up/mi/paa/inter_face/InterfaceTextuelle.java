@@ -1,16 +1,20 @@
 package up.mi.paa.inter_face;
 
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 import up.mi.paa.io.ChargeurReseau;
+import up.mi.paa.io.FormatParentheseInvalideException;
+import up.mi.paa.io.NombreArgumentIncorrectException;
 import up.mi.paa.pbl.algo.Generateur;
 import up.mi.paa.pbl.algo.Maison;
 import up.mi.paa.pbl.algo.Reseau;
 import up.mi.paa.pbl.algo.TypeConsommation;
+import up.mi.paa.io.ChargeurReseau;
 
 
-
-public class InterfaceTextuelle {
+public class InterfaceTextuelle { 
+	// Menus Partie 1, Construction du réseau.
 	private static Scanner scan = new Scanner(System.in);
 	private static Reseau reseau = new Reseau();
 	
@@ -37,7 +41,7 @@ public class InterfaceTextuelle {
 	// Ajouter maison 
 	private static void handleAjouterMaison() {
 
-		System.out.println("Entrez le nom et type de consommation ex: M1 (BASE/NORMALE/FORTE) :");
+		System.out.println("Entrez le nom et type de consommation ex: M1 (BASSE/NORMAL/FORTE) :");
 		String[] ligne = scan.nextLine().trim().split("\\s+");
 
 		// on gere les erreurs 
@@ -288,21 +292,74 @@ public class InterfaceTextuelle {
 		
 		System.out.println("\nVous avez quitter le menu principal.");
 	}
+	
+	
+	// Menu Partie 2 et Construction du réseau de façcon automatique.
+	private static void lancerMenuPartie2(Reseau reseau) {
+		// TODO : 
+		boolean enCours = false; //  TODO : In true
+		while(enCours) {
+			System.out.println("\n============== Menu Principal Parti 2 =================");
+			
+			System.out.println("1. Résolution automatique.");
+			System.out.println("2. Sauvegarder la solution actuelle.");
+			System.out.println("3. Fin.");
+			System.out.println("\n============== Fin : Menu Principal =================");
+			
+			String choix = scan.nextLine();
+			switch(choix) {
+				case "1": // TODO
+				break;
+				case "2": //TODO
+				break;
+				case "3": // TODO
+				break;
+				default : break; 
+				}
+			}
+	}
+	
+	// Main Program
+	
 	public static void main(String[] args) {
 		
 		System.out.println("Bienvenue....");
 		
-		//lancerMenuPrincipal();
+		if(args.length == 0) {
+			lancerMenuPrincipal();
+		} else if(args.length > 0) {
+			String cheminFichier = args[0];
+			ChargeurReseau chargeur = new ChargeurReseau();
+		
+						try {
+							Reseau reseauPartie2 = chargeur.charger(cheminFichier);
+							
+							//Lancer Menu Partie
+							lancerMenuPartie2(reseauPartie2);
+						} catch (FileNotFoundException | IllegalArgumentException | NombreArgumentIncorrectException
+								| FormatParentheseInvalideException e) {
+								System.out.println(e.getMessage());
+						}
+					
+		}
+		
+		
 	
+		
+		
+		/**
+		 * 
+		 * 
 		// Test lecture du fichier
 		ChargeurReseau chargeur = new ChargeurReseau();
-	    try {
-	        // Mets le bon chemin vers ton fichier test
-	        chargeur.charger("/home/lecteur/eclipse-workspace/project-paa-l3-025/src/reseau_test.txt"); 
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	    }
-	}
+		try {
+			// Mets le bon chemin vers ton fichier test
+			chargeur.charger("/home/lecteur/eclipse-workspace/project-paa-l3-025/src/reseau_test.txt"); 
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		 */
+	} // end Main
 
 	
-}
+} // end class InterfaceTextuelle

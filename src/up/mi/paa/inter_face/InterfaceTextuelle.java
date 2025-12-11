@@ -2,6 +2,7 @@ package up.mi.paa.inter_face;
 
 import java.util.Scanner;
 
+import up.mi.paa.io.ChargeurReseau;
 import up.mi.paa.pbl.algo.Generateur;
 import up.mi.paa.pbl.algo.Maison;
 import up.mi.paa.pbl.algo.Reseau;
@@ -291,8 +292,16 @@ public class InterfaceTextuelle {
 		
 		System.out.println("Bienvenue....");
 		
-		lancerMenuPrincipal();
+		//lancerMenuPrincipal();
 	
+		// Test lecture du fichier
+		ChargeurReseau chargeur = new ChargeurReseau();
+	    try {
+	        // Mets le bon chemin vers ton fichier test
+	        chargeur.charger("/home/lecteur/eclipse-workspace/project-paa-l3-025/src/reseau_test.txt"); 
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
 	}
 
 	

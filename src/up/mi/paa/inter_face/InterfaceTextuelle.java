@@ -2,6 +2,7 @@ package up.mi.paa.inter_face;
 
 import java.util.Scanner;
 
+import up.mi.paa.io.ChargeurReseau;
 import up.mi.paa.pbl.algo.Generateur;
 import up.mi.paa.pbl.algo.Maison;
 import up.mi.paa.pbl.algo.Reseau;
@@ -17,7 +18,7 @@ public class InterfaceTextuelle {
 	private static void handleAjouterGenerateur() {
 		
 		System.out.println("Entrez le nom et la capacité (ex: G1 60):");
-		String[] ligne = scan.nextLine().split(" ");
+		String[] ligne = scan.nextLine().trim().split("\\s+");
 		
 		try {
 			String nomGenerateur = ligne[0];
@@ -35,8 +36,10 @@ public class InterfaceTextuelle {
 	
 	// Ajouter maison 
 	private static void handleAjouterMaison() {
-		System.out.println("Entrez le nom et type de consommation ex: M1 (BASSE/NORMALE/FORTE) :");
-		String[] ligne = scan.nextLine().split(" ");
+
+		System.out.println("Entrez le nom et type de consommation ex: M1 (BASE/NORMALE/FORTE) :");
+		String[] ligne = scan.nextLine().trim().split("\\s+");
+
 		// on gere les erreurs 
 		try {
 			String nomMaison = ligne[0];
@@ -54,7 +57,7 @@ public class InterfaceTextuelle {
 	// Ajouter connexion
 	private static void handleAjouterConnexion() {
 		System.out.println("Donner de la maison et du générateur ex : M1 G1");
-		String[] ligne = scan.nextLine().split(" ");
+		String[] ligne = scan.nextLine().trim().split("\\s+");
 		try {
 			String nomMaison = ligne[0];
 			String nomGenerateur = ligne[1];
@@ -131,6 +134,8 @@ public class InterfaceTextuelle {
 			String[] ancienneSaisie = scan.nextLine().trim().split("\\s+");
 			if (ancienneSaisie.length < 2) throw new ArrayIndexOutOfBoundsException();
 
+
+		
 			Maison maison = null;
 			Generateur ancienGen = null;
 
@@ -171,8 +176,9 @@ public class InterfaceTextuelle {
 				return;
 			}
 
-			// Supprime l'ancienne connexion et établie la nouvelle connexion
+// Supprime l'ancienne connexion et établie la nouvelle connexion
 			reseau.modifierConnexion(maison.getNom(), ancienGen.getNom(), nouveauGen.getNom());
+
 
 		} catch (ArrayIndexOutOfBoundsException e) {
 			System.out.println("=> ERREUR : Format incorrect. Vous devez entrer deux noms séparés par un espace.");
@@ -286,8 +292,16 @@ public class InterfaceTextuelle {
 		
 		System.out.println("Bienvenue....");
 		
-		lancerMenuPrincipal();
+		//lancerMenuPrincipal();
 	
+		// Test lecture du fichier
+		ChargeurReseau chargeur = new ChargeurReseau();
+	    try {
+	        // Mets le bon chemin vers ton fichier test
+	        chargeur.charger("/home/lecteur/eclipse-workspace/project-paa-l3-025/src/reseau_test.txt"); 
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
 	}
 
 	

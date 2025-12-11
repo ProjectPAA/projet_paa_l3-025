@@ -235,8 +235,6 @@ public class Reseau {
 		return this.disp() + this.surcharge(lambda);
 	}
 	
-	// La redefinition des ces deux fonctions ne sont pas utiles
-	
 	@Override
 	public int hashCode() {
 		return 7*this.maisons.hashCode() + 13*this.generateurs.hashCode() + 19*this.connexions.hashCode(); //Les multiplications font que le Reseau contenant que la Maison et le Generateur M et G n'a pas la même hash que le Reseau contenant la Maison et le Generateur G et M. (car leur hash est le hash de leur nom.)
@@ -253,6 +251,6 @@ public class Reseau {
 		}
 	}
 
-	// TODO to string pour reseau
+
 
 }

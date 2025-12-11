@@ -1,5 +1,4 @@
 package up.mi.paa.pbl.algo;
-import java.util.HashMap;
 
 public class Maison {
 	private String nom;

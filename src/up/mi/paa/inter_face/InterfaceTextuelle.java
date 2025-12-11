@@ -35,8 +35,10 @@ public class InterfaceTextuelle {
 	
 	// Ajouter maison 
 	private static void handleAjouterMaison() {
+
 		System.out.println("Entrez le nom et type de consommation ex: M1 (BASE/NORMALE/FORTE) :");
 		String[] ligne = scan.nextLine().trim().split("\\s+");
+
 		// on gere les erreurs 
 		try {
 			String nomMaison = ligne[0];
@@ -44,7 +46,7 @@ public class InterfaceTextuelle {
 			
 			reseau.ajouterMaison(nomMaison, type);
 		}catch (IllegalArgumentException e) {
-			System.out.println("=> ERREUR : Type de consommation invalid. Utilisez BASE, NORMALE ou FORTE");
+			System.out.println("=> ERREUR : Type de consommation invalid. Utilisez BASSE, NORMALE ou FORTE");
 		}catch (ArrayIndexOutOfBoundsException e){
 			System.out.println("=> ERREUR : Vous devez entrer un non ET un type (ex: M1 NORMALE).");
 		}
@@ -70,56 +72,112 @@ public class InterfaceTextuelle {
 		}catch (ArrayIndexOutOfBoundsException e) {
 			System.out.println("=> ERREUR : Vous devez entrer une maison ET un générateur.");
 		}
-		
-		
+	}
+
+	private static void handleSupprimerConnexion() {
+		System.out.println("Entrez la maison et le générateur à déconnecter (ex: M1 G1 ou G1 M1) :");
+		String[] ligne = scan.nextLine().trim().split("\\s+");
+
+		try {
+			if (ligne.length < 2) throw new ArrayIndexOutOfBoundsException();
+
+			String nom1 = ligne[0];
+			String nom2 = ligne[1];
+
+			// Identifie qui est la maison et qui est le générateur
+			String nomMaison = null;
+			String nomGenerateur = null;
+
+			if (reseau.getMaisons().containsKey(nom1))
+				nomMaison = nom1;
+			if (reseau.getGenerateurs().containsKey(nom1))
+				nomGenerateur = nom1;
+			if (reseau.getMaisons().containsKey(nom2))
+				nomMaison = nom2;
+			if (reseau.getGenerateurs().containsKey(nom2))
+				nomGenerateur = nom2;
+
+			// Vérifie l'existence des deux
+			if (nomMaison == null || nomGenerateur == null) {
+				System.out.println("=> ERREUR : La maison ou le générateur n'existe pas.");
+				return;
+			}
+
+			Maison maison = reseau.getMaisons().get(nomMaison);
+			Generateur generateur = reseau.getGenerateurs().get(nomGenerateur);
+
+			// Vérifie si la connexion existe
+			Generateur genActuel = reseau.getConnexions().get(maison);
+			if (genActuel == null) {
+				System.out.println("=> ERREUR : La maison '" + nomMaison + "' n'est connectée à aucun générateur.");
+				return;
+			}
+			if (!genActuel.equals(generateur)) {
+				System.out.println("=> ERREUR : La maison '" + nomMaison + "' est connectée à '"
+						+ genActuel.getNom() + "', pas à '" + nomGenerateur + "'.");
+				return;
+			}
+
+			// Supprime la connexion
+			reseau.supprimerConnexion(nomMaison, nomGenerateur);
+
+		} catch (ArrayIndexOutOfBoundsException e) {
+			System.out.println("=> ERREUR : Vous devez entrer deux noms séparés par un espace (ex: M1 G1).");
+		}
 	}
 
 	private static void handleModifierConnexion() {
 		try {
-			// Demande l'ancienne connexion
-			System.out.println("Veuillez saisir la connexion que vous souhaitez modifier (ex: M1 G1):");
-			String[] ligneAncienne = scan.nextLine().trim().split("\\s+");
+			// Ancienne connexion
+			System.out.println("Veuillez saisir la connexion que vous souhaitez modifier (ex: M1 G1 ou G1 M1):");
+			String[] ancienneSaisie = scan.nextLine().trim().split("\\s+");
+			if (ancienneSaisie.length < 2) throw new ArrayIndexOutOfBoundsException();
 
-			String nomMaison = ligneAncienne[0];
-			String nomAncienGen = ligneAncienne[1];
 
-			Maison maison = reseau.getMaisons().get(nomMaison);
-			Generateur genAttendu = reseau.getGenerateurs().get(nomAncienGen);
-			// Vérification des null
-			if (maison == null) {
-				System.out.println("=> ERREUR : La maison '" + nomMaison + "' n'existe pas.");
-				return;
-			}
-			if (genAttendu == null) {
-				System.out.println("=> ERREUR : L'ancien générateur '" + nomAncienGen + "' n'existe pas.");
-				return;
+		
+			Maison maison = null;
+			Generateur ancienGen = null;
+
+			// Identifie maison et générateur dans n'importe quel ordre
+			for (String nom : ancienneSaisie) {
+				if (reseau.getMaisons().containsKey(nom)) maison = reseau.getMaisons().get(nom);
+				if (reseau.getGenerateurs().containsKey(nom)) ancienGen = reseau.getGenerateurs().get(nom);
 			}
 
-			// Vérification que la connexion est existante
-			Generateur genActuel = reseau.getConnexions().get(maison);
-
-			if (genActuel == null || !genActuel.equals(genAttendu)) {
-				String nomGenActuel = (genActuel == null) ? "rien" : genActuel.getNom();
-				System.out.println("=> ERREUR : La connexion '" + nomMaison + " -> " + nomAncienGen + "' n'existe pas.");
-				System.out.println(" (La maison '" + nomMaison + "' est connectée à '" + nomGenActuel + "')");
+			// Validation
+			if (maison == null || ancienGen == null || !ancienGen.equals(reseau.getConnexions().get(maison))) {
+				System.out.println("=> ERREUR : La connexion saisie n'existe pas ou est incorrecte.");
 				return;
 			}
 
-			System.out.println("Veuillez saisir la nouvelle connexion (ex: M1 G2):");
-			String[] ligneNouvelle = scan.nextLine().trim().split("\\s+");
+			// Nouvelle connexion
+			System.out.println("Veuillez saisir la nouvelle connexion (ex: M1 G2 ou G2 M1):");
+			String[] nouvelleSaisie = scan.nextLine().trim().split("\\s+");
+			if (nouvelleSaisie.length < 2)
+				throw new ArrayIndexOutOfBoundsException();
 
-			String nomMaisonNouvelle = ligneNouvelle[0];
-			String nomNouveauGen = ligneNouvelle[1];
+			Maison maisonNouvelle = null;
+			Generateur nouveauGen = null;
 
-			// Vérification que la maison est la même
-			if (!nomMaison.equals(nomMaisonNouvelle)) {
-				System.out.println("=> ERREUR : La maison doit être la même dans les deux saisies.");
-				System.out.println(" (Vous avez saisi '" + nomMaison + "' puis '" + nomMaisonNouvelle + "')");
+			// Identifie la maison et le nouveau générateur dans n'importe quel ordre
+			for (String nom : nouvelleSaisie) {
+				if (reseau.getMaisons().containsKey(nom)) maisonNouvelle = reseau.getMaisons().get(nom);
+				if (reseau.getGenerateurs().containsKey(nom)) nouveauGen = reseau.getGenerateurs().get(nom);
+			}
+
+			// Si aucune maison est trouvée dans la nouvelle saisie, on garde la même que l'ancienne
+			if (maisonNouvelle == null)
+				maisonNouvelle = maison;
+
+			// Validation du générateur
+			if (nouveauGen == null) {
+				System.out.println("=> ERREUR : Le nouveau générateur n'existe pas.");
 				return;
 			}
-			
-			reseau.modifierConnexion(nomMaison, nomAncienGen, nomNouveauGen);
-			
+
+// Supprime l'ancienne connexion et établie la nouvelle connexion
+			reseau.modifierConnexion(maison.getNom(), ancienGen.getNom(), nouveauGen.getNom());
+
 
 		} catch (ArrayIndexOutOfBoundsException e) {
 			System.out.println("=> ERREUR : Format incorrect. Vous devez entrer deux noms séparés par un espace.");
@@ -199,7 +257,8 @@ public class InterfaceTextuelle {
 			System.out.println("1. Ajouter un générateur.");
 			System.out.println("2. Ajouter une maison.");
 			System.out.println("3. Ajouter une connexion.");
-			System.out.println("4. Fin.");
+			System.out.println("4. Supprimer une connexion.");
+			System.out.println("5. Fin.");
 			System.out.println("\n============== Fin : Menu Principal =================");
 			
 			String choix = scan.nextLine();
@@ -210,7 +269,9 @@ public class InterfaceTextuelle {
 			break;
 			case "3": handleAjouterConnexion();
 			break;
-			case "4":
+			case "4": handleSupprimerConnexion();
+			break;
+			case "5":
 			if(verifierConnexion()) {
 				enCours = false;
 				lancerMenuSecondaire(); // Menu Secondaire

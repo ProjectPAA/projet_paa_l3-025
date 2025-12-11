@@ -71,6 +71,40 @@ public class Reseau {
 		System.out.println("Ok : Connexion " + nomMaison + " => " + nomGenerateur + " ajoutée.");
 	}
 
+	// Supprimer une connexion entre une maison et un générateur
+	public void supprimerConnexion(String nomMaison, String nomGenerateur) {
+		Maison maison = this.maisons.get(nomMaison);
+		Generateur generateur = this.generateurs.get(nomGenerateur);
+
+		// Vérifie si maison existe
+		if (maison == null) {
+			System.out.println("Erreur : la maison '" + nomMaison + "' n'existe pas.");
+			return;
+		}
+
+		// Vérifie si générateur existe
+		if (generateur == null) {
+			System.out.println("Erreur : le générateur '" + nomGenerateur + "' n'existe pas.");
+			return;
+		}
+
+		// Vérifie si la maison est bien connectée à ce générateur
+		Generateur genActuel = this.connexions.get(maison);
+		if (genActuel == null) {
+			System.out.println("Erreur : la maison '" + nomMaison + "' n'est connectée à aucun générateur.");
+			return;
+		}
+
+		if (!genActuel.equals(generateur)) {
+			System.out.println("Erreur : la maison '" + nomMaison + "' est connectée à '" + genActuel.getNom() + "', pas à '" + nomGenerateur + "'.");
+			return;
+		}
+
+		// Suppression effective de la connexion
+		this.connexions.remove(maison);
+		System.out.println("Connexion supprimée : " + nomMaison + " n'est plus connectée à " + nomGenerateur + ".");
+	}
+
 	public void modifierConnexion(String nomMaison, String nomAncienGen, String nomNouveauGen) {
 
 		Maison maison = this.maisons.get(nomMaison);

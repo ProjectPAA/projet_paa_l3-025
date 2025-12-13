@@ -7,7 +7,7 @@ import java.util.Map;
 /**
  * <p>Classe représentant une {@code Reseau} électrique sous les contraintes de la description du projet.</p>
  * 
- * <p>Dans notre approche, plusieurs {@code Reseau} disjoints peuvent exister dans un même runtime (même si nos classes ne profitent pas de cette possibilité); mais les {@code Reseau} intersectant ou les version d'un même {@code Reseau} ne sont pas permis. En conséquence, les instances de {@code Reseau} ne sont pas censées être dupliquées.</p> 
+ * <p>Dans notre approche, plusieurs {@code Reseau}s disjoints peuvent exister dans un même runtime (même si <i>nos</i> classes ne profitent pas de cette possibilité); mais les {@code Reseau}s intersectant ou les versions diverses d'un même {@code Reseau} ne sont pas permis. En conséquence, les instances de {@code Reseau} ne sont pas censées être dupliquées.</p> 
  * <p>De même, les {@link Maison}s et {@link Generateur}s sont uniques par nom par {@code Reseau}.</p>
  * 
  * 

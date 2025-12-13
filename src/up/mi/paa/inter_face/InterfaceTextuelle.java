@@ -1,12 +1,14 @@
 package up.mi.paa.inter_face;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import up.mi.paa.io.ChargeurReseau;
 import up.mi.paa.io.FormatParentheseInvalideException;
 import up.mi.paa.io.NombreArgumentIncorrectException;
+import up.mi.paa.io.SauvegardeurReseau;
 import up.mi.paa.pbl.algo.Generateur;
 import up.mi.paa.pbl.algo.Maison;
 import up.mi.paa.pbl.algo.Reseau;
@@ -306,12 +308,12 @@ public class InterfaceTextuelle {
 	 * MÉTHODES PARTIE 2 (Automatique)
 	 * ========================================== */
 	
-	private static void lancerMenuPartie2(Reseau reseau) {
+	private static void lancerMenuPartie2(Reseau reseauPartie2) {
 		
 		boolean enCours = true; // Si enCours est false on quitte le menu.
 		
 		while(enCours) {
-			System.out.println("\n============== Menu Principal Parti 2 =================");
+			System.out.println("\n============== Menu Principal Partie 2 =================");
 			
 			System.out.println("1. Résolution automatique.");
 			System.out.println("2. Sauvegarder la solution actuelle.");
@@ -333,9 +335,9 @@ public class InterfaceTextuelle {
 					System.out.println("TODO: Lancer l'algo de résolution...");
 					// handleResolutionAutomatique(reseauPartie2);
 				break;
-				case 2: //TODO
-					System.out.println("TODO: Sauvegarder...");
-					// handleSauvegarderReseau(reseauPartie2);
+				case 2: 
+					System.out.println("Sauvegarder...");
+					handleSauvegarderReseau(reseauPartie2);
 				break;
 				case 3:
 					enCours = false;
@@ -346,6 +348,27 @@ public class InterfaceTextuelle {
 					break; 
 				}
 			}
+	}
+	
+	/**
+	 * Cette méthode recupère le nom du fichier pour sauvegarder le dans ce fichier
+	 * @param network Le réseau.
+	 */
+	private static void handleSauvegarderReseau(Reseau network) {
+		System.out.println("Entrez le nom du fichier de sauvegarde (ex: save.txt) :");
+		String nomFichier = scan.nextLine().trim();
+		
+		// Vérification de l'extension du fichier
+		if(!nomFichier.endsWith(".txt")) {
+			nomFichier += ".txt";
+		}
+		
+		try {
+			SauvegardeurReseau sauvegardeur = new SauvegardeurReseau();
+			sauvegardeur.sauvegarder(network, nomFichier);
+		}catch(IOException e) {
+			System.out.println("=> ERREUR lors de la sauvegarde : " + e.getMessage());
+		}
 	}
 	
 	// --- MAIN ----

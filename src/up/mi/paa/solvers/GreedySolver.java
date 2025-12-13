@@ -15,9 +15,9 @@ public class GreedySolver extends Solver {
 	}
 	
 	/**
-	 * A Greedy approach to constructing a solution. This isn't tinkering based, but constructive, based on the heuristic that connecting while causing the least surcharge and filling low-but-sufficient-capacity generators is optimal. 
+	 * <p>A Greedy approach to constructing a solution. This isn't tinkering based, but constructive, based on the heuristic that connecting while causing the least surcharge and filling low-but-sufficient-capacity generators is optimal.</p> 
 	 * 
-	 * CLEARS reseau.connexions.
+	 * <p>CLEARS reseau.connexions.</p>
 	 * 
 	 * @param reseau Reseau à résoudre
 	 * @param lambda coût du surcharge (non-utilisé par cet algorithme)

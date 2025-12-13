@@ -12,9 +12,9 @@ public class SolverNaive extends Solver {
 	}
 	
 	/**
-	 * Implémentation de l'algorithme naif donné en description du projet. Ne change pas le reseau si on n'a pas réussi a faire moins cher. 
+	 * <p>Implémentation de l'algorithme naif donné en description du projet. Ne change pas le reseau si on n'a pas réussi a faire moins cher.</p> 
 	 * 
-	 * Execute un nombre par défaut d'itérations.
+	 * <p>Execute un nombre par défaut d'itérations.</p>
 	 *
 	 * @param reseau Reseau a traiter
 	 * @param lambda lamda dans le calcul du cout
@@ -24,7 +24,7 @@ public class SolverNaive extends Solver {
 	}
 
 	/**
-	 * Implémentation de l'algorithme naif donné en description du projet. Ne change pas le reseau si on n'a pas réussi a faire moins cher.
+	 * <p>Implémentation de l'algorithme naif donné en description du projet. Ne change pas le reseau si on n'a pas réussi a faire moins cher.</p>
 	 * 
 	 * @param reseau Reseau a traiter
 	 * @param lambda lamda dans le calcul du cout

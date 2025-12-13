@@ -10,6 +10,10 @@ import java.util.ArrayList;
 
 public class GreedySolver extends Solver {
 
+	public GreedySolver(Reseau reseau) {
+		this.reseau = reseau;
+	}
+	
 	/**
 	 * A Greedy approach to constructing a solution. This isn't tinkering based, but constructive, based on the heuristic that connecting while causing the least surcharge and filling low-but-sufficient-capacity generators is optimal. 
 	 * 
@@ -18,7 +22,7 @@ public class GreedySolver extends Solver {
 	 * @param reseau Reseau à résoudre
 	 * @param lambda coût du surcharge (non-utilisé par cet algorithme)
 	 */
-	public static void solve(Reseau reseau, int lambda) {
+	public void solve(double lambda) {
 		reseau.getConnexions().clear();
 		
 		ArrayList<Generateur> genArray;

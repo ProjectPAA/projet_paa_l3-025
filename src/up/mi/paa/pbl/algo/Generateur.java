@@ -1,7 +1,7 @@
 package up.mi.paa.pbl.algo;
 
 
-public class Generateur {
+public class Generateur implements Comparable<Generateur>{ //Note: this class has a natural ordering that is inconsistent with equals.
 	private String nom;
 	private int capaciteMax;
 	
@@ -43,5 +43,12 @@ public class Generateur {
     public String toString() {
         return "Générateur " + nom + " (Capacité: " + this.getCapaciteMAx() + "kWh)";
     }
+	
+	/**
+	 * Compares based on capacity. Inconsistent with equals.
+	 */
+	public int compareTo(Generateur other) {
+		return ((Integer) this.capaciteMax).compareTo((Integer) other.getCapaciteMAx());
+	}
 }
 

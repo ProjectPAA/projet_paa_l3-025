@@ -30,6 +30,11 @@ public class Reseau {
 	public Map<String, Generateur> getGenerateurs() {
 		return generateurs;
 	}
+	
+	public Map<String, Double> getTauxUtilisation(){
+		this.updateTauxUtilisation();
+		return tauxUtilisation;
+	}
 
 	// Ajouter un Generateur
 	public void ajouterGenerateur(String nom, int capaciteMax) {

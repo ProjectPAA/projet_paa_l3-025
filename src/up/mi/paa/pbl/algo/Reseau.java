@@ -3,40 +3,94 @@ package up.mi.paa.pbl.algo;
 import java.util.HashMap;
 import java.util.Map;
 
-// Classe Reseau
+
+/**
+ * <p>Classe représentant une {@code Reseau} électrique sous les contraintes de la description du projet.</p>
+ * 
+ * <p>Dans notre approche, plusieurs {@code Reseau}s disjoints peuvent exister dans un même runtime (même si <i>nos</i> classes ne profitent pas de cette possibilité); mais les {@code Reseau}s intersectant ou les versions diverses d'un même {@code Reseau} ne sont pas permis. En conséquence, les instances de {@code Reseau} ne sont pas censées être dupliquées.</p> 
+ * <p>De même, les {@link Maison}s et {@link Generateur}s sont uniques par nom par {@code Reseau}.</p>
+ * 
+ * 
+ * @author Jacques ZHENG
+ * @author Mamadou NIMAGA DIT
+ * @author Zalán MOLNÁR
+ */
 public class Reseau {
+	/**
+	 * Le {@link Map} associant une {@link Maison} dans le {@code Reseau} à son nom. Il assure l'unicité par nom des {@linkplain Maison}s dans le {@code Reseau}.
+	 */
 	private Map<String, Maison> maisons;
+	/**
+	 * Le {@link Map} associant un {@link Generateur} dans le {@code Reseau} à son nom. Il assure l'unicité par nom des {@linkplain Maison}s dans le {@code Reseau}.
+	 */
 	private Map<String, Generateur> generateurs;
+	/**
+	 * Le {@link Map} qui aux {@link Maison}s (dans le {@code Reseau}) associe le {@link Generateur} (dans le {@code Reseau}) auquel elles sont connectées. Il assure que chaque {@linkplain Maison} soit liée à au plus un {@linkplain Generateur}.
+	 */
 	private Map<Maison, Generateur> connexions;
+	/**
+	 * Le {@link Map} associant aux noms des {@link Generateur}s dans le {@code Reseau} leur taux d'utilisation (demande connectée / {@link Generateur#getCapaciteMAx() capacité maximale}). Étant un attribut dérivé des autres, il n'est pas nécessaire de le Sérialiser, et donc il est transient. Son mis-à-jour est géré automatiquement sur accès.
+	 */
 	private transient Map<String, Double> tauxUtilisation;
+	/**
+	 * Moyen algébrique des {@link tauxUtilisation}, mis-à-jour avec eux.
+	 */
 	private transient double tauxUtilisationMoyen = 0;
+	/**
+	 * Le {@link Reseau#hashCode()} du {@code Reseau} calculé quand les valeurs transientes (attributs dérivés) ont été mis-à-jour. Il permet de détécter quand il est nécéssaire de les recalculer (ou pas) à cause d'un changement de l'état du {@code Reseau}. 
+	 */
 	private transient int hashQuandTauxUtilisationCalcule;
 
+	/**
+	 * Constructeur d'un nouveau (vide) {@code Reseau}.
+	 */
 	public Reseau() {
 		this.maisons = new HashMap<>();
 		this.generateurs = new HashMap<>();
 		this.connexions = new HashMap<>();
 		this.tauxUtilisation = new HashMap<String, Double>();
-;	}
+	}
 
+	/**
+	 * Retourne le {@link Map} qui aux {@link Maison}s associe le {@link Generateur} auquel elles sont connectées.
+	 * @return Le {@link Map} qui aux {@link Maison}s associe le {@link Generateur} auquel elles sont connectées.
+	 */
 	public Map<Maison, Generateur> getConnexions() {
 		return connexions;
 	}
 
+	/**
+	 * Retourne le {@link Map} associant une {@link Maison} dans le {@code Reseau} à son nom.
+	 * @return Le {@link Map} associant une {@link Maison} dans le {@code Reseau} à son nom.
+	 */
 	public Map<String, Maison> getMaisons() {
 		return maisons;
 	}
 
+	/**
+	 * Retourne le {@link Map} associant un {@link Generateur} dans le {@code Reseau} à son nom.
+	 * @return Le {@link Map} associant un {@link Generateur} dans le {@code Reseau} à son nom.
+	 */
 	public Map<String, Generateur> getGenerateurs() {
 		return generateurs;
 	}
 	
+	/**
+	 * Retourne le {@link Map} associant aux noms des {@link Generateur}s dans le {@code Reseau} leur taux d'utilisation (demande connectée / {@link Generateur#getCapaciteMAx() capacité maximale}).
+	 * @return Le {@link Map} associant aux noms des {@link Generateur}s dans le {@code Reseau} leur taux d'utilisation (demande connectée / {@link Generateur#getCapaciteMAx() capacité maximale}).
+	 */
 	public Map<String, Double> getTauxUtilisation(){
 		this.updateTauxUtilisation();
 		return tauxUtilisation;
 	}
 
-	// Ajouter un Generateur
+	/**
+	 * <p>Ajoute un {@link Generateur} au {@code Reseau}. Si un Generateur avec le même nom existe déjà, il est mis-à-jour.</p>
+	 * <p>De façon générale, il assure qu'au retour de la méthode, {@link Reseau#generateurs generateurs} contient un {@linkplain Generateur} de nom et de capacité maximale demandé.</p>
+	 * 
+	 * @param nom Le nom du {@link Generateur} à ajouter.
+	 * @param capaciteMax La capacité maximale à ajouter.
+	 */
 	public void ajouterGenerateur(String nom, int capaciteMax) {
 		if (this.generateurs.containsKey(nom)) {
 			this.generateurs.get(nom).setCapaciteMax(capaciteMax);
@@ -47,7 +101,13 @@ public class Reseau {
 		}
 	}
 
-	// Ajout de Maison
+	/**
+	 * <p>Ajoute une {@link Maison} au {@code Reseau}. Si une Maison avec le même nom existe déjà, elle est mis-à-jour.</p>
+	 * <p>De façon générale, il assure qu'au retour de la méthode, {@link Reseau#maisons maisons} contient une {@linkplain Maison} de nom et de {@linkplain TypeConsommation type de consommation} demandé.</p>
+	 * 
+	 * @param nom Le nom de la {@link Maison} à ajouter.
+	 * @param t Le {@linkplain TypeConsommation type de consommation} de la {@Link Maison} à ajouter.
+	 */
 	public void ajouterMaison(String nom, TypeConsommation t) {
 		if (this.maisons.containsKey(nom)) {
 			this.maisons.get(nom).setType(t);
@@ -58,7 +118,12 @@ public class Reseau {
 		}
 	}
 
-	// Connexion ajout
+	/**
+	 * <p>Ajoute une connexion entre la {@linkplain Maison} et le {@linkplain Generateur} dont les noms sont passés en argument au {@code Reseau}. Si au moins un des paramètres ne correspond pas à un élément du bonne catégorie du {@code Reseau} alors cette méthode ne fait rien.</p>
+	 * <p>De façon générale, cette méthode <i>fait de son mieux</i> (best-effort) pour qu'au retour la {@linkplain Maison} soit connectée au {@linkplain Generateur} demandé.</p>
+	 * @param nomMaison Le nom de la {@link Maison} à connecter. (Censé être élément de {@link Reseau#maisons maisons}.)
+	 * @param nomGenerateur Le nom du {@link Generateur} à connecter. (Censé être élément de {@link Reseau#generateurs generateurs}.)
+	 */
 	public void ajouterConnexion(String nomMaison, String nomGenerateur) {
 		Maison maison = this.maisons.get(nomMaison);
 		Generateur generateur = this.generateurs.get(nomGenerateur);

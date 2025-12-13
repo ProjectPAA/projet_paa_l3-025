@@ -7,7 +7,7 @@ public abstract class Solver {
 	 * 
 	 * @throws UnsupportedOperationException Only concrete classes implementing actual solving algorithms should have this method called.
 	 */
-	public static void solve(Reseau reseau, int lambda) {	//Tout algorithme aura besoin de lambda car lambda intervient dans la fonction d'utilité.
+	public static void solve(Reseau reseau, double lambda) {	//Tout algorithme aura besoin de lambda car lambda intervient dans la fonction d'utilité.
 		throw new UnsupportedOperationException();
 	}
 }

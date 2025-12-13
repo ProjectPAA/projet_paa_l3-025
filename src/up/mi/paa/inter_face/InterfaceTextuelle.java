@@ -1,6 +1,7 @@
 package up.mi.paa.inter_face;
 
 import java.io.FileNotFoundException;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import up.mi.paa.io.ChargeurReseau;
@@ -14,7 +15,7 @@ import up.mi.paa.io.ChargeurReseau;
 
 
 public class InterfaceTextuelle { 
-	// Menus Partie 1, Construction du réseau.
+	// Menus Partie 1, Construction du réseau de façcon manuel.
 	private static Scanner scan = new Scanner(System.in);
 	private static Reseau reseau = new Reseau();
 	
@@ -295,9 +296,11 @@ public class InterfaceTextuelle {
 	
 	
 	// Menu Partie 2 et Construction du réseau de façcon automatique.
+	
 	private static void lancerMenuPartie2(Reseau reseau) {
-		// TODO : 
-		boolean enCours = false; //  TODO : In true
+		
+		boolean enCours = true; // Si enCours est false on quitte le menu.
+		
 		while(enCours) {
 			System.out.println("\n============== Menu Principal Parti 2 =================");
 			
@@ -306,13 +309,19 @@ public class InterfaceTextuelle {
 			System.out.println("3. Fin.");
 			System.out.println("\n============== Fin : Menu Principal =================");
 			
-			String choix = scan.nextLine();
+			scan.nextLine();
+			int choix = 0;
+			try {
+				choix = scan.nextInt();
+			}catch (InputMismatchException e) {
+				System.out.println("-> ERREUR : Entré Invalide. Veuillez saisir un nombre entier valide.");
+			}
 			switch(choix) {
-				case "1": // TODO
+				case 1: // TODO
 				break;
-				case "2": //TODO
+				case 2: //TODO
 				break;
-				case "3": // TODO
+				case 3: enCours = false;
 				break;
 				default : break; 
 				}

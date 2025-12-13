@@ -15,7 +15,7 @@ public class SolverNaive extends Solver {
 	 * @param reseau Reseau a traiter
 	 * @param lambda lamda dans le calcul du cout
 	 */
-	public static void solve(Reseau reseau, int lambda) {
+	public static void solve(Reseau reseau, double lambda) {
 		SolverNaive.solve(reseau, lambda, 1000);	//Un k est nécéssaire pour cet algorithme, si on est appelé sans, on choisi un valeur par défaut.
 	}
 
@@ -26,7 +26,7 @@ public class SolverNaive extends Solver {
 	 * @param lambda lamda dans le calcul du cout
 	 * @param k nombre d'itérations a executer avant de s'arreter
 	 */
-	public static void solve(Reseau reseau, int lambda, int k) {
+	public static void solve(Reseau reseau, double lambda, int k) {
 		String[] maisonNames = {};
 		String[] generateurNames = {};
 		maisonNames = reseau.getMaisons().keySet().toArray(maisonNames);	//Random gives us indices. Using the Strings makes the syntax more readable because we'll get reseau's attributes' attributes multiple times, and those are keyed by these Strings.

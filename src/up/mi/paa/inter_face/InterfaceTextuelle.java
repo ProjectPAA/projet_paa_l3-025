@@ -13,6 +13,8 @@ import up.mi.paa.pbl.algo.Generateur;
 import up.mi.paa.pbl.algo.Maison;
 import up.mi.paa.pbl.algo.Reseau;
 import up.mi.paa.pbl.algo.TypeConsommation;
+import up.mi.paa.solvers.GreedySolver;
+import up.mi.paa.solvers.SolverNaive;
 
 
 
@@ -331,9 +333,8 @@ public class InterfaceTextuelle {
 				continue;
 			} 
 			switch(choix) {
-				case 1: // TODO
-					System.out.println("TODO: Lancer l'algo de résolution...");
-					// handleResolutionAutomatique(reseauPartie2);
+				case 1: 
+					handleResolutionAutomatique(reseauPartie2);
 				break;
 				case 2: 
 					System.out.println("Sauvegarder...");
@@ -370,6 +371,98 @@ public class InterfaceTextuelle {
 			System.out.println("=> ERREUR lors de la sauvegarde : " + e.getMessage());
 		}
 	}
+	
+	
+	/**
+	 * 
+	 * @param network 
+	 */
+	private static void handleResolutionAutomatique(Reseau network) {
+		System.out.println("\n--- Résolution Automatique ---");
+		System.out.println("Choississez l'algorithme à utiliser :");
+		System.out.println("1. Algorithme Naïf (Aléatoire - Sujet)");
+		System.out.println("2. Algorithme Glouton (Greedy - Bonus)");
+		System.out.print("Votre choix :");
+		
+		int choixAlgo = 1; // Par défaut
+		try {
+			String  input = scan.nextLine().trim();
+			if(!input.isEmpty()) {
+				choixAlgo = Integer.parseInt(input);
+			}
+		}catch (NumberFormatException e) {
+			System.out.println("-> Saisie invalide. Utilisation de l'algorithme Naïf par défaut");
+		}
+		
+		// --- Paramètres communs ---
+		double lambda = 10.0;
+		/* (TODO Si necesssaire => Optionnel : On peut demander à l'utilisateur
+		 * System.out.println("Entrez la pénalité Lambda (défaut 10) : ");
+		 * Si jamais on fait ça alors on doit gérer l'exception aussi
+		 * try {...} ...
+ 		 * 
+		 */
+		
+		// Calcul du coût AVANT optimisation
+		double coutAvant = network.calculerCout(lambda);
+		System.out.println("\nCoût initial du réseau : " + String.format("%.4f", coutAvant));
+		System.out.println("Optimisation en cours...");
+		
+		long startTime = System.currentTimeMillis(); 
+		
+		// --- Excécution de l'algorithme choisi ---
+		if(choixAlgo == 2) {
+			// --- Algorithme GLOUTON (Greedy) ---
+			System.out.println(">> Lancement du GreedySolver...");
+			GreedySolver solver = new GreedySolver(network);
+			solver.solve(lambda);
+			
+		}else {
+			// --- Algorithme NAÏF (Par défaut) ---
+			System.out.println(">> Lancement du SolverNaive...");
+			
+			// Demande de k (nombre d'itérations) pour Naif seulement.
+			System.out.println("Entrez le nombre d'essaies 'k' (par défaut 10000)");
+			int k = 10000;
+			try {
+				String inputK = scan.nextLine().trim();
+				if(!inputK.isEmpty()) {
+					k = Integer.parseInt(inputK);
+				}
+			}catch (NumberFormatException e) {
+				System.out.println("-> Saisie invalide. Utilisation de k=10_000");
+			}
+			
+			SolverNaive solver = new SolverNaive(network);
+			solver.solve(lambda, k);
+		}
+		
+		long endTime = System.currentTimeMillis();
+		
+		// --- Résultats ---
+		double coutApres = network.calculerCout(lambda);
+		
+		System.out.println("\n--- RESULTATS DE L'OPTIMISATION ---");
+		System.out.println("Algorithme temriné en " + (endTime - startTime) + " ms.");
+		System.out.println("Coût AVANT : " + String.format("%.4f", coutAvant));
+		System.out.println("Coût APRES : " + String.format("%.4f", coutApres));
+		
+		if(coutApres < coutAvant) {
+			double gain = coutAvant - coutApres;
+			double pourcentage = (gain / coutAvant) * 100;
+			System.out.println("<Validé> SUCCES : Le coût a été réduit de " + String.format("%.2f", pourcentage) + "%).");
+			
+		} else if(coutApres == coutAvant) {
+			System.out.println("<!> Aucun changement : L'algorithme n'a pas trouvé de meilleur solution ou le réseau était déjà optimal.");
+			
+		} else {
+			// Théoriquement impossible ....
+			System.out.println("X ATTENTION : Le coût a augmenté ! (Ce comportement est anormal.");
+			
+		}
+		System.out.println("--------------------------------------------");
+		
+		}
 	
 	// --- MAIN ----
 	

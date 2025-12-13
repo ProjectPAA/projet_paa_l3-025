@@ -1,1 +1,0 @@
-Projet (présente version répondante à la partie 1) fait par Jacques ZHENG, Mamadou NIMAGA, Zalán MOLNÁR.

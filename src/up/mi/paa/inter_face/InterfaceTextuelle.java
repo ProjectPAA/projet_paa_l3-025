@@ -582,15 +582,6 @@ public class InterfaceTextuelle {
 			}
 
 		}
-
-		/**
-		 * 
-		 * 
-		 * // Test lecture du fichier ChargeurReseau chargeur = new ChargeurReseau();
-		 * try { // Mets le bon chemin vers ton fichier test
-		 * chargeur.charger("/home/lecteur/eclipse-workspace/project-paa-l3-025/src/reseau_test.txt");
-		 * } catch (Exception e) { e.printStackTrace(); }
-		 */
 	} // end Main
 
 } // end class InterfaceTextuelle

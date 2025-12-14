@@ -102,6 +102,12 @@ public class SolverBranchBound extends Solver {
         }
     }
 
+    /**
+     * Partie récursif de l'algorithme qui exécute la recherche dans l'arbre des possibilités.
+     * @param index L'indice du générateur à traiter
+     * @param lambda le coût du surcharge
+     * @param surchargePartielle Le coût dû à la surcharge déjà présent sur la branche courante.
+     */
     private void backtrack(int index, double lambda, double surchargePartielle) {
 
         // Si la surcharge seule dépasse déjà le record, on stoppe.
@@ -142,6 +148,11 @@ public class SolverBranchBound extends Solver {
     }
 
     // Calcul précis du coût complet (Dispersion + Surcharge)
+    /**
+     * Décision si la branche explorée jusqu'à une feuille à donnée un meilleur coût ou pas que celle de référence.
+     * @param lambda coût du surcharge
+     * @param totalSurcharge surcharge présent sur la branche.
+     */
     private void finaliserEtVerifier(double lambda, double totalSurcharge) {
         double moyenneTaux = 0;
         double[] taux = new double[generateursArr.length];

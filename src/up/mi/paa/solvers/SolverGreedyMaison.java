@@ -9,18 +9,28 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * <p>Cette classe implémente un algorithme constructif, glouton, heuristique.</p>
+ * <p>Il trie les {@link Reseau#getMaison() maisons} par demande décroissante. Puis pour chaque maison dans l'ordre, il parcourt les {@link Reseau#getGenerateurs() générateurs} et la connecte à celui dont le {@link Reseau#getTauxUtilisation() taux d'utilisation} sera le moins élevé après la connexion. (Limitant à la fois l'augmentation de {@link Reseau#surcharge(double) surcharge} et de {@link Reseau#disp() dispersion}.)</p>
+ * <p>Son heuristique se résume en : minimiser les taux de surcharge par le triage par masion.</p>
+ * <p>VIDE les {@linkplain Reseau#getConnexions() connexions} avant de commencer.</p>
+ */
 public class SolverGreedyMaison extends Solver {
 
-    private Reseau reseau;
-
-    // Constructeur obligatoire pour récupérer le réseau
+    /**
+     * Constructeur à partir du {@link Reseau} à traiter.
+	 * @param reseau Le {@link Reseau} à traiter.
+     */
     public SolverGreedyMaison(Reseau reseau) {
         this.reseau = reseau;
     }
 
     /**
-     * Algorithme Glouton Intelligent (Smart Greedy).
-     * Trie les maisons et choisit le générateur le moins chargé à chaque étape.
+     * <p>Algorithme constructif, glouton, heuristique.</p>
+     * <p>Il trie les {@link Reseau#getMaison() maisons} par demande décroissante. Puis pour chaque maison dans l'ordre, il parcourt les {@link Reseau#getGenerateurs() générateurs} et la connecte à celui dont le {@link Reseau#getTauxUtilisation() taux d'utilisation} sera le moins élevé après la connexion. (Limitant à la fois l'augmentation de {@link Reseau#surcharge(double) surcharge} et de {@link Reseau#disp() dispersion}.)</p>
+     * <p>Son heuristique se résume en : minimiser les taux de surcharge par le triage par masion.</p>
+     * <p>VIDE les {@linkplain Reseau#getConnexions() connexions} avant de commencer.</p>
+     * @param lambda coût du surcharge (non-utilisé par cet algorithme)
      */
     @Override
     public void solve(double lambda) {

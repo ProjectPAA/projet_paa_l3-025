@@ -8,18 +8,32 @@ import java.util.Iterator;
 import java.util.ArrayList;
 
 
+/**
+ * <p>Cette classe implémente un algorithme constructif, glouton, heuristique.</p>
+ * <p>Il trie les {@link Reseau#getGenerateurs() générateurs} par capacité. Il parcourt ensuite les {@link Reseau#getMaisons() maisons} et les connecte au générateur qui minimise le {@link Reseau#surcharge(double) surcharge} absolu ajouté. (Le premier qui a suffisamment de capacité libre, ou, si aucun générateur n'en a suffisamment, celui de plus grande capacité créera le plus petit surcharge absolu.)</p>
+ * <p>Son heuristique se résume en : minimiser le surcharge ajouté à chaque connexion par le triage des générateurs.</p>
+ * <p>VIDE les {@linkplain Reseau#getConnexions() connexions} avant de commencer.</p>
+ * 
+ * @author Jacques ZHENG
+ * @author Mamadou NIMAGA DIT
+ * @author Zalán MOLNÁR
+ */
 public class SolverGreedyGenerateur extends Solver {
 
+	/**
+	 * Constructeur à partir du {@link Reseau} à traiter.
+	 * @param reseau Le {@link Reseau} à traiter.
+	 */
 	public SolverGreedyGenerateur(Reseau reseau) {
 		this.reseau = reseau;
 	}
 	
 	/**
-	 * <p>A Greedy approach to constructing a solution. This isn't tinkering based, but constructive, based on the heuristic that connecting while causing the least surcharge and filling low-but-sufficient-capacity generators is optimal.</p> 
+	  * <p>Cette classe implémente un algorithme constructif, glouton, heuristique.</p>
+	  * <p>Il trie les {@link Reseau#getGenerateurs() générateurs} par capacité. Il parcourt ensuite les {@link Reseau#getMaisons() maisons} et les connecte au générateur qui minimise le {@link Reseau#surcharge(double) surcharge} absolu ajouté. (Le premier qui a suffisamment de capacité libre, ou, si aucun générateur n'en a suffisamment, celui de plus grande capacité créera le plus petit surcharge absolu.)</p>
+	  * <p>Son heuristique se résume en : minimiser le surcharge ajouté à chaque connexion par le triage des générateurs.</p>
+	  * <p>VIDE les {@linkplain Reseau#getConnexions() connexions} avant de commencer.</p>
 	 * 
-	 * <p>CLEARS reseau.connexions.</p>
-	 * 
-	 * @param reseau Reseau à résoudre
 	 * @param lambda coût du surcharge (non-utilisé par cet algorithme)
 	 */
 	public void solve(double lambda) {

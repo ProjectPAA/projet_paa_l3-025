@@ -13,6 +13,7 @@ import java.util.ArrayList;
  * <p>Il trie les {@link Reseau#getGenerateurs() générateurs} par capacité. Il parcourt ensuite les {@link Reseau#getMaisons() maisons} et les connecte au générateur qui minimise le {@link Reseau#surcharge(double) surcharge} absolu ajouté. (Le premier qui a suffisamment de capacité libre, ou, si aucun générateur n'en a suffisamment, celui de plus grande capacité créera le plus petit surcharge absolu.)</p>
  * <p>Son heuristique se résume en : minimiser le surcharge ajouté à chaque connexion par le triage des générateurs.</p>
  * <p>VIDE les {@linkplain Reseau#getConnexions() connexions} avant de commencer.</p>
+ * <p>En O(n<sup>2</sup>).</p>
  * 
  * @author Jacques ZHENG
  * @author Mamadou NIMAGA DIT
@@ -33,6 +34,7 @@ public class SolverGreedyGenerateur extends Solver {
 	  * <p>Il trie les {@link Reseau#getGenerateurs() générateurs} par capacité. Il parcourt ensuite les {@link Reseau#getMaisons() maisons} et les connecte au générateur qui minimise le {@link Reseau#surcharge(double) surcharge} absolu ajouté. (Le premier qui a suffisamment de capacité libre, ou, si aucun générateur n'en a suffisamment, celui de plus grande capacité créera le plus petit surcharge absolu.)</p>
 	  * <p>Son heuristique se résume en : minimiser le surcharge ajouté à chaque connexion par le triage des générateurs.</p>
 	  * <p>VIDE les {@linkplain Reseau#getConnexions() connexions} avant de commencer.</p>
+	  * <p>En O(n<sup>2</sup>).</p>
 	 * 
 	 * @param lambda coût du surcharge (non-utilisé par cet algorithme)
 	 */

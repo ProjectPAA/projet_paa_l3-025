@@ -14,6 +14,7 @@ import java.util.Map;
  * <p>Il trie les {@link Reseau#getMaison() maisons} par demande décroissante. Puis pour chaque maison dans l'ordre, il parcourt les {@link Reseau#getGenerateurs() générateurs} et la connecte à celui dont le {@link Reseau#getTauxUtilisation() taux d'utilisation} sera le moins élevé après la connexion. (Limitant à la fois l'augmentation de {@link Reseau#surcharge(double) surcharge} et de {@link Reseau#disp() dispersion}.)</p>
  * <p>Son heuristique se résume en : minimiser les taux de surcharge par le triage par masion.</p>
  * <p>VIDE les {@linkplain Reseau#getConnexions() connexions} avant de commencer.</p>
+ * <p>En O(n<sup>2</sup>).</p>
  * 
  * @author Jacques ZHENG
  * @author Mamadou NIMAGA DIT
@@ -34,6 +35,7 @@ public class SolverGreedyMaison extends Solver {
      * <p>Il trie les {@link Reseau#getMaison() maisons} par demande décroissante. Puis pour chaque maison dans l'ordre, il parcourt les {@link Reseau#getGenerateurs() générateurs} et la connecte à celui dont le {@link Reseau#getTauxUtilisation() taux d'utilisation} sera le moins élevé après la connexion. (Limitant à la fois l'augmentation de {@link Reseau#surcharge(double) surcharge} et de {@link Reseau#disp() dispersion}.)</p>
      * <p>Son heuristique se résume en : minimiser les taux de surcharge par le triage par masion.</p>
      * <p>VIDE les {@linkplain Reseau#getConnexions() connexions} avant de commencer.</p>
+     * <p>En O(n<sup>2</sup>).</p>
      * @param lambda coût du surcharge (non-utilisé par cet algorithme)
      */
     @Override

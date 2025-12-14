@@ -30,16 +30,19 @@ public class SolverBranchBound extends Solver {
     @Override
     public void solve(double lambda) {
         long debut = System.currentTimeMillis();
-        System.out.println("Recherche OPTIMALE (Branch & Bound)...");
+        System.out.println("Recherche de la solution optimale (Branch & Bound)...");
 
-        // En premier, on lance le Greedy pour avoir une barre à battre
+        // Si on n'a pas encore de connexions permettant de couper les mauvaises branches dès la 1ère milliseconde, on lance le Greedy Maison.
+        // Else on part de la configuration existante. (Comme ça on est extensible, et refait pas de travail si on a déjà la solution optimale.)
         // Cela permet de couper les mauvaises branches dès la 1ère milliseconde.
-        SolverGreedyMaison greedy = new SolverGreedyMaison(this.reseau);
-        greedy.solve(lambda);
+        if (reseau.getConnexions().isEmpty()) {
+        	SolverGreedyMaison greedy = new SolverGreedyMaison(this.reseau);
+        	greedy.solve(lambda);
+        }
 
         this.meilleurCoutGlobal = this.reseau.calculerCout(lambda);
         this.meilleureConfiguration = new HashMap<>(this.reseau.getConnexions());
-        System.out.println("   > Score de départ (Greedy) : " + this.meilleurCoutGlobal);
+        System.out.println("   > Score de départ : " + this.meilleurCoutGlobal);
 
         // on préparation des tableaux rapides
         this.reseau.getConnexions().clear();

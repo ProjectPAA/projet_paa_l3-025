@@ -5,6 +5,13 @@ import up.mi.paa.pbl.algo.Generateur;
 
 import java.util.Random;
 
+/**
+ * Cette classe implémente l'algorithme naif donné dans la description de la seconde partie du projet.
+ * 
+ * @author Jacques ZHENG
+ * @author Mamadou NIMAGA DIT
+ * @author Zalán MOLNÁR
+ */
 public class SolverNaive extends Solver {
 	
 	public SolverNaive(Reseau reseau) {
@@ -16,7 +23,6 @@ public class SolverNaive extends Solver {
 	 * 
 	 * <p>Execute un nombre par défaut d'itérations.</p>
 	 *
-	 * @param reseau Reseau a traiter
 	 * @param lambda lamda dans le calcul du cout
 	 */
 	public void solve(double lambda) {
@@ -26,7 +32,6 @@ public class SolverNaive extends Solver {
 	/**
 	 * <p>Implémentation de l'algorithme naif donné en description du projet. Ne change pas le reseau si on n'a pas réussi a faire moins cher.</p>
 	 * 
-	 * @param reseau Reseau a traiter
 	 * @param lambda lamda dans le calcul du cout
 	 * @param k nombre d'itérations a executer avant de s'arreter
 	 */

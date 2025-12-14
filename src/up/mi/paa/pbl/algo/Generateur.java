@@ -72,8 +72,8 @@ public class Generateur implements Comparable<Generateur>{ //Note: this class ha
 	}
 	
 	/**
-	 * Calcul un hash représentant le {@code Generateur} en respectant la spécification dans {@link Object#hashCode() Object}.
-	 * @return le hash représentant le {@code Generateur} en respectant la spécification dans {@link Object#hashCode() Object}.
+	 * Calcul le hash représentant le {@code Generateur} en respectant la spécification dans {@link Object#hashCode() Object}.
+	 * @return Le hash représentant le {@code Generateur} en respectant la spécification dans {@link Object#hashCode() Object}.
 	 */
 	@Override
 	public int hashCode() {

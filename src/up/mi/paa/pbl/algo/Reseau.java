@@ -141,7 +141,12 @@ public class Reseau {
 		System.out.println("Ok : Connexion " + nomMaison + " => " + nomGenerateur + " ajoutée.");
 	}
 
-	// Supprimer une connexion entre une maison et un générateur
+	/**
+	 * 
+	 * Supprime une {@link Reseau#connexions connexion} entre une {@link Reseau#maisons maison} et un {@link Reseau#generateurs generateur} si elle existe. Ne fait aucun changement s'il n'existe pas de {@linkplain Reseau#connexions connexion} entre la {@linkplain Reseau#maisons maison} et le {@linkplain Reseau#generateurs generateur} dont les noms ont été spécifiés.
+	 * @param nomMaison Le nom de la {@link Reseau#maisons maison} dans la {@link Reseau#connexions connexion} à supprimer.
+	 * @param nomGenerateur Le nom du {@link Reseau#generateurs generateur} dans la {@link Reseau#connexions connexion} à supprimer.
+	 */
 	public void supprimerConnexion(String nomMaison, String nomGenerateur) {
 		Maison maison = this.maisons.get(nomMaison);
 		Generateur generateur = this.generateurs.get(nomGenerateur);
@@ -175,6 +180,13 @@ public class Reseau {
 		System.out.println("Connexion supprimée : " + nomMaison + " n'est plus connectée à " + nomGenerateur + ".");
 	}
 
+	/**
+	 * Modifie à quel {@link Reseau#generateurs generateur} une {@link Reseau#maisons maison} est connectée. N'effectue aucun changement si la {@linkplain #maisons maison} n'est pas connectée au {@linkplain #generateurs generateur} spécifié, ou si le nouveau {@linkplain #generateurs generateur} est mal-spécifié.
+	 * 
+	 * @param nomMaison Le nom de la {@link #maisons maison} dont la connexion est à changer.
+	 * @param nomAncienGen Le nom du {@link #generateurs generateur} auquel la {@linkplain #maisons maison} est actuellement connectée.
+	 * @param nomNouveauGen Le nom du {@link #generateurs generateur} auqeul on veut que la {@linkplain #maisons maison} soit connectée. 
+	 */
 	public void modifierConnexion(String nomMaison, String nomAncienGen, String nomNouveauGen) {
 
 		Maison maison = this.maisons.get(nomMaison);
@@ -223,6 +235,11 @@ public class Reseau {
 	}
 
 	// Verifier si une ou plusieurs maisons ne sont pas connectés
+	/**
+	 * Décide si toutes les maisons sont connectées, en accord avec les contraintes de la description du projet.
+	 * 
+	 * @return {@code true} si et seulement si toutes les maisons sont connectées, {@code false} sinon.
+	 */
 	public boolean verifierConnexions() {
 
 		for (Maison maison : this.maisons.values()) {
@@ -257,6 +274,9 @@ public class Reseau {
 		
 		// To Do to string pour reseau
 	
+	/**
+	 * Met-à-jour les variables privées transients si nécessaire. Il n'y a <i>pas besoin</i> qu'un utilisateur de la classe <i>l'appelle manuellement</i>.
+	 */
 	public void updateTauxUtilisation() {
 		if (this.hashCode() != this.hashQuandTauxUtilisationCalcule) {
 			// Si le réseau a changé, on recalcule tous les taux d'utilisation et avec la meme boucle on calcul et mémoise le moyen.
@@ -276,6 +296,10 @@ public class Reseau {
 		}
 	}
 	
+	/**
+	 * Retourne la dispersion du {@code Reseau} dans son état actuel, en accord avec la description du projet.
+	 * @return La dispersion du {@code Reseau}.
+	 */
 	public double disp() {
 		this.updateTauxUtilisation();
 		//Disp:
@@ -287,6 +311,11 @@ public class Reseau {
 		return disp;
 	}
 	
+	/**
+	 * Retourne le surcharge du {@code Reseau} dans son état actuel, en accord avec la description du projet.
+	 * @param lambda La valeur de λ à utiliser pour pénaliser la surcharge.
+	 * @return Le surcharge du {@code Reseau}.
+	 */
 	public double surcharge(double lambda) {
 		this.updateTauxUtilisation();
 				// int count_surcharge = 0;
@@ -301,16 +330,31 @@ public class Reseau {
 				return lambda*totalSurcharge;
 	}
 	
+	/**
+	 * Retourne le coût total du {@code Reseau} dans son état actuel, en accrod avec la description du projet.
+	 * @param lambda La valeur de λ à utiliser pour pénaliser la surcharge.
+	 * @return Le coût total du {@code Reseau}.
+	 */
 	public double calculerCout(double lambda) {
 		return this.disp() + this.surcharge(lambda);
 	}
 	
+	/**
+	 * Calcul un hash représentant le {@code Reseau} en respectant la spécification dans {@link Object#hashCode() Object}. Ne garantit pas certainement la non-collision pour les {@code Reseau}s très grandes.
+	 * @return Le hash représentant le {@code Reseau} en respectant la spécification dans {@link Object#hashCode() Object}.
+	 */
 	@Override
 	public int hashCode() {
 		return 7*this.maisons.hashCode() + 13*this.generateurs.hashCode() + 19*this.connexions.hashCode(); //Les multiplications font que le Reseau contenant que la Maison et le Generateur M et G n'a pas la même hash que le Reseau contenant la Maison et le Generateur G et M. (car leur hash est le hash de leur nom.)
 		//TODO make sure no collisions for very large networks.
 	}
 	
+	/**
+	 * <p>Retourne {@code true} si et seulement si ce {@code Reseau} et {@code other} contiennent les mêmes {@link #generateurs} et les mêmes {@link #maisons} et si elles sont {@link #connexions connectées} aux mêmes générateurs dans les deux. Retourne {@code false} si {@code other} n'est pas une instance de {@code Reseau}.</p>
+	 * <p>Cette méthode respecte la spécification dans {@link Object#equals(Object) Object}.</p>
+	 * @param other L'Objet auquel comparer cette {@code Reseau}.
+	 * @return {@code true} si et seulement si ce {@code Reseau} et {@code other} contiennent les mêmes {@link #generateurs} et les mêmes {@link #maisons} et si elles sont {@link #connexions connectées} aux mêmes générateurs dans les deux. Retourne {@false} si {@code other} n'est pas une instance de {@code Reseau}.
+	 */
 	@Override
 	public boolean equals(Object other) {	//C'est pas vraiment nécessaire de redéfinir ça, mais vu qu'on est là...
 		if (other == null || !(other instanceof Reseau)) {

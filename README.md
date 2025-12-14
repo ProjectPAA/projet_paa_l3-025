@@ -95,7 +95,7 @@ Cet algorithme repart de zéro (il efface les connexions existantes) pour constr
 
 Cet algorithme fait une recherche dans l'espace des solutions possibles, en arêtant l'exploration dès qu'on est certaine qu'une branche ne contient pas la solution optimale.
 
-  * **Principe :** On explore systèmatiquement (en profondeur les connexions possibles, gardant en mémoire le surcharge sur la branche courante. Dès que cela dépasse le meilleure coût total vu avant, on arête d'explorer la branche courante : elle ne peut pas contenir la solution optimale.
+  * **Principe :** On explore systèmatiquement (en profondeur) les connexions possibles, gardant en mémoire le surcharge sur la branche courante. Dès que cela dépasse le meilleure coût total vu avant, on arête d'explorer la branche courante : elle ne peut pas contenir la solution optimale.
   * **Avantage :** Donne la meilleure solution possible. Ne nécéssite pas l'existance d'une solution préalable. Il est déterministe.
   * **Note :** Extrêmement lente (plusieurs minutes sur les réseaux exemples).
 

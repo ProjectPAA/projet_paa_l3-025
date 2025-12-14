@@ -23,7 +23,7 @@ public class SolverNaive extends Solver {
 	 * 
 	 * <p>Execute un nombre par défaut d'itérations.</p>
 	 *
-	 * @param lambda lamda dans le calcul du cout
+	 * @param lambda λ dans le calcul du coût
 	 */
 	public void solve(double lambda) {
 		this.solve(lambda, 1000);	//Un k est nécéssaire pour cet algorithme, si on est appelé sans, on choisi un valeur par défaut.
@@ -32,7 +32,7 @@ public class SolverNaive extends Solver {
 	/**
 	 * <p>Implémentation de l'algorithme naif donné en description du projet. Ne change pas le reseau si on n'a pas réussi a faire moins cher.</p>
 	 * 
-	 * @param lambda lamda dans le calcul du cout
+	 * @param lambda λ dans le calcul du coût
 	 * @param k nombre d'itérations a executer avant de s'arreter
 	 */
 	public void solve(double lambda, int k) {

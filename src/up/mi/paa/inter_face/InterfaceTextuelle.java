@@ -25,6 +25,9 @@ import up.mi.paa.solvers.SolverBranchBound;
  * en fonction des arguments passés au programme.
  * * Elle gère les menus, la saisie utilisateur et l'appel aux diférentes focntionnalité
  * (chargement, sauvegarde, modification du réseau, algorithmes de résolution).
+ * @author Jacques ZHENG
+ * @author Mamadou NIMAGA DIT
+ * @author Zalán MOLNÁR
  */
 public class InterfaceTextuelle {
 

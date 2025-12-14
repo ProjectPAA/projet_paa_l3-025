@@ -14,7 +14,10 @@ import up.mi.paa.pbl.algo.Maison;
 import up.mi.paa.pbl.algo.Reseau;
 import up.mi.paa.pbl.algo.TypeConsommation;
 import up.mi.paa.solvers.SolverGreedyGenerateur;
+import up.mi.paa.solvers.SolverGreedyMaison;
 import up.mi.paa.solvers.SolverNaive;
+import up.mi.paa.solvers.Solver;
+import up.mi.paa.solvers.SolverBranchBound;
 
 
 
@@ -375,94 +378,108 @@ public class InterfaceTextuelle {
 	
 	/**
 	 * 
-	 * @param network 
+	 * @param network
 	 */
 	private static void handleResolutionAutomatique(Reseau network) {
 		System.out.println("\n--- Résolution Automatique ---");
 		System.out.println("Choississez l'algorithme à utiliser :");
 		System.out.println("1. Algorithme Naïf (Aléatoire - Sujet)");
-		System.out.println("2. Algorithme Glouton (Greedy - Bonus)");
+		System.out.println("2. Algorithme Glouton (Greedy-Générateur - Bonus)");
+		System.out.println("3. Algorithme Glouton (Greedy-Maison - Bonus)");
+		System.out.println("4. Algorithme Branch and Bound (Bonus)");
 		System.out.print("Votre choix :");
-		
+
 		int choixAlgo = 1; // Par défaut
 		try {
-			String  input = scan.nextLine().trim();
-			if(!input.isEmpty()) {
+			String input = scan.nextLine().trim();
+			if (!input.isEmpty()) {
 				choixAlgo = Integer.parseInt(input);
 			}
-		}catch (NumberFormatException e) {
+		} catch (NumberFormatException e) {
 			System.out.println("-> Saisie invalide. Utilisation de l'algorithme Naïf par défaut");
 		}
-		
+
 		// --- Paramètres communs ---
 		double lambda = 10.0;
-		/* (TODO Si necesssaire => Optionnel : On peut demander à l'utilisateur
-		 * System.out.println("Entrez la pénalité Lambda (défaut 10) : ");
-		 * Si jamais on fait ça alors on doit gérer l'exception aussi
-		 * try {...} ...
- 		 * 
+		/*
+		 * (TODO Si necesssaire => Optionnel : On peut demander à l'utilisateur
+		 * System.out.println("Entrez la pénalité Lambda (défaut 10) : "); Si jamais on
+		 * fait ça alors on doit gérer l'exception aussi try {...} ...
+		 * 
 		 */
-		
+
 		// Calcul du coût AVANT optimisation
 		double coutAvant = network.calculerCout(lambda);
 		System.out.println("\nCoût initial du réseau : " + String.format("%.4f", coutAvant));
 		System.out.println("Optimisation en cours...");
-		
-		long startTime = System.currentTimeMillis(); 
-		
+
+		long startTime = System.currentTimeMillis();
+
 		// --- Excécution de l'algorithme choisi ---
-		if(choixAlgo == 2) {
-			// --- Algorithme GLOUTON (Greedy) ---
+		if (choixAlgo == 2) {
+			// --- Algorithme GLOUTON (Greedy - Générateur) ---
 			System.out.println(">> Lancement du SolverGreedyGenerateur...");
-			SolverGreedyGenerateur solver = new SolverGreedyGenerateur(network);
+			Solver solver = new SolverGreedyGenerateur(network);
 			solver.solve(lambda);
-			
-		}else {
+
+		} else if (choixAlgo == 3) {
+			// --- Algorithme GLOUTON (Greedy - Maison) ---
+			System.out.println(">> Lancement du SolverGreedyMaison...");
+			Solver solver = new SolverGreedyMaison(network);
+			solver.solve(lambda);
+		} else if (choixAlgo == 4) {
+			// --- Algorithme Branch and Bound ---
+			System.out.println(">> Lancement du Branch and Bound...");
+			Solver solver = new SolverBranchBound(network);
+			solver.solve(lambda);
+		} else {
 			// --- Algorithme NAÏF (Par défaut) ---
 			System.out.println(">> Lancement du SolverNaive...");
-			
+
 			// Demande de k (nombre d'itérations) pour Naif seulement.
 			System.out.println("Entrez le nombre d'essaies 'k' (par défaut 10000)");
 			int k = 10000;
 			try {
 				String inputK = scan.nextLine().trim();
-				if(!inputK.isEmpty()) {
+				if (!inputK.isEmpty()) {
 					k = Integer.parseInt(inputK);
 				}
-			}catch (NumberFormatException e) {
+			} catch (NumberFormatException e) {
 				System.out.println("-> Saisie invalide. Utilisation de k=10_000");
 			}
-			
+
 			SolverNaive solver = new SolverNaive(network);
 			solver.solve(lambda, k);
 		}
-		
+
 		long endTime = System.currentTimeMillis();
-		
+
 		// --- Résultats ---
 		double coutApres = network.calculerCout(lambda);
-		
+
 		System.out.println("\n--- RESULTATS DE L'OPTIMISATION ---");
 		System.out.println("Algorithme temriné en " + (endTime - startTime) + " ms.");
 		System.out.println("Coût AVANT : " + String.format("%.4f", coutAvant));
 		System.out.println("Coût APRES : " + String.format("%.4f", coutApres));
-		
-		if(coutApres < coutAvant) {
+
+		if (coutApres < coutAvant) {
 			double gain = coutAvant - coutApres;
 			double pourcentage = (gain / coutAvant) * 100;
-			System.out.println("<Validé> SUCCES : Le coût a été réduit de " + String.format("%.2f", pourcentage) + "%).");
-			
-		} else if(coutApres == coutAvant) {
-			System.out.println("<!> Aucun changement : L'algorithme n'a pas trouvé de meilleur solution ou le réseau était déjà optimal.");
-			
+			System.out
+					.println("<Validé> SUCCES : Le coût a été réduit de " + String.format("%.2f", pourcentage) + "%).");
+
+		} else if (coutApres == coutAvant) {
+			System.out.println(
+					"<!> Aucun changement : L'algorithme n'a pas trouvé de meilleur solution ou le réseau était déjà optimal.");
+
 		} else {
 			// Théoriquement impossible ....
-			System.out.println("X ATTENTION : Le coût a augmenté ! (Ce comportement est anormal.");
-			
+			System.out.println("|X| -> ATTENTION : Le coût a augmenté ! (Ce comportement est anormal.");
+
 		}
 		System.out.println("--------------------------------------------");
-		
-		}
+
+	}
 	
 	// --- MAIN ----
 	

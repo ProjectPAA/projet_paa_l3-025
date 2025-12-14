@@ -48,6 +48,10 @@ public class ChargeurReseau {
 			scanner.close();
 		}
 		
+		   System.out.println("\n\n\t=========== Réseau chargé avec succès. ===========================");
+           System.out.println("Nombre de maisons : " + this.reseau.getMaisons().size());
+           System.out.println("Nombre de générateurs : " + this.reseau.getGenerateurs().size());
+           System.out.println("-----------------------------------");
 		return this.reseau;
 		
 	}

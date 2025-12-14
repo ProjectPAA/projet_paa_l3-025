@@ -53,10 +53,10 @@ public class Maison {
 	}
 	
 	/**
-	 * <p>Retourne {@code True} si et seulement si le {@link nom} et le {@link type type de consommation} de cette {@code Maison} sont égaux à ceux de la {@code Maison} en paramètres. Retourne {@False} si {@code other} n'est pas une instance de {@code Maison}.</p>
+	 * <p>Retourne {@code true} si et seulement si le {@link nom} et le {@link type type de consommation} de cette {@code Maison} sont égaux à ceux de la {@code Maison} en paramètres. Retourne {@false} si {@code other} n'est pas une instance de {@code Maison}.</p>
 	 * <p>Cette méthode respecte la spécification dans {@link Object#equals(Object) Object}.</p>
 	 * @param other L'Objet auquel comparer cette {@code Maison}.
-	 * @return {@code True} si et seulement si le {@link nom} et le {@link type type de consommation} de cette {@code Maison} sont égaux à ceux de la {@code Maison} en paramètres. Retourne {@False} si {@code other} n'est pas une instance de {@code Maison}.
+	 * @return {@code True} si et seulement si le {@link nom} et le {@link type type de consommation} de cette {@code Maison} sont égaux à ceux de la {@code Maison} en paramètres. Retourne {@code False} si {@code other} n'est pas une instance de {@code Maison}.
 	 */
 	@Override
 	public boolean equals(Object other) {
@@ -68,8 +68,8 @@ public class Maison {
 	}
 	
 	/**
-	 * Calcul un hash représentatif de la {@code Maison} en prenant en compte le {@link nom} et le {@link type type de consommation}. Cette méthode est en accord avec la spécification en {@link Object#hashCode() Object}.
-	 *@return Un hash représentatif de la {@code Maison}.
+	 * Calcul le hash représentatif de la {@code Maison} en prenant en compte le {@link nom} et le {@link type type de consommation}. Cette méthode est en accord avec la spécification en {@link Object#hashCode() Object}.
+	 *@return Le hash représentatif de la {@code Maison}.
 	 */
 	@Override
 	public int hashCode() {

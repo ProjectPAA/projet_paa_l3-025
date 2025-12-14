@@ -2,8 +2,8 @@ package up.mi.paa.solvers;
 
 import up.mi.paa.io.ChargeurReseau;
 import up.mi.paa.pbl.algo.Reseau;
-import up.mi.paa.solvers.SolverSmartGreedy;
-import up.mi.paa.solvers.GreedySolver;
+import up.mi.paa.solvers.SolverGreedyMaison;
+import up.mi.paa.solvers.SolverGreedyGenerateur;
 
 
 public class TestSolver {
@@ -28,8 +28,8 @@ public class TestSolver {
 
             // On instancie Solver
 
-            // GreedySolver solver = new GreedySolver(reseau);
-            SolverOptimal solver = new SolverOptimal(reseau);
+            // Solver solver = new SolverGreedyGenerateur(reseau);
+            Solver solver = new SolverBranchBound(reseau);
 
             long debut = System.currentTimeMillis();
             solver.solve(lambda); // Lancement du calcul

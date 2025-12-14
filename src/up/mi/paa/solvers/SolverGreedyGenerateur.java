@@ -8,9 +8,9 @@ import java.util.Iterator;
 import java.util.ArrayList;
 
 
-public class GreedySolver extends Solver {
+public class SolverGreedyGenerateur extends Solver {
 
-	public GreedySolver(Reseau reseau) {
+	public SolverGreedyGenerateur(Reseau reseau) {
 		this.reseau = reseau;
 	}
 	

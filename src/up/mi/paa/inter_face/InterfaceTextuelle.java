@@ -13,7 +13,7 @@ import up.mi.paa.pbl.algo.Generateur;
 import up.mi.paa.pbl.algo.Maison;
 import up.mi.paa.pbl.algo.Reseau;
 import up.mi.paa.pbl.algo.TypeConsommation;
-import up.mi.paa.solvers.GreedySolver;
+import up.mi.paa.solvers.SolverGreedyGenerateur;
 import up.mi.paa.solvers.SolverNaive;
 
 
@@ -413,8 +413,8 @@ public class InterfaceTextuelle {
 		// --- Excécution de l'algorithme choisi ---
 		if(choixAlgo == 2) {
 			// --- Algorithme GLOUTON (Greedy) ---
-			System.out.println(">> Lancement du GreedySolver...");
-			GreedySolver solver = new GreedySolver(network);
+			System.out.println(">> Lancement du SolverGreedyGenerateur...");
+			SolverGreedyGenerateur solver = new SolverGreedyGenerateur(network);
 			solver.solve(lambda);
 			
 		}else {

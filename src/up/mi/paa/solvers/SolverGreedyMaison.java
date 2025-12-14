@@ -9,12 +9,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class SolverSmartGreedy extends Solver {
+public class SolverGreedyMaison extends Solver {
 
     private Reseau reseau;
 
     // Constructeur obligatoire pour récupérer le réseau
-    public SolverSmartGreedy(Reseau reseau) {
+    public SolverGreedyMaison(Reseau reseau) {
         this.reseau = reseau;
     }
 

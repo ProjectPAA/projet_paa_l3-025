@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SolverOptimal extends Solver {
+public class SolverBranchBound extends Solver {
 
     private Reseau reseau;
 
@@ -23,7 +23,7 @@ public class SolverOptimal extends Solver {
     private int[] chargesActuelles;
     private Generateur[] affectationsCourantes; // Pour se souvenir qui est connecté à qui
 
-    public SolverOptimal(Reseau reseau) {
+    public SolverBranchBound(Reseau reseau) {
         this.reseau = reseau;
     }
 
@@ -34,7 +34,7 @@ public class SolverOptimal extends Solver {
 
         // En premier, on lance le Greedy pour avoir une barre à battre
         // Cela permet de couper les mauvaises branches dès la 1ère milliseconde.
-        SolverSmartGreedy greedy = new SolverSmartGreedy(this.reseau);
+        SolverGreedyMaison greedy = new SolverGreedyMaison(this.reseau);
         greedy.solve(lambda);
 
         this.meilleurCoutGlobal = this.reseau.calculerCout(lambda);

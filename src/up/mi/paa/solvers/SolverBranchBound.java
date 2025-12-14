@@ -9,24 +9,59 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * <p>Cette classe implémente un algorithme augmentatif, basé sur la recherche bornée dans l'espace des possibilités.</p>
+ * <p>Il explore systèmatiquement (en profondeur) les connexions possibles, gardant en mémoire le surcharge sur la branche courante. Dès que cela dépasse le meilleure coût total vu avant, on arête d'explorer la branche courante : elle ne peut pas contenir la solution optimale.</p>
+ * <p>Note: Il est très lent. (Plusieurs minutes sur les réseaux exemples).</p>
+ * 
+ * @author Jacques ZHENG
+ * @author Mamadou NIMAGA DIT
+ * @author Zalán MOLNÁR
+ */
 public class SolverBranchBound extends Solver {
 
-    private Reseau reseau;
-
     // Variables pour stocker le meilleur résultat
+    /**
+     * Variable interne permettant la mémoïsation de la borne.
+     */
     private double meilleurCoutGlobal;
+    /**
+     * Variable interne permettant la mémoïsation de la borne.
+     */
     private Map<Maison, Generateur> meilleureConfiguration;
 
     // Tableaux pour la vitesse (beaucoup plus rapide que les Maps)
+    /**
+     * Variable interne permettant un accès plus efficace (dans ce cas particulier, où les indices sont connues).
+     */
     private Maison[] maisonsArr;
+    /**
+     * Variable interne permettant un accès plus efficace (dans ce cas particulier, où les indices sont connues).
+     */
     private Generateur[] generateursArr;
+    /**
+     * Variable interne permettant un accès plus efficace (dans ce cas particulier, où les indices sont connues).
+     */
     private int[] chargesActuelles;
+    /**
+     * Variable interne permettant un accès plus efficace (dans ce cas particulier, où les indices sont connues).
+     */
     private Generateur[] affectationsCourantes; // Pour se souvenir qui est connecté à qui
 
+    /**
+     * Constructeur à partir du {@link Reseau} à traiter.
+	 * @param reseau Le {@link Reseau} à traiter.
+     */
     public SolverBranchBound(Reseau reseau) {
         this.reseau = reseau;
     }
 
+    /**
+     * <p>Algorithme augmentatif, basé sur la recherche bornée dans l'espace des possibilités.</p>
+     * <p>Il explore systèmatiquement (en profondeur) les connexions possibles, gardant en mémoire le surcharge sur la branche courante. Dès que cela dépasse le meilleure coût total vu avant, on arête d'explorer la branche courante : elle ne peut pas contenir la solution optimale.</p>
+ 	 * <p>Note: Il est très lent. (Plusieurs minutes sur les réseaux exemples).</p>
+ 	 * @param lambda coût du surcharge.
+     */
     @Override
     public void solve(double lambda) {
         long debut = System.currentTimeMillis();

@@ -24,7 +24,7 @@ public class SolverGreedyMaison extends Solver {
      */
     @Override
     public void solve(double lambda) {
-        System.out.println("Lancement de l'algo Smart Greedy (Équilibrage de charge)...");
+        System.out.println("Lancement de l'algo Greedy Maison (Équilibrage de charge)...");
 
         // On vide les connexions actuelles
         this.reseau.getConnexions().clear();
@@ -66,6 +66,6 @@ public class SolverGreedyMaison extends Solver {
                 chargeActuelle.put(meilleurGen, chargeActuelle.get(meilleurGen) + demandeMaison);
             }
         }
-        System.out.println("Smart Greedy terminé.");
+        System.out.println("Greedy Maison terminé.");
     }
 }

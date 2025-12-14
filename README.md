@@ -19,7 +19,11 @@ Le programme propose deux modes de fonctionnement :
 1.  **Mode Manuel (Partie 1) :** Construction interactive du réseau pas à pas.
 2.  **Mode Fichier (Partie 2) :** Chargement d'un réseau existant, résolution automatique par algorithmes et sauvegarde.
 
-## 2\. Comment exécuter le programme
+## 2\. Documentation
+
+Pour la documentation, veuillez vous référer au Javadoc dans le répertoire /doc. (Nous recommendons de commencer à index.html ou à overview-tree.html) 
+
+## 3\. Comment exécuter le programme
 
 La classe principale contenant la méthode `main` est :
 **`up.mi.paa.inter_face.InterfaceTextuelle`**
@@ -48,7 +52,7 @@ Passez le chemin d'un fichier de configuration en argument.
 java -cp bin up.mi.paa.inter_face.InterfaceTextuelle reseau_test.txt
 ```
 
-## 3\. Fonctionnalités Implémentées
+## 4\. Fonctionnalités Implémentées
 
 Nous avons implémenté l'ensemble des fonctionnalités demandées dans le sujet :
 
@@ -63,7 +67,7 @@ Nous avons implémenté l'ensemble des fonctionnalités demandées dans le sujet
   * **Comparaison de performance :** L'interface affiche le temps d'exécution (en ms) et le pourcentage de réduction du coût après optimisation.
   * **Gestion des formats :** Support des deux formats de déclaration de maison (`maison(M1, NORMAL)` et `M1 20kW`).
 
-## 4\. Algorithmes de Résolution
+## 5\. Algorithmes de Résolution
 
 Le programme propose deux approches pour optimiser le réseau:
 
@@ -99,7 +103,7 @@ Cet algorithme fait une recherche dans l'espace des solutions possibles, en arê
   * **Avantage :** Donne la meilleure solution possible. Ne nécéssite pas l'existance d'une solution préalable. Il est déterministe.
   * **Note :** Extrêmement lente (plusieurs minutes sur les réseaux exemples).
 
-## 5\. État du projet
+## 6\. État du projet
 
   * **Fonctionnalités manquantes :** Aucune.
   * **Problèmes connus :** Aucun bug majeur détecté. Le parsing est strict : assurez-vous que le fichier d'entrée se termine bien par des points `.` à chaque ligne.

@@ -8,11 +8,27 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 
+/**
+ * Cette classe est responsable de charger un {@link up.mi.paa.pbl.algo.Reseau} stocké en {@link File fichier} et de le transformer en objet de type {@linkplain up.mi.paa.pbl.algo.Reseau}.
+ * 
+ * @author Jacques ZHENG
+ * @author Mamadou NIMAGA DIT
+ * @author Zalán MOLNÁR
+ */
 public class ChargeurReseau {
 
+	/**
+	 * L'ordinale de la ligne du fichier en cours de traitement.
+	 */
 	private int numeroLigne = 0; 
+	/**
+	 * Les {@link up.mi.paa.pbl.algo.Reseau reseau} en cours de chargement.
+	 */
 	private Reseau reseau;
 	
+	/**
+	 * Constructeur unique.
+	 */
 	public ChargeurReseau() {
 		reseau = new Reseau();
 	}
@@ -57,7 +73,7 @@ public class ChargeurReseau {
 	}
 	
 	/**
-	 * Analyse une ligne unique et met à jour le réseau.
+	 * Analyse une ligne unique et met-à-jour le réseau.
 	 * @param ligne : Ligne lu dans le fichier
 	 * @param reseau : Réseau à construire.
 	 * */
@@ -81,7 +97,8 @@ public class ChargeurReseau {
 	}
 	
 	/**
-	 * 
+	 * À partir d'une ligne contenant un {@link up.mi.paa.pbl.algo.Generateur} cette méthode construit l'objet {@linkplain up.mi.paa.pbl.algo.Generateur} correspondant.
+	 * @param ligne La ligne contenant un {@link up.mi.paa.pbl.algo.Generateur}.
 	 * */	
 	private void parserGenerateur(String ligne) throws FormatParentheseInvalideException, NombreArgumentIncorrectException{
 		
@@ -101,7 +118,8 @@ public class ChargeurReseau {
 	}
 	
 	/**
-	 * 
+	 * À partir d'une ligne contenant une {@link up.mi.paa.pbl.algo.Maison} cette méthode construit l'objet {@linkplain up.mi.paa.pbl.algo.Maison} correspondant.
+	 * @param ligne La ligne contenant une {@link up.mi.paa.pbl.algo.Maison}.
 	 * */
 	private void parserMaison(String ligne) throws FormatParentheseInvalideException, NombreArgumentIncorrectException{
 		if(ligne.contains("(") && ligne.contains(")")) {
@@ -135,7 +153,8 @@ public class ChargeurReseau {
 	}
 	
 	/**
-	 * 
+	 * À partir d'une ligne contenant une {@link up.mi.paa.pbl.algo.Reseau#getConnexions()} cette méthode construit l'objet {@linkplain up.mi.paa.pbl.algo.Reseau#getConnexions()} correspondant.
+	 * @param ligne La ligne contenant une {@link up.mi.paa.pbl.algo.Reseau#getConnexions()}.
 	 * */
 	private void parserConnexion(String ligne) throws FormatParentheseInvalideException, NombreArgumentIncorrectException {
 		String[] args = extraireArguments(ligne);
@@ -165,7 +184,8 @@ public class ChargeurReseau {
 	}
 	
 	/**
-	 * Extraire les informations pour ligne
+	 * Extrait les arguments de l'objet donnés dans la lignes
+	 * @param ligne La ligne à traiter.
 	 */
 	private String[] extraireArguments(String ligne) throws IllegalArgumentException, FormatParentheseInvalideException{
 		

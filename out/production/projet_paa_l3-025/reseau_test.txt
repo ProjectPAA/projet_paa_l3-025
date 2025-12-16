@@ -1,4 +1,0 @@
-generateur(gen1,60).
-generateur(gen2,45).
-maison(maison1, NORMAL).
-connexion(gen1,maison1).

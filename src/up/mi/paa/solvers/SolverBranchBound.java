@@ -89,10 +89,9 @@ public class SolverBranchBound extends Solver {
         // Trie les maisons (40kW -> 20kW -> 10kW) cela accélère la détection des impasses par x100
         Arrays.sort(maisonsArr, (m1, m2) -> Integer.compare(m2.getTypeConsommation().getDemande(), m1.getTypeConsommation().getDemande()));
 
-        // 4. Lancement du moteur
         backtrack(0, lambda, 0.0);
 
-        // 5. Application du résultat final
+        // Application du résultat final
         if (!this.meilleureConfiguration.isEmpty()) {
             this.reseau.getConnexions().clear();
             this.reseau.getConnexions().putAll(this.meilleureConfiguration);

@@ -31,9 +31,9 @@ class TestSolverNaive {
 
         double coutInitial = reseau.calculerCout(1.0);
 
-        SolverNaive solver = new SolverNaive(reseau);
+        SolverNaive solver = new SolverNaive(reseau, 1.0);
         // On lance 100 itérations (suffisant pour un petit réseau)
-        solver.solve(1.0, 100);
+        solver.solve(100);
 
         double coutFinal = reseau.calculerCout(1.0);
 
@@ -62,8 +62,8 @@ class TestSolverNaive {
 
         double coutAvant = reseau.calculerCout(1.0);
 
-        SolverNaive solver = new SolverNaive(reseau);
-        solver.solve(1.0, 50);
+        SolverNaive solver = new SolverNaive(reseau, 1.0);
+        solver.solve(50);
 
         double coutApres = reseau.calculerCout(1.0);
 

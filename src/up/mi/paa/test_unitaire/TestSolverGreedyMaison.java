@@ -24,8 +24,8 @@ class TestSolverGreedyMaison {
         reseau.ajouterMaison("M1", TypeConsommation.BASSE); // 10 kWh
         reseau.ajouterMaison("M2", TypeConsommation.BASSE); // 10 kWh
 
-        SolverGreedyMaison solver = new SolverGreedyMaison(reseau);
-        solver.solve(1.0); // Lambda n'est pas utilisé dans cet algo
+        SolverGreedyMaison solver = new SolverGreedyMaison(reseau, 1.0);
+        solver.solve(); // Lambda n'est pas utilisé dans cet algo
 
         reseau.updateTauxUtilisation(); // On met à jour avant de tester
 
@@ -46,8 +46,8 @@ class TestSolverGreedyMaison {
         // Maison de 10 kWh
         reseau.ajouterMaison("M1", TypeConsommation.BASSE);
 
-        SolverGreedyMaison solver = new SolverGreedyMaison(reseau);
-        solver.solve(1.0);
+        SolverGreedyMaison solver = new SolverGreedyMaison(reseau, 1.0);
+        solver.solve();
 
         // On regarde où la maison a été connectée
         Maison m1 = reseau.getMaisons().get("M1");
@@ -73,8 +73,8 @@ class TestSolverGreedyMaison {
         reseau.ajouterConnexion("M1", "G1");
 
         // Lancement de l'algo
-        SolverGreedyMaison solver = new SolverGreedyMaison(reseau);
-        solver.solve(1.0);
+        SolverGreedyMaison solver = new SolverGreedyMaison(reseau, 1.0);
+        solver.solve();
 
         // Si la fonction verifierConnexions passe, c'est que l'algo a refait le travail correctement
         assertTrue(reseau.verifierConnexions());
@@ -95,8 +95,8 @@ class TestSolverGreedyMaison {
         reseau.ajouterMaison("M2", TypeConsommation.NORMAL);
         reseau.ajouterMaison("M3", TypeConsommation.NORMAL);
 
-        SolverGreedyMaison solver = new SolverGreedyMaison(reseau);
-        solver.solve(1.0);
+        SolverGreedyMaison solver = new SolverGreedyMaison(reseau, 1.0);
+        solver.solve();
 
         reseau.updateTauxUtilisation();
 

@@ -27,7 +27,7 @@ public abstract class Solver implements Runnable {
 	private Solver() {}
 	
 	/**
-	 * Constructeur à utiliser par les sous-classes concrètes en appelant {@code super(Reseau, lambda)}.
+	 * Constructeur à utiliser par les sous-classes concrètes en appelant {@code super(reseau, lambda)}.
 	 * 
 	 * @param reseau Le {@link Reseau} à traiter.
 	 * @param lambda Le λ donnant la pénalisation de surcharge dans le calcul du coût.

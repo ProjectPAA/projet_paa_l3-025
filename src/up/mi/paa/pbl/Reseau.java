@@ -352,6 +352,9 @@ public class Reseau {
 		return true; // Aucun maison non connectée trouvée
 	}
 
+		/**
+		 * Affiche le réseau sur le flux de sortie par défaut.
+		 */
 		public void afficherReseau() {
 			System.out.println("--------- ETAT DU RESEAU -------");
 			// Affichage du generateur 
@@ -372,7 +375,32 @@ public class Reseau {
 			System.out.println("--------- Fin : ETAT DU RESEAU -------");
 		}
 		
-		// To Do to string pour reseau
+		/**
+		 * Affiche le réseau et son coûtsur le flux de sortie par défaut.
+		 * @param lambda Le λ donnant la pénalisation de surcharge dans le calcul du coût.
+		 */
+		public void afficherReseau(double lambda) {
+			System.out.println("--------- ETAT DU RESEAU -------");
+			// Affichage du generateur 
+			for(Generateur generateur : this.generateurs.values()) {
+				System.out.println(generateur.toString());
+			}
+			
+			for(Maison maison : this.maisons.values()) {
+				System.out.println(maison.toString());
+			}
+			System.out.println("Affichage de connexions");
+			for(Map.Entry<Maison, Generateur> entree : this.connexions.entrySet()) {
+				Maison maison = entree.getKey();
+				Generateur generateur = entree.getValue();
+				System.out.println(maison.getNom() + " ===> " + generateur.getNom());
+			}
+			
+			System.out.println("Son coût est : " + this.calculerCout(lambda) + " pour λ : " + lambda);
+			
+			System.out.println("--------- Fin : ETAT DU RESEAU -------");
+		}
+		
 	
 	/**
 	 * Met-à-jour les variables privées transients si nécessaire. Il n'y a <i>pas besoin</i> qu'un utilisateur de la classe <i>l'appelle manuellement</i>.

@@ -41,7 +41,6 @@ public class SolverGreedyMaison extends Solver {
      */
     @Override
     public void solve() {
-        System.out.println("Lancement de l'algo Greedy Maison (Équilibrage de charge)...");
 
         // On vide les connexions actuelles
         this.reseau.getConnexions().clear();
@@ -83,10 +82,10 @@ public class SolverGreedyMaison extends Solver {
 
             // On valide la connexion sur le meilleur candidat trouvé
             if (meilleurGen != null) {
-                this.reseau.ajouterConnexion(maison.getNom(), meilleurGen.getNom());
+                this.reseau.ajouterConnexion(maison.getNom(), meilleurGen.getNom(), true);
                 chargeActuelle.put(meilleurGen, chargeActuelle.get(meilleurGen) + demandeMaison);
             }
         }
-        System.out.println("Greedy Maison terminé.");
+        System.out.println("Greedy Maison terminé avec coût minimal trouvé : " + reseau.calculerCout(lambda));
     }
 }

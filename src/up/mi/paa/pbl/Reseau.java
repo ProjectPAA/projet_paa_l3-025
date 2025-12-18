@@ -92,12 +92,28 @@ public class Reseau {
 	 * @param capaciteMax La capacité maximale à ajouter.
 	 */
 	public void ajouterGenerateur(String nom, int capaciteMax) {
+		ajouterGenerateur(nom, capaciteMax, false);
+	}
+	
+	/**
+	 * <p>Ajoute un {@link Generateur} au {@code Reseau}. Si un Generateur avec le même nom existe déjà, il est mis-à-jour.</p>
+	 * <p>De façon générale, il assure qu'au retour de la méthode, {@link Reseau#generateurs generateurs} contient un {@linkplain Generateur} de nom et de capacité maximale demandé.</p>
+	 * 
+	 * @param nom Le nom du {@link Generateur} à ajouter.
+	 * @param capaciteMax La capacité maximale à ajouter.
+	 * @param noPrint S'il est {@code true} alors cette méthode n'effectue aucun print. Sinon, il en effectue.
+	 */
+	public void ajouterGenerateur(String nom, int capaciteMax, boolean noPrint) {
 		if (this.generateurs.containsKey(nom)) {
 			this.generateurs.get(nom).setCapaciteMax(capaciteMax);
-			System.out.println("Générateur " + this.generateurs.get(nom) + " mis à jour.");
+			if (!noPrint) {
+				System.out.println("Générateur " + this.generateurs.get(nom) + " mis à jour.");
+			}
 		} else {
 			this.generateurs.put(nom, new Generateur(nom, capaciteMax));
-			System.out.println("Ok : Générateur " + nom + " ajouté avec succés.");
+			if (!noPrint){
+				System.out.println("Ok : Générateur " + nom + " ajouté avec succés.");
+			}
 		}
 	}
 
@@ -109,12 +125,28 @@ public class Reseau {
 	 * @param t Le {@linkplain TypeConsommation type de consommation} de la {@link Maison} à ajouter.
 	 */
 	public void ajouterMaison(String nom, TypeConsommation t) {
+		ajouterMaison(nom, t, false);
+	}
+	
+	/**
+	 * <p>Ajoute une {@link Maison} au {@code Reseau}. Si une Maison avec le même nom existe déjà, elle est mis-à-jour.</p>
+	 * <p>De façon générale, il assure qu'au retour de la méthode, {@link Reseau#maisons maisons} contient une {@linkplain Maison} de nom et de {@linkplain TypeConsommation type de consommation} demandé.</p>
+	 * 
+	 * @param nom Le nom de la {@link Maison} à ajouter.
+	 * @param t Le {@linkplain TypeConsommation type de consommation} de la {@link Maison} à ajouter.
+	 * @param noPrint S'il est {@code true} alors cette méthode n'effectue aucun print. Sinon, il en effectue.
+	 */
+	public void ajouterMaison(String nom, TypeConsommation t, boolean noPrint) {
 		if (this.maisons.containsKey(nom)) {
 			this.maisons.get(nom).setType(t);
-			System.out.println("Maison " + this.maisons.get(nom) + " mis à jour.");
+			if (!noPrint) {
+				System.out.println("Maison " + this.maisons.get(nom) + " mis à jour.");
+			}
 		} else {
 			this.maisons.put(nom, new Maison(nom, t));
-			System.out.println("Ok : Maison " + nom + " ajouté avec succès.");
+			if (!noPrint) {
+				System.out.println("Ok : Maison " + nom + " ajouté avec succès.");
+			}
 		}
 	}
 
@@ -125,6 +157,17 @@ public class Reseau {
 	 * @param nomGenerateur Le nom du {@link Generateur} à connecter. (Censé être élément de {@link Reseau#generateurs generateurs}.)
 	 */
 	public void ajouterConnexion(String nomMaison, String nomGenerateur) {
+		ajouterConnexion(nomMaison, nomGenerateur, false);
+	}
+	
+	/**
+	 * <p>Ajoute une connexion entre la {@linkplain Maison} et le {@linkplain Generateur} dont les noms sont passés en argument au {@code Reseau}. Si au moins un des paramètres ne correspond pas à un élément du bonne catégorie du {@code Reseau} alors cette méthode ne fait rien.</p>
+	 * <p>De façon générale, cette méthode <i>fait de son mieux</i> (best-effort) pour qu'au retour la {@linkplain Maison} soit connectée au {@linkplain Generateur} demandé.</p>
+	 * @param nomMaison Le nom de la {@link Maison} à connecter. (Censé être élément de {@link Reseau#maisons maisons}.)
+	 * @param nomGenerateur Le nom du {@link Generateur} à connecter. (Censé être élément de {@link Reseau#generateurs generateurs}.)
+	 * @param noPrint S'il est {@code true} alors cette méthode n'effectue aucun print. Sinon, il en effectue.
+	 */
+	public void ajouterConnexion(String nomMaison, String nomGenerateur, boolean noPrint) {
 		Maison maison = this.maisons.get(nomMaison);
 		Generateur generateur = this.generateurs.get(nomGenerateur);
 
@@ -138,7 +181,9 @@ public class Reseau {
 		}
 		// Maison et Generateur existe donc on fait la connexion
 		this.connexions.put(maison, generateur);
-		System.out.println("Ok : Connexion " + nomMaison + " => " + nomGenerateur + " ajoutée.");
+		if (!noPrint) {
+			System.out.println("Ok : Connexion " + nomMaison + " => " + nomGenerateur + " ajoutée.");
+		}
 	}
 
 	/**
@@ -148,36 +193,57 @@ public class Reseau {
 	 * @param nomGenerateur Le nom du {@link Reseau#generateurs generateur} dans la {@link Reseau#connexions connexion} à supprimer.
 	 */
 	public void supprimerConnexion(String nomMaison, String nomGenerateur) {
+		supprimerConnexion(nomMaison, nomGenerateur, false);
+	}
+	
+	/**
+	 * 
+	 * Supprime une {@link Reseau#connexions connexion} entre une {@link Reseau#maisons maison} et un {@link Reseau#generateurs generateur} si elle existe. Ne fait aucun changement s'il n'existe pas de {@linkplain Reseau#connexions connexion} entre la {@linkplain Reseau#maisons maison} et le {@linkplain Reseau#generateurs generateur} dont les noms ont été spécifiés.
+	 * @param nomMaison Le nom de la {@link Reseau#maisons maison} dans la {@link Reseau#connexions connexion} à supprimer.
+	 * @param nomGenerateur Le nom du {@link Reseau#generateurs generateur} dans la {@link Reseau#connexions connexion} à supprimer.
+	 * @param noPrint S'il est {@code true} alors cette méthode n'effectue aucun print. Sinon, il en effectue.
+	 */
+	public void supprimerConnexion(String nomMaison, String nomGenerateur, boolean noPrint) {
 		Maison maison = this.maisons.get(nomMaison);
 		Generateur generateur = this.generateurs.get(nomGenerateur);
 
 		// Vérifie si maison existe
 		if (maison == null) {
-			System.out.println("Erreur : la maison '" + nomMaison + "' n'existe pas.");
+			if (!noPrint) {
+				System.out.println("Erreur : la maison '" + nomMaison + "' n'existe pas.");
+			}
 			return;
 		}
 
 		// Vérifie si générateur existe
 		if (generateur == null) {
-			System.out.println("Erreur : le générateur '" + nomGenerateur + "' n'existe pas.");
+			if (!noPrint) {
+				System.out.println("Erreur : le générateur '" + nomGenerateur + "' n'existe pas.");
+			}
 			return;
 		}
 
 		// Vérifie si la maison est bien connectée à ce générateur
 		Generateur genActuel = this.connexions.get(maison);
 		if (genActuel == null) {
-			System.out.println("Erreur : la maison '" + nomMaison + "' n'est connectée à aucun générateur.");
+			if (!noPrint) {
+				System.out.println("Erreur : la maison '" + nomMaison + "' n'est connectée à aucun générateur.");
+			}
 			return;
 		}
 
 		if (!genActuel.equals(generateur)) {
-			System.out.println("Erreur : la maison '" + nomMaison + "' est connectée à '" + genActuel.getNom() + "', pas à '" + nomGenerateur + "'.");
+			if (!noPrint) {
+				System.out.println("Erreur : la maison '" + nomMaison + "' est connectée à '" + genActuel.getNom() + "', pas à '" + nomGenerateur + "'.");
+			}
 			return;
 		}
 
 		// Suppression effective de la connexion
 		this.connexions.remove(maison);
-		System.out.println("Connexion supprimée : " + nomMaison + " n'est plus connectée à " + nomGenerateur + ".");
+		if (!noPrint) {
+			System.out.println("Connexion supprimée : " + nomMaison + " n'est plus connectée à " + nomGenerateur + ".");
+		}
 	}
 
 	/**
@@ -188,6 +254,18 @@ public class Reseau {
 	 * @param nomNouveauGen Le nom du {@link #generateurs generateur} auqeul on veut que la {@linkplain #maisons maison} soit connectée. 
 	 */
 	public void modifierConnexion(String nomMaison, String nomAncienGen, String nomNouveauGen) {
+		modifierConnexion(nomMaison, nomAncienGen, nomNouveauGen, false);
+	}
+	
+	/**
+	 * Modifie à quel {@link Reseau#generateurs generateur} une {@link Reseau#maisons maison} est connectée. N'effectue aucun changement si la {@linkplain #maisons maison} n'est pas connectée au {@linkplain #generateurs generateur} spécifié, ou si le nouveau {@linkplain #generateurs generateur} est mal-spécifié.
+	 * 
+	 * @param nomMaison Le nom de la {@link #maisons maison} dont la connexion est à changer.
+	 * @param nomAncienGen Le nom du {@link #generateurs generateur} auquel la {@linkplain #maisons maison} est actuellement connectée.
+	 * @param nomNouveauGen Le nom du {@link #generateurs generateur} auqeul on veut que la {@linkplain #maisons maison} soit connectée. 
+	 * @param noPrint S'il est {@code true} alors cette méthode n'effectue aucun print. Sinon, il en effectue.
+	 */
+	public void modifierConnexion(String nomMaison, String nomAncienGen, String nomNouveauGen, boolean noPrint) {
 
 		Maison maison = this.maisons.get(nomMaison);
 		Generateur ancienGen = this.generateurs.get(nomAncienGen);
@@ -195,19 +273,25 @@ public class Reseau {
 
 		// return c'est pour arreter la methode si on rentre dans les si
 		if (maison == null) {
-			System.out.println("Erreur: La maison '" + nomMaison + "' n'existe pas.");
+			if (!noPrint) {
+				System.out.println("Erreur: La maison '" + nomMaison + "' n'existe pas.");
+			}
 			return;
 		}
 
 		// Verification de l'ancien generateur
 		if (ancienGen == null) {
-			System.out.println("Erreur: L'ancien générateur '" + nomAncienGen + "' n'existe pas.");
+			if (!noPrint) {
+				System.out.println("Erreur: L'ancien générateur '" + nomAncienGen + "' n'existe pas.");
+			}
 			return;
 		}
 
 		// Verification du nouveau generateur
 		if (nouveauGen == null) {
-			System.out.println("Erreur: Le nouveau générateur '" + nomNouveauGen + "' n'existe pas.");
+			if (!noPrint) {
+				System.out.println("Erreur: Le nouveau générateur '" + nomNouveauGen + "' n'existe pas.");
+			}
 			return;
 		}
 
@@ -221,9 +305,11 @@ public class Reseau {
 			} else {
 				nomGenActuel = genActuel.getNom();
 			}
-
-			System.out.println("Erreur: La connexion '" + nomMaison + " -> " + nomAncienGen + "' n'existe pas.");
-			System.out.println(" (La maison '" + nomMaison + "' est connectée à '" + nomGenActuel + "')");
+			
+			if (!noPrint) {
+				System.out.println("Erreur: La connexion '" + nomMaison + " -> " + nomAncienGen + "' n'existe pas.");
+				System.out.println(" (La maison '" + nomMaison + "' est connectée à '" + nomGenActuel + "')");
+			}
 			return;
 		}
 
@@ -231,7 +317,9 @@ public class Reseau {
 		// On modifie la map par la nouvelle maison au nouveau generateur
 		this.connexions.put(maison, nouveauGen);
 
-		System.out.println("Connexion modifiée: " + nomMaison + " est maintenant connectée à " + nomNouveauGen + ".");
+		if (!noPrint) {
+			System.out.println("Connexion modifiée: " + nomMaison + " est maintenant connectée à " + nomNouveauGen + ".");
+		}
 	}
 
 	// Verifier si une ou plusieurs maisons ne sont pas connectés
@@ -241,17 +329,32 @@ public class Reseau {
 	 * @return {@code true} si et seulement si toutes les maisons sont connectées, {@code false} sinon.
 	 */
 	public boolean verifierConnexions() {
+		return verifierConnexions(false);
+	}
+	
+	/**
+	 * Décide si toutes les maisons sont connectées, en accord avec les contraintes de la description du projet.
+	 * 
+	 * @return {@code true} si et seulement si toutes les maisons sont connectées, {@code false} sinon.
+	 * @param noPrint S'il est {@code true} alors cette méthode n'effectue aucun print. Sinon, il en effectue.
+	 */
+	public boolean verifierConnexions(boolean noPrint) {
 
 		for (Maison maison : this.maisons.values()) {
 			// Si maison n'est pas dans la map de collecitons connexions
 			if (!this.connexions.containsKey(maison)) {
-				System.out.println("=> Maison non connecté : " + maison.getNom());
+				if (!noPrint) {
+					System.out.println("=> Maison non connecté : " + maison.getNom());
+				}
 				return false; // on a trouvé un problème
 			}
 		}
 		return true; // Aucun maison non connectée trouvée
 	}
 
+		/**
+		 * Affiche le réseau sur le flux de sortie par défaut.
+		 */
 		public void afficherReseau() {
 			System.out.println("--------- ETAT DU RESEAU -------");
 			// Affichage du generateur 
@@ -272,7 +375,32 @@ public class Reseau {
 			System.out.println("--------- Fin : ETAT DU RESEAU -------");
 		}
 		
-		// To Do to string pour reseau
+		/**
+		 * Affiche le réseau et son coûtsur le flux de sortie par défaut.
+		 * @param lambda Le λ donnant la pénalisation de surcharge dans le calcul du coût.
+		 */
+		public void afficherReseau(double lambda) {
+			System.out.println("--------- ETAT DU RESEAU -------");
+			// Affichage du generateur 
+			for(Generateur generateur : this.generateurs.values()) {
+				System.out.println(generateur.toString());
+			}
+			
+			for(Maison maison : this.maisons.values()) {
+				System.out.println(maison.toString());
+			}
+			System.out.println("Affichage de connexions");
+			for(Map.Entry<Maison, Generateur> entree : this.connexions.entrySet()) {
+				Maison maison = entree.getKey();
+				Generateur generateur = entree.getValue();
+				System.out.println(maison.getNom() + " ===> " + generateur.getNom());
+			}
+			
+			System.out.println("Son coût est : " + this.calculerCout(lambda) + " pour λ : " + lambda);
+			
+			System.out.println("--------- Fin : ETAT DU RESEAU -------");
+		}
+		
 	
 	/**
 	 * Met-à-jour les variables privées transients si nécessaire. Il n'y a <i>pas besoin</i> qu'un utilisateur de la classe <i>l'appelle manuellement</i>.

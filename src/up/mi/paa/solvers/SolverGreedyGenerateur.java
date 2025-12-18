@@ -60,7 +60,7 @@ public class SolverGreedyGenerateur extends Solver {
 				if (maison.getTypeConsommation().getDemande() <= gen.getCapaciteMAx() - (reseau.getTauxUtilisation().get(gen.getNom())*gen.getCapaciteMAx())) {
 				//if demand <= remaining capacity then
 					demandFits = true;
-					reseau.ajouterConnexion(maison.getNom(), gen.getNom());
+					reseau.ajouterConnexion(maison.getNom(), gen.getNom(), true);
 					connected = true;
 				}
 				else {
@@ -70,7 +70,7 @@ public class SolverGreedyGenerateur extends Solver {
 			
 			if (!demandFits && !connected && gen != null) {
 				//Having seen every generator, we couldn't connect to any without going over-capacity. By connecting to the last seen (maximal because sort()), we are augmenting surcharge by the least possible amount.
-				reseau.ajouterConnexion(maison.getNom(), gen.getNom());
+				reseau.ajouterConnexion(maison.getNom(), gen.getNom(), true);
 			}
 			if (reseau.getTauxUtilisation().get(gen.getNom()) >= 1.0) {
 				genArray.remove(gen);
@@ -81,5 +81,6 @@ public class SolverGreedyGenerateur extends Solver {
 			}
 		}
 		//end loop on maisons
+        System.out.println("Greedy Generateur terminé avec coût minimal trouvé : " + reseau.calculerCout(lambda));
 	}
 }

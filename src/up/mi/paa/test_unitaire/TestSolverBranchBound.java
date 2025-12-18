@@ -24,7 +24,7 @@ class TestSolverBranchBound {
 
     /**
      * Avant chaque test, on redirige la sortie standard vers un flux interne.
-     * Cela permet de masquer les affichages verbeux de l'algorithme Branch & Bound.
+     * Cela permet de masquer les affichages verbeux de l'algorithme Branch and Bound.
      */
     @BeforeEach
     public void setUp() {
@@ -65,7 +65,7 @@ class TestSolverBranchBound {
     }
 
     /**
-     * Vérifie que l'algorithme Branch & Bound (exact) fournit une solution au moins équivalente
+     * Vérifie que l'algorithme Branch and Bound (exact) fournit une solution au moins équivalente
      * à l'algorithme glouton (heuristique).
      * Le coût de la solution optimale doit être inférieur ou égal au coût de l'heuristique.
      */

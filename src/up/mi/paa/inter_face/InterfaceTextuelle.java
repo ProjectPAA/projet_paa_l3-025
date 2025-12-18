@@ -435,7 +435,7 @@ public class InterfaceTextuelle {
 
 	/**
 	 * Gère le menu de sélection de l'algorithme de résolution automatique.
-	 * Propose différents algorithmes (Naïf, Gloutons, Branch & Bound) et excécution celui choisi par l'utilisateur.
+	 * Propose différents algorithmes (Naïf, Gloutons, Branch and Bound) et excécution celui choisi par l'utilisateur.
 	 * Affiche ensuite les statistiques de performance (temps, gain, de coût).
 	 * @param network Le réseau à optimiser.
 	 */

@@ -106,7 +106,7 @@ public class Reseau {
 	 * <p>De façon générale, il assure qu'au retour de la méthode, {@link Reseau#maisons maisons} contient une {@linkplain Maison} de nom et de {@linkplain TypeConsommation type de consommation} demandé.</p>
 	 * 
 	 * @param nom Le nom de la {@link Maison} à ajouter.
-	 * @param t Le {@linkplain TypeConsommation type de consommation} de la {@Link Maison} à ajouter.
+	 * @param t Le {@linkplain TypeConsommation type de consommation} de la {@link Maison} à ajouter.
 	 */
 	public void ajouterMaison(String nom, TypeConsommation t) {
 		if (this.maisons.containsKey(nom)) {
@@ -353,7 +353,7 @@ public class Reseau {
 	 * <p>Retourne {@code true} si et seulement si ce {@code Reseau} et {@code other} contiennent les mêmes {@link #generateurs} et les mêmes {@link #maisons} et si elles sont {@link #connexions connectées} aux mêmes générateurs dans les deux. Retourne {@code false} si {@code other} n'est pas une instance de {@code Reseau}.</p>
 	 * <p>Cette méthode respecte la spécification dans {@link Object#equals(Object) Object}.</p>
 	 * @param other L'Objet auquel comparer cette {@code Reseau}.
-	 * @return {@code true} si et seulement si ce {@code Reseau} et {@code other} contiennent les mêmes {@link #generateurs} et les mêmes {@link #maisons} et si elles sont {@link #connexions connectées} aux mêmes générateurs dans les deux. Retourne {@false} si {@code other} n'est pas une instance de {@code Reseau}.
+	 * @return {@code true} si et seulement si ce {@code Reseau} et {@code other} contiennent les mêmes {@link #generateurs} et les mêmes {@link #maisons} et si elles sont {@link #connexions connectées} aux mêmes générateurs dans les deux. Retourne {@code false} si {@code other} n'est pas une instance de {@code Reseau}.
 	 */
 	@Override
 	public boolean equals(Object other) {	//C'est pas vraiment nécessaire de redéfinir ça, mais vu qu'on est là...
@@ -366,10 +366,10 @@ public class Reseau {
 	}
 
 	/**
-	 * <p>Retourne un nouveau {@code Reseau} contenant les mêmes {@link #maisons}, les mêmes {@link #générateurs} et les mêmes {@link #connexions} entre eux qui ceci.</p>
-	 * <p>En particulier, elle crée des nouveaux attributs {@linkplain #maisons}, {@linkplain #generateurs} et {@linkplain #connexions} contenant les mêmes (non pas de copies) des clés et valeurs.</p>
+	 * <p>Retourne un nouveau {@code Reseau} contenant les mêmes {@link Reseau#maisons}, les mêmes {@link Reseau#generateurs} et les mêmes {@link Reseau#connexions} entre eux qui ceci.</p>
+	 * <p>En particulier, elle crée des nouveaux attributs {@linkplain Reseau#maisons}, {@linkplain Reseau#generateurs} et {@linkplain Reseau#connexions} contenant les mêmes (non pas de copies) des clés et valeurs.</p>
 	 * <p>Cette méthode ne permet pas de construire des {@code Reseau}x différents dans la demande des maisons ou la capacité des générateurs. Tout changement sur un sera refleté sur toutes ses copies.</p>
-	 * @return un nouveau {@code Reseau} contenant les mêmes {@link #maisons}, les mêmes {@link #générateurs} et les mêmes {@link #connexions} entre eux qui ceci.
+	 * @return un nouveau {@code Reseau} contenant les mêmes {@link Reseau#maisons}, les mêmes {@link Reseau#generateurs} et les mêmes {@link Reseau#connexions} entre eux qui ceci.
 	 */
 	@Override
 	public Reseau clone() {

@@ -43,7 +43,7 @@ public class SolverNaive extends Solver {
 		Random random = new Random();
 		
 		int i = 0;
-		while (i < k) {
+		while (i < k && !Thread.currentThread().isInterrupted()) {
 			String chosenMaisonName = maisonNames[random.nextInt(maisonNames.length)];
 			String chosenGenerateurName = generateurNames[random.nextInt(generateurNames.length)];
 			String oldGenerateurName = reseau.getConnexions().get(reseau.getMaisons().get(chosenMaisonName)).getNom();

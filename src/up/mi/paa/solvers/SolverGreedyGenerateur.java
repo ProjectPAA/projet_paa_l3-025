@@ -47,7 +47,7 @@ public class SolverGreedyGenerateur extends Solver {
 		
 		
 		Iterator<Maison> iterMaison = reseau.getMaisons().values().iterator();
-		while (iterMaison.hasNext()) {
+		while (iterMaison.hasNext() && !Thread.currentThread().isInterrupted()) {
 			Maison maison = iterMaison.next();
 			boolean connected = false;
 			
@@ -55,7 +55,7 @@ public class SolverGreedyGenerateur extends Solver {
 			Iterator<Generateur> iterGen = genArray.iterator();
 			Generateur gen = null;
 			boolean demandFits = false;
-			while (iterGen.hasNext() && !connected) {
+			while (iterGen.hasNext() && !connected && !Thread.currentThread().isInterrupted()) {
 				gen = iterGen.next();
 				if (maison.getTypeConsommation().getDemande() <= gen.getCapaciteMAx() - (reseau.getTauxUtilisation().get(gen.getNom())*gen.getCapaciteMAx())) {
 				//if demand <= remaining capacity then

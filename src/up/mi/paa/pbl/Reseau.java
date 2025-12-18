@@ -123,7 +123,6 @@ public class Reseau {
 	 * 
 	 * @param nom Le nom de la {@link Maison} à ajouter.
 	 * @param t Le {@linkplain TypeConsommation type de consommation} de la {@link Maison} à ajouter.
-	 * @param noPrint S'il est {@code true} alors cette méthode n'effectue aucun print. Sinon, il en effectue.
 	 */
 	public void ajouterMaison(String nom, TypeConsommation t) {
 		ajouterMaison(nom, t, false);
@@ -135,6 +134,7 @@ public class Reseau {
 	 * 
 	 * @param nom Le nom de la {@link Maison} à ajouter.
 	 * @param t Le {@linkplain TypeConsommation type de consommation} de la {@link Maison} à ajouter.
+	 * @param noPrint S'il est {@code true} alors cette méthode n'effectue aucun print. Sinon, il en effectue.
 	 */
 	public void ajouterMaison(String nom, TypeConsommation t, boolean noPrint) {
 		if (this.maisons.containsKey(nom)) {

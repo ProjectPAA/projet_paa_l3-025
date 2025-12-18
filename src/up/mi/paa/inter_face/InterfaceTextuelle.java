@@ -538,7 +538,8 @@ public class InterfaceTextuelle {
 
 		}
 		System.out.println("--------------------------------------------");
-
+		System.out.println("Le nouveau réseau est :");
+		network.afficherReseau(lambda);
 	}
 
 	// --- MAIN ----

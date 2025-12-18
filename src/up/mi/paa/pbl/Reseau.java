@@ -396,7 +396,7 @@ public class Reseau {
 				System.out.println(maison.getNom() + " ===> " + generateur.getNom());
 			}
 			
-			System.out.println("Son coût est : " + this.calculerCout(lambda) + " pour λ : " + lambda);
+			System.out.println("Son coût est : " + this.calculerCout(lambda) + " pour lambda : " + lambda);
 			
 			System.out.println("--------- Fin : ETAT DU RESEAU -------");
 		}

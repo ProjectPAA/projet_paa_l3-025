@@ -53,7 +53,7 @@ public class Maison {
 	}
 	
 	/**
-	 * <p>Retourne {@code true} si et seulement si le {@link nom} et le {@link type type de consommation} de cette {@code Maison} sont égaux à ceux de la {@code Maison} en paramètres. Retourne {@false} si {@code other} n'est pas une instance de {@code Maison}.</p>
+	 * <p>Retourne {@code true} si et seulement si le {@link nom} et le {@link type type de consommation} de cette {@code Maison} sont égaux à ceux de la {@code Maison} en paramètres. Retourne {@code false} si {@code other} n'est pas une instance de {@code Maison}.</p>
 	 * <p>Cette méthode respecte la spécification dans {@link Object#equals(Object) Object}.</p>
 	 * @param other L'Objet auquel comparer cette {@code Maison}.
 	 * @return {@code True} si et seulement si le {@link nom} et le {@link type type de consommation} de cette {@code Maison} sont égaux à ceux de la {@code Maison} en paramètres. Retourne {@code False} si {@code other} n'est pas une instance de {@code Maison}.

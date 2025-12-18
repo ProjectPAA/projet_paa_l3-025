@@ -21,12 +21,12 @@ public class SauvegardeurReseau {
 	 * Sauvegarde l'état actuel du réseau dans un fichier texte.
 	 * <p>
 	 * L'écriture respecte l'ordre imposé :
+	 * </p>
 	 * <ol>
 	 * <li>Les génératuers : <code>generateur(nom,capacite).</code></li>
 	 * <li>Les maisons : <code>maison(nom, TYPE).</code></li>
 	 * <li>Les connexions : <code>connexion(gen,maison).</code></li>
 	 * </ol>
-	 * </p>
 	 * * @param réseau L'objet Reseau contenant les données à exporter.
 	 * @param cheminFichier Le chemin absolu ou relatif du fichier à créer (ex : "sauvegarde.txt").
 	 * @throws IOException En cas de problème d'accès au disque ou d'écriture.

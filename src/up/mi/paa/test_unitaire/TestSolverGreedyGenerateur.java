@@ -27,8 +27,8 @@ class TestSolverGreedyGenerateur {
         // L'algorithme doit sélectionner le plus petit capable de l'accueillir.
         reseau.ajouterMaison("M1", TypeConsommation.BASSE);
 
-        SolverGreedyGenerateur solver = new SolverGreedyGenerateur(reseau);
-        solver.solve(1.0);
+        SolverGreedyGenerateur solver = new SolverGreedyGenerateur(reseau, 1.0);
+        solver.solve();
 
         Maison m1 = reseau.getMaisons().get("M1");
         Generateur genChoisi = reseau.getConnexions().get(m1);
@@ -52,8 +52,8 @@ class TestSolverGreedyGenerateur {
         // M2 (10 kWh) ne peut pas entrer dans G_Petit, elle doit être placée sur G_Gros.
         reseau.ajouterMaison("M2", TypeConsommation.BASSE);
 
-        SolverGreedyGenerateur solver = new SolverGreedyGenerateur(reseau);
-        solver.solve(1.0);
+        SolverGreedyGenerateur solver = new SolverGreedyGenerateur(reseau, 1.0);
+        solver.solve();
 
         // Vérification des affectations
         assertEquals("G_Petit", reseau.getConnexions().get(reseau.getMaisons().get("M1")).getNom());
@@ -74,8 +74,8 @@ class TestSolverGreedyGenerateur {
         // La maison demande 40 kWh, ce qui excède toutes les capacités.
         reseau.ajouterMaison("M_Geante", TypeConsommation.FORTE);
 
-        SolverGreedyGenerateur solver = new SolverGreedyGenerateur(reseau);
-        solver.solve(1.0);
+        SolverGreedyGenerateur solver = new SolverGreedyGenerateur(reseau, 1.0);
+        solver.solve();
 
         Maison m = reseau.getMaisons().get("M_Geante");
         Generateur g = reseau.getConnexions().get(m);
@@ -96,8 +96,8 @@ class TestSolverGreedyGenerateur {
         // Ajout d'une connexion invalide ou manuelle
         reseau.ajouterConnexion("M1", "G_Inexistant");
 
-        SolverGreedyGenerateur solver = new SolverGreedyGenerateur(reseau);
-        solver.solve(1.0);
+        SolverGreedyGenerateur solver = new SolverGreedyGenerateur(reseau, 1.0);
+        solver.solve();
 
         // Si verifierConnexions renvoie true, l'algorithme a correctement réinitialisé et recalculé les liens.
         assertTrue(reseau.verifierConnexions());

@@ -6,6 +6,7 @@ import up.mi.paa.pbl.algo.Reseau;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -25,9 +26,10 @@ public class SolverGreedyMaison extends Solver {
     /**
      * Constructeur à partir du {@link Reseau} à traiter.
 	 * @param reseau Le {@link Reseau} à traiter.
+	 * @param lambda Le λ donnant la pénalisation de surcharge dans le calcul du coût. (Non utilisé par cet algorithme.)
      */
-    public SolverGreedyMaison(Reseau reseau) {
-        this.reseau = reseau;
+    public SolverGreedyMaison(Reseau reseau, double lambda) {
+    	super(reseau, lambda);
     }
 
     /**
@@ -36,10 +38,9 @@ public class SolverGreedyMaison extends Solver {
      * <p>Son heuristique se résume en : minimiser les taux de surcharge par le triage par masion.</p>
      * <p>VIDE les {@linkplain Reseau#getConnexions() connexions} avant de commencer.</p>
      * <p>En O(n<sup>2</sup>).</p>
-     * @param lambda coût du surcharge (non-utilisé par cet algorithme)
      */
     @Override
-    public void solve(double lambda) {
+    public void solve() {
         System.out.println("Lancement de l'algo Greedy Maison (Équilibrage de charge)...");
 
         // On vide les connexions actuelles
@@ -57,14 +58,18 @@ public class SolverGreedyMaison extends Solver {
         }
 
         // Pour chaque maison, choisir le générateur qui est le MOINS CHARGÉ
-        for (Maison maison : maisonsTriees) {
-
+        Iterator<Maison> maisonsTrieesIter = maisonsTriees.iterator();
+        while (maisonsTrieesIter.hasNext() && !Thread.currentThread().isInterrupted()) {
+        	Maison maison = maisonsTrieesIter.next();
+        	
             Generateur meilleurGen = null;
             double meilleurTauxPrevisionnel = Double.MAX_VALUE;
             int demandeMaison = maison.getTypeConsommation().getDemande();
 
-            for (Generateur gen : this.reseau.getGenerateurs().values()) {
-
+            Iterator<Generateur> thisReseauGenerateursIter = this.reseau.getGenerateurs().values().iterator();
+            while (thisReseauGenerateursIter.hasNext() && !Thread.currentThread().isInterrupted()) { //On est obligé de vérifier si le thread ne doit pas s'arrêter dans toutes les boucles, pour que le thread s'arrête "in a timely manner" même s'il y a Integer.VALUE_MAX generateurs, par exemple.
+            	Generateur gen = thisReseauGenerateursIter.next();
+            	
                 // On calcule quel serait le taux si on ajoutait la maison ici
                 double chargeSiAjout = chargeActuelle.get(gen) + demandeMaison;
                 double tauxSiAjout = chargeSiAjout / gen.getCapaciteMAx();

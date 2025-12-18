@@ -24,9 +24,10 @@ public class SolverGreedyGenerateur extends Solver {
 	/**
 	 * Constructeur à partir du {@link Reseau} à traiter.
 	 * @param reseau Le {@link Reseau} à traiter.
+	 * @param lambda Le λ donnant la pénalisation de surcharge dans le calcul du coût. (Non utilisé par cet algorithme.)
 	 */
-	public SolverGreedyGenerateur(Reseau reseau) {
-		this.reseau = reseau;
+	public SolverGreedyGenerateur(Reseau reseau, double lambda) {
+		super(reseau, lambda);
 	}
 	
 	/**
@@ -35,10 +36,8 @@ public class SolverGreedyGenerateur extends Solver {
 	  * <p>Son heuristique se résume en : minimiser le surcharge ajouté à chaque connexion par le triage des générateurs.</p>
 	  * <p>VIDE les {@linkplain Reseau#getConnexions() connexions} avant de commencer.</p>
 	  * <p>En O(n<sup>2</sup>).</p>
-	 * 
-	 * @param lambda coût du surcharge (non-utilisé par cet algorithme)
 	 */
-	public void solve(double lambda) {
+	public void solve() {
 		reseau.getConnexions().clear();
 		
 		ArrayList<Generateur> genArray;
@@ -47,7 +46,7 @@ public class SolverGreedyGenerateur extends Solver {
 		
 		
 		Iterator<Maison> iterMaison = reseau.getMaisons().values().iterator();
-		while (iterMaison.hasNext()) {
+		while (iterMaison.hasNext() && !Thread.currentThread().isInterrupted()) {
 			Maison maison = iterMaison.next();
 			boolean connected = false;
 			
@@ -55,7 +54,7 @@ public class SolverGreedyGenerateur extends Solver {
 			Iterator<Generateur> iterGen = genArray.iterator();
 			Generateur gen = null;
 			boolean demandFits = false;
-			while (iterGen.hasNext() && !connected) {
+			while (iterGen.hasNext() && !connected && !Thread.currentThread().isInterrupted()) {
 				gen = iterGen.next();
 				if (maison.getTypeConsommation().getDemande() <= gen.getCapaciteMAx() - (reseau.getTauxUtilisation().get(gen.getNom())*gen.getCapaciteMAx())) {
 				//if demand <= remaining capacity then

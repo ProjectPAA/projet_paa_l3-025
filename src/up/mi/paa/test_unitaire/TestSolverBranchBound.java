@@ -24,7 +24,7 @@ class TestSolverBranchBound {
 
     /**
      * Avant chaque test, on redirige la sortie standard vers un flux interne.
-     * Cela permet de masquer les affichages verbeux de l'algorithme Branch & Bound.
+     * Cela permet de masquer les affichages verbeux de l'algorithme Branch and Bound.
      */
     @BeforeEach
     public void setUp() {
@@ -53,8 +53,8 @@ class TestSolverBranchBound {
         reseau.ajouterMaison("M1", TypeConsommation.BASSE); // 10 kWh
         reseau.ajouterMaison("M2", TypeConsommation.BASSE); // 10 kWh
 
-        SolverBranchBound solver = new SolverBranchBound(reseau);
-        solver.solve(1.0);
+        SolverBranchBound solver = new SolverBranchBound(reseau, 1.0);
+        solver.solve();
 
         // Mise à jour des indicateurs du réseau après résolution
         reseau.updateTauxUtilisation();
@@ -65,7 +65,7 @@ class TestSolverBranchBound {
     }
 
     /**
-     * Vérifie que l'algorithme Branch & Bound (exact) fournit une solution au moins équivalente
+     * Vérifie que l'algorithme Branch and Bound (exact) fournit une solution au moins équivalente
      * à l'algorithme glouton (heuristique).
      * Le coût de la solution optimale doit être inférieur ou égal au coût de l'heuristique.
      */
@@ -83,14 +83,14 @@ class TestSolverBranchBound {
         reseau.ajouterMaison("M4", TypeConsommation.BASSE);  // 10
 
         // Exécution de l'algorithme glouton pour établir une référence
-        SolverGreedyMaison greedy = new SolverGreedyMaison(reseau);
-        greedy.solve(1.0);
+        SolverGreedyMaison greedy = new SolverGreedyMaison(reseau, 1.0);
+        greedy.solve();
         double coutHeuristique = reseau.calculerCout(1.0);
 
         // Exécution de l'algorithme Branch & Bound
         // SolverBranchBound utilise la solution gloutonne comme borne initiale.
-        SolverBranchBound bb = new SolverBranchBound(reseau);
-        bb.solve(1.0);
+        SolverBranchBound bb = new SolverBranchBound(reseau, 1.0);
+        bb.solve();
         double coutOptimal = reseau.calculerCout(1.0);
 
         // Vérification : Coût Optimal <= Coût Heuristique
@@ -110,8 +110,8 @@ class TestSolverBranchBound {
         // La demande (40) excède largement la capacité (10).
         reseau.ajouterMaison("Maison_Gourmande", TypeConsommation.FORTE);
 
-        SolverBranchBound solver = new SolverBranchBound(reseau);
-        solver.solve(1.0);
+        SolverBranchBound solver = new SolverBranchBound(reseau, 1.0);
+        solver.solve();
 
         // Vérifie que l'algorithme se termine et connecte la maison, malgré la surcharge.
         assertTrue(reseau.verifierConnexions(), "La maison doit être connectée malgré la surcharge.");

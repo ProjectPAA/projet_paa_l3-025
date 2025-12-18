@@ -51,19 +51,19 @@ public class SolverBranchBound extends Solver {
     /**
      * Constructeur à partir du {@link Reseau} à traiter.
 	 * @param reseau Le {@link Reseau} à traiter.
+	 * @param lambda Le λ donnant la pénalisation de surcharge dans le calcul du coût.
      */
-    public SolverBranchBound(Reseau reseau) {
-        this.reseau = reseau;
+    public SolverBranchBound(Reseau reseau, double lambda) {
+    	super(reseau, lambda);
     }
 
     /**
      * <p>Algorithme augmentatif, basé sur la recherche bornée dans l'espace des possibilités.</p>
      * <p>Il explore systèmatiquement (en profondeur) les connexions possibles, gardant en mémoire le surcharge sur la branche courante. Dès que cela dépasse le meilleure coût total vu avant, on arête d'explorer la branche courante : elle ne peut pas contenir la solution optimale.</p>
  	 * <p>Note: Il est très lent. (Plusieurs minutes sur les réseaux exemples).</p>
- 	 * @param lambda coût du surcharge.
      */
     @Override
-    public void solve(double lambda) {
+    public void solve() {
         long debut = System.currentTimeMillis();
         System.out.println("Recherche de la solution optimale (Branch & Bound)...");
 
@@ -71,8 +71,8 @@ public class SolverBranchBound extends Solver {
         // Else on part de la configuration existante. (Comme ça on est extensible, et refait pas de travail si on a déjà la solution optimale.)
         // Cela permet de couper les mauvaises branches dès la 1ère milliseconde.
         if (reseau.getConnexions().isEmpty()) {
-        	SolverGreedyMaison greedy = new SolverGreedyMaison(this.reseau);
-        	greedy.solve(lambda);
+        	SolverGreedyMaison greedy = new SolverGreedyMaison(this.reseau, this.lambda);
+        	greedy.solve();
         }
 
         this.meilleurCoutGlobal = this.reseau.calculerCout(lambda);
@@ -108,6 +108,10 @@ public class SolverBranchBound extends Solver {
      * @param surchargePartielle Le coût dû à la surcharge déjà présent sur la branche courante.
      */
     private void backtrack(int index, double lambda, double surchargePartielle) {
+    	
+    	if (Thread.currentThread().isInterrupted()) {
+    		return;
+    	}
 
         // Si la surcharge seule dépasse déjà le record, on stoppe.
         if (surchargePartielle * lambda >= this.meilleurCoutGlobal) {

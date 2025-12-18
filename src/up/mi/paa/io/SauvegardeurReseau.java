@@ -3,10 +3,12 @@ package up.mi.paa.io;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Map;
+
+import up.mi.paa.pbl.Generateur;
+import up.mi.paa.pbl.Maison;
+import up.mi.paa.pbl.Reseau;
+
 import java.io.FileWriter;
-import up.mi.paa.pbl.algo.Generateur;
-import up.mi.paa.pbl.algo.Maison;
-import up.mi.paa.pbl.algo.Reseau;
 
 /**
  * Classe responsable de l'exportation (sauvegarde)d'un réseau électrique vers un fichier texte.

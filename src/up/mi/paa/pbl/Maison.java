@@ -1,4 +1,4 @@
-package up.mi.paa.pbl.algo;
+package up.mi.paa.pbl;
 
 /**
  * <p>Classe qui représente les Maisons en accord avec les contraintes de la description du projet.</p> 

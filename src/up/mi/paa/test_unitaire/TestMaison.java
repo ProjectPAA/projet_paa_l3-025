@@ -1,10 +1,10 @@
 package up.mi.paa.test_unitaire;
 
-import up.mi.paa.pbl.algo.Maison;
-import up.mi.paa.pbl.algo.TypeConsommation;
-
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
+
+import up.mi.paa.pbl.Maison;
+import up.mi.paa.pbl.TypeConsommation;
 
 class TestMaison {
 

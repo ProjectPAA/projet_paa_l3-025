@@ -1,11 +1,11 @@
 package up.mi.paa.test_unitaire;
 
+import up.mi.paa.pbl.Generateur;
+import up.mi.paa.pbl.Maison;
+import up.mi.paa.pbl.Reseau;
+import up.mi.paa.pbl.TypeConsommation;
 import up.mi.paa.solvers.SolverBranchBound;
 import up.mi.paa.solvers.SolverGreedyMaison;
-import up.mi.paa.pbl.algo.Reseau;
-import up.mi.paa.pbl.algo.Generateur;
-import up.mi.paa.pbl.algo.Maison;
-import up.mi.paa.pbl.algo.TypeConsommation;
 
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;

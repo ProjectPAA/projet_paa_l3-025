@@ -1,9 +1,9 @@
 package up.mi.paa.test_unitaire;
 
-import up.mi.paa.pbl.algo.Generateur;
-
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
+
+import up.mi.paa.pbl.Generateur;
 
 
 

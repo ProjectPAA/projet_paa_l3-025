@@ -1,14 +1,14 @@
 package up.mi.paa.solvers;
 
-import up.mi.paa.pbl.algo.Generateur;
-import up.mi.paa.pbl.algo.Maison;
-import up.mi.paa.pbl.algo.Reseau;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
+import up.mi.paa.pbl.Generateur;
+import up.mi.paa.pbl.Maison;
+import up.mi.paa.pbl.Reseau;
 
 /**
  * <p>Cette classe implémente un algorithme constructif, glouton, heuristique.</p>

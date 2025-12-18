@@ -1,4 +1,4 @@
-package up.mi.paa.pbl.algo;
+package up.mi.paa.pbl;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -64,10 +64,10 @@ public class ChargeurReseau {
 			scanner.close();
 		}
 		
-		   System.out.println("\n\n\t=========== Réseau chargé avec succès. ===========================");
+		   System.out.println("\n=========== Réseau chargé avec succès. ===========================");
            System.out.println("Nombre de maisons : " + this.reseau.getMaisons().size());
            System.out.println("Nombre de générateurs : " + this.reseau.getGenerateurs().size());
-           System.out.println("-----------------------------------");
+           reseau.afficherReseau();
 		return this.reseau;
 		
 	}
@@ -82,15 +82,12 @@ public class ChargeurReseau {
 		if(ligne.startsWith("generateur")) {
 		
 			parserGenerateur(ligne);
-			System.out.println("Ligne " + this.numeroLigne + " Générateur détecté -> " + ligne);
 		} else if(ligne.startsWith("maison")) {
 		
 			parserMaison(ligne);
-			System.out.println("Ligne " + this.numeroLigne + " Maison détectée -> " + ligne);
 		} else if(ligne.startsWith("connexion")) {
 			
 			parserConnexion(ligne);
-			System.out.println("Ligne " + this.numeroLigne + " Connexion détectée -> " + ligne);
 		} else {
 			throw new IllegalArgumentException("Erreur syntaxe ligne " + this.numeroLigne + "Instruction inconnue.");
 		}
@@ -110,7 +107,7 @@ public class ChargeurReseau {
 			try {
 				String nom = args[0];
 				int puissance = Integer.parseInt(args[1]);
-				this.reseau.ajouterGenerateur(nom, puissance);
+				this.reseau.ajouterGenerateur(nom, puissance, true);
 			}catch(NumberFormatException e) {
 				System.out.println("Erreur : La puisscance doit être en nombre (ex : 60).");
 			}
@@ -131,7 +128,7 @@ public class ChargeurReseau {
 			try {
 				String nom = args[0];
 				TypeConsommation type = TypeConsommation.valueOf(args[1].toUpperCase());
-				this.reseau.ajouterMaison(nom, type);
+				this.reseau.ajouterMaison(nom, type, true);
 			}catch(NumberFormatException e) {
 				System.out.println("Erreur : La puisscance doit être en nombre (ex : 60).");
 			}
@@ -144,7 +141,7 @@ public class ChargeurReseau {
 			try {
 				String nom = args[0].trim();
 				TypeConsommation type = TypeConsommation.valueOf(args[1].trim().toUpperCase());
-				this.reseau.ajouterMaison(nom, type);
+				this.reseau.ajouterMaison(nom, type, true);
 			}catch(NumberFormatException e) {
 				System.out.println("Erreur : La puisscance doit être en nombre (ex : 60).");
 			}
@@ -177,7 +174,7 @@ public class ChargeurReseau {
 				return;
 			}
 			// All is Ok.
-			this.reseau.ajouterConnexion(nomMaison, nomGenerateur);
+			this.reseau.ajouterConnexion(nomMaison, nomGenerateur, true);
 		}catch(NumberFormatException e) {
 			throw new NumberFormatException("Ligne " + numeroLigne + " : La puissance doit être un entier valide.");
 		}
@@ -197,8 +194,6 @@ public class ChargeurReseau {
 				throw new FormatParentheseInvalideException("Erreur : La ligne ne contient pas de(s) parenthèse(s) ou la paranthèse fermante est avant parathèse ouvrante.");
 			}
 			String chaine = ligne.substring(indexParentheseOpen + 1, indexParentheseClose);
-			//DEBUG
-			System.out.println("Chaine extrait sur la ligne obtenu : " + chaine);
 			
 			String[] chaineTab = chaine.split(",");
 			chaineTabClean = new String[chaineTab.length];

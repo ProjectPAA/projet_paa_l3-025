@@ -14,8 +14,8 @@ import java.util.Random;
  */
 public class SolverNaive extends Solver {
 	
-	public SolverNaive(Reseau reseau) {
-		this.reseau = reseau;
+	public SolverNaive(Reseau reseau, double lambda) {
+		super(reseau, lambda);
 	}
 	
 	/**
@@ -25,8 +25,8 @@ public class SolverNaive extends Solver {
 	 *
 	 * @param lambda λ dans le calcul du coût
 	 */
-	public void solve(double lambda) {
-		this.solve(lambda, 1000);	//Un k est nécéssaire pour cet algorithme, si on est appelé sans, on choisi un valeur par défaut.
+	public void solve() {
+		this.solve(1000);	//Un k est nécéssaire pour cet algorithme, si on est appelé sans, on choisi un valeur par défaut.
 	}
 
 	/**
@@ -35,7 +35,7 @@ public class SolverNaive extends Solver {
 	 * @param lambda λ dans le calcul du coût
 	 * @param k nombre d'itérations a executer avant de s'arreter
 	 */
-	public void solve(double lambda, int k) {
+	public void solve(int k) {
 		String[] maisonNames = {};
 		String[] generateurNames = {};
 		maisonNames = reseau.getMaisons().keySet().toArray(maisonNames);	//Random gives us indices. Using the Strings makes the syntax more readable because we'll get reseau's attributes' attributes multiple times, and those are keyed by these Strings.

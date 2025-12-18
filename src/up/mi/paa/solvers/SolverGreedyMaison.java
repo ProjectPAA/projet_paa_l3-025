@@ -26,8 +26,8 @@ public class SolverGreedyMaison extends Solver {
      * Constructeur à partir du {@link Reseau} à traiter.
 	 * @param reseau Le {@link Reseau} à traiter.
      */
-    public SolverGreedyMaison(Reseau reseau) {
-        this.reseau = reseau;
+    public SolverGreedyMaison(Reseau reseau, double lambda) {
+    	super(reseau, lambda);
     }
 
     /**
@@ -39,7 +39,7 @@ public class SolverGreedyMaison extends Solver {
      * @param lambda coût du surcharge (non-utilisé par cet algorithme)
      */
     @Override
-    public void solve(double lambda) {
+    public void solve() {
         System.out.println("Lancement de l'algo Greedy Maison (Équilibrage de charge)...");
 
         // On vide les connexions actuelles

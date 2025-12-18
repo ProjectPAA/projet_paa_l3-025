@@ -25,8 +25,8 @@ public class SolverGreedyGenerateur extends Solver {
 	 * Constructeur à partir du {@link Reseau} à traiter.
 	 * @param reseau Le {@link Reseau} à traiter.
 	 */
-	public SolverGreedyGenerateur(Reseau reseau) {
-		this.reseau = reseau;
+	public SolverGreedyGenerateur(Reseau reseau, double lambda) {
+		super(reseau, lambda);
 	}
 	
 	/**
@@ -38,7 +38,7 @@ public class SolverGreedyGenerateur extends Solver {
 	 * 
 	 * @param lambda coût du surcharge (non-utilisé par cet algorithme)
 	 */
-	public void solve(double lambda) {
+	public void solve() {
 		reseau.getConnexions().clear();
 		
 		ArrayList<Generateur> genArray;

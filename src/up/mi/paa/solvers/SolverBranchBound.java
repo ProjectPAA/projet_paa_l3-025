@@ -52,8 +52,8 @@ public class SolverBranchBound extends Solver {
      * Constructeur à partir du {@link Reseau} à traiter.
 	 * @param reseau Le {@link Reseau} à traiter.
      */
-    public SolverBranchBound(Reseau reseau) {
-        this.reseau = reseau;
+    public SolverBranchBound(Reseau reseau, double lambda) {
+    	super(reseau, lambda);
     }
 
     /**
@@ -63,7 +63,7 @@ public class SolverBranchBound extends Solver {
  	 * @param lambda coût du surcharge.
      */
     @Override
-    public void solve(double lambda) {
+    public void solve() {
         long debut = System.currentTimeMillis();
         System.out.println("Recherche de la solution optimale (Branch & Bound)...");
 
@@ -71,8 +71,8 @@ public class SolverBranchBound extends Solver {
         // Else on part de la configuration existante. (Comme ça on est extensible, et refait pas de travail si on a déjà la solution optimale.)
         // Cela permet de couper les mauvaises branches dès la 1ère milliseconde.
         if (reseau.getConnexions().isEmpty()) {
-        	SolverGreedyMaison greedy = new SolverGreedyMaison(this.reseau);
-        	greedy.solve(lambda);
+        	SolverGreedyMaison greedy = new SolverGreedyMaison(this.reseau, this.lambda);
+        	greedy.solve();
         }
 
         this.meilleurCoutGlobal = this.reseau.calculerCout(lambda);

@@ -365,6 +365,15 @@ public class Reseau {
 		}
 	}
 
-
+	@Override
+	public Reseau clone() {
+		Reseau cloneOfThis = new Reseau();
+		/* On ne clone pas toutes les maisons et tous les générateurs individuellement. On se permet ça car notre clone sert qu'à permettre l'approche portfolio en parallèle sur notre Reseau. 
+		 * Si il y avait raison qu'un algorithme change les propriétés d'une maison ou un générateur, alors ça ne marcherait plus.*/
+		cloneOfThis.getMaisons().putAll(this.maisons);
+		cloneOfThis.getGenerateurs().putAll(this.generateurs);
+		cloneOfThis.getConnexions().putAll(this.connexions);
+		return cloneOfThis;
+	}
 
 }

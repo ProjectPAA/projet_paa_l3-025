@@ -131,9 +131,9 @@ public class SolverBranchBound extends Solver {
             int ancienneCharge = chargesActuelles[i];
 
             // Calcul du delta de surcharge
-            double surchargeAvant = Math.max(0, (double)ancienneCharge / gen.getCapaciteMAx() - 1.0);
+            double surchargeAvant = Math.max(0, (double)ancienneCharge / gen.getCapaciteMax() - 1.0);
             int nouvelleCharge = ancienneCharge + demande;
-            double surchargeApres = Math.max(0, (double)nouvelleCharge / gen.getCapaciteMAx() - 1.0);
+            double surchargeApres = Math.max(0, (double)nouvelleCharge / gen.getCapaciteMax() - 1.0);
 
             // On applique le mouvement
             chargesActuelles[i] = nouvelleCharge;
@@ -159,7 +159,7 @@ public class SolverBranchBound extends Solver {
 
         // Calcul rapide de la dispersion sur tableaux
         for(int i=0; i<generateursArr.length; i++) {
-            taux[i] = (double)chargesActuelles[i] / generateursArr[i].getCapaciteMAx();
+            taux[i] = (double)chargesActuelles[i] / generateursArr[i].getCapaciteMax();
             moyenneTaux += taux[i];
         }
         moyenneTaux /= generateursArr.length;

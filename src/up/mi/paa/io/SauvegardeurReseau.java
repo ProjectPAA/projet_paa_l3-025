@@ -42,7 +42,7 @@ public class SauvegardeurReseau {
 
 			// Ecriture des générateurs dans le fichier
 			for (Generateur gen : reseau.getGenerateurs().values()) {
-				writer.println("generateur(" + gen.getNom() + "," + gen.getCapaciteMAx() + ").");
+				writer.println("generateur(" + gen.getNom() + "," + gen.getCapaciteMax() + ").");
 			}
 
 			// Ecriture des Maisons dans le fichier

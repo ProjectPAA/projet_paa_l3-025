@@ -41,7 +41,7 @@ public class Generateur implements Comparable<Generateur>{ //Note: this class ha
 			return Boolean.FALSE;
 		}
 		else {
-			return this.nom.equals(((Generateur) other).getNom()) && this.capaciteMax == ((Generateur) other).getCapaciteMAx();
+			return this.nom.equals(((Generateur) other).getNom()) && this.capaciteMax == ((Generateur) other).getCapaciteMax();
 		}
 	}
 	
@@ -59,7 +59,7 @@ public class Generateur implements Comparable<Generateur>{ //Note: this class ha
 	 * Retourne le {@link Integer} donnant la capacité maximale du {@code Generateur}.
 	 * @return Le {@link Integer} donnant la capacité maximale du {@code Generateur}.
 	 */
-	public int getCapaciteMAx() {
+	public int getCapaciteMax() {
 		return this.capaciteMax;
 	}
 	
@@ -86,7 +86,7 @@ public class Generateur implements Comparable<Generateur>{ //Note: this class ha
 	 */
 	@Override
     public String toString() {
-        return "Générateur " + nom + " (Capacité: " + this.getCapaciteMAx() + "kWh)";
+        return "Générateur " + nom + " (Capacité: " + this.getCapaciteMax() + "kWh)";
     }
 	
 	/**
@@ -95,7 +95,7 @@ public class Generateur implements Comparable<Generateur>{ //Note: this class ha
 	 * @return Le comparaison de leur capacités maximales selon {@link Integer#compareTo(Integer)}.
 	 */
 	public int compareTo(Generateur other) {
-		return ((Integer) this.capaciteMax).compareTo((Integer) other.getCapaciteMAx());
+		return ((Integer) this.capaciteMax).compareTo((Integer) other.getCapaciteMax());
 	}
 }
 

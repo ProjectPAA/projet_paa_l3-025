@@ -20,7 +20,7 @@ class TestGenerateur {
 
         assertEquals("Gen1", gen.getNom(), "Le nom devrait être Gen1");
         // Attention : j'utilise getCapaciteMAx (avec le A majuscule) comme dans votre code source
-        assertEquals(100, gen.getCapaciteMAx(), "La capacité devrait être 100");
+        assertEquals(100, gen.getCapaciteMax(), "La capacité devrait être 100");
     }
 
     /**
@@ -31,7 +31,7 @@ class TestGenerateur {
         Generateur gen = new Generateur("Gen1", 100);
         gen.setCapaciteMax(200);
 
-        assertEquals(200, gen.getCapaciteMAx(), "La capacité devrait avoir été modifiée à 200");
+        assertEquals(200, gen.getCapaciteMax(), "La capacité devrait avoir été modifiée à 200");
     }
 
     /**

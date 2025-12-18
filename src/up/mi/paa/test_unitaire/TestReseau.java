@@ -28,7 +28,7 @@ class TestReseau {
 
         // Vérifie que la mise à jour fonctionne (écraser un élément si elle existe)
         reseau.ajouterGenerateur("G1", 200);
-        assertEquals(200, reseau.getGenerateurs().get("G1").getCapaciteMAx(), "La capacité de G1 aurait dû passer à 200");
+        assertEquals(200, reseau.getGenerateurs().get("G1").getCapaciteMax(), "La capacité de G1 aurait dû passer à 200");
     }
 
     /**

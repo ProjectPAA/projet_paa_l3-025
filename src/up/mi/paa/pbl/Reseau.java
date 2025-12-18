@@ -29,7 +29,7 @@ public class Reseau {
 	 */
 	private Map<Maison, Generateur> connexions;
 	/**
-	 * Le {@link Map} associant aux noms des {@link Generateur}s dans le {@code Reseau} leur taux d'utilisation (demande connectée / {@link Generateur#getCapaciteMAx() capacité maximale}). Étant un attribut dérivé des autres, il n'est pas nécessaire de le Sérialiser, et donc il est transient. Son mis-à-jour est géré automatiquement sur accès.
+	 * Le {@link Map} associant aux noms des {@link Generateur}s dans le {@code Reseau} leur taux d'utilisation (demande connectée / {@link Generateur#getCapaciteMax() capacité maximale}). Étant un attribut dérivé des autres, il n'est pas nécessaire de le Sérialiser, et donc il est transient. Son mis-à-jour est géré automatiquement sur accès.
 	 */
 	private transient Map<String, Double> tauxUtilisation;
 	/**
@@ -76,8 +76,8 @@ public class Reseau {
 	}
 	
 	/**
-	 * Retourne le {@link Map} associant aux noms des {@link Generateur}s dans le {@code Reseau} leur taux d'utilisation (demande connectée / {@link Generateur#getCapaciteMAx() capacité maximale}).
-	 * @return Le {@link Map} associant aux noms des {@link Generateur}s dans le {@code Reseau} leur taux d'utilisation (demande connectée / {@link Generateur#getCapaciteMAx() capacité maximale}).
+	 * Retourne le {@link Map} associant aux noms des {@link Generateur}s dans le {@code Reseau} leur taux d'utilisation (demande connectée / {@link Generateur#getCapaciteMax() capacité maximale}).
+	 * @return Le {@link Map} associant aux noms des {@link Generateur}s dans le {@code Reseau} leur taux d'utilisation (demande connectée / {@link Generateur#getCapaciteMax() capacité maximale}).
 	 */
 	public Map<String, Double> getTauxUtilisation(){
 		this.updateTauxUtilisation();
@@ -417,8 +417,8 @@ public class Reseau {
 						charge += m.getTypeConsommation().getDemande();
 					}
 				}
-				this.tauxUtilisation.put(gen.getNom(), charge / gen.getCapaciteMAx());
-				this.tauxUtilisationMoyen += charge / gen.getCapaciteMAx();
+				this.tauxUtilisation.put(gen.getNom(), charge / gen.getCapaciteMax());
+				this.tauxUtilisationMoyen += charge / gen.getCapaciteMax();
 			}
 			this.tauxUtilisationMoyen = tauxUtilisationMoyen / tauxUtilisation.size();
 		}

@@ -81,7 +81,7 @@ class TestChargeurReseau {
 
         // Vérification du contenu spécifique
         assertTrue(reseau.getGenerateurs().containsKey("G1"));
-        assertEquals(100, reseau.getGenerateurs().get("G1").getCapaciteMAx());
+        assertEquals(100, reseau.getGenerateurs().get("G1").getCapaciteMax());
         assertEquals(TypeConsommation.BASSE, reseau.getMaisons().get("M1").getTypeConsommation());
     }
 

@@ -71,7 +71,7 @@ public class SolverGreedyMaison extends Solver {
             	
                 // On calcule quel serait le taux si on ajoutait la maison ici
                 double chargeSiAjout = chargeActuelle.get(gen) + demandeMaison;
-                double tauxSiAjout = chargeSiAjout / gen.getCapaciteMAx();
+                double tauxSiAjout = chargeSiAjout / gen.getCapaciteMax();
 
                 // On cherche à minimiser le taux max (pour équilibrer)
                 if (tauxSiAjout < meilleurTauxPrevisionnel) {

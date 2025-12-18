@@ -57,7 +57,7 @@ public class SolverGreedyGenerateur extends Solver {
 			boolean demandFits = false;
 			while (iterGen.hasNext() && !connected && !Thread.currentThread().isInterrupted()) {
 				gen = iterGen.next();
-				if (maison.getTypeConsommation().getDemande() <= gen.getCapaciteMAx() - (reseau.getTauxUtilisation().get(gen.getNom())*gen.getCapaciteMAx())) {
+				if (maison.getTypeConsommation().getDemande() <= gen.getCapaciteMax() - (reseau.getTauxUtilisation().get(gen.getNom())*gen.getCapaciteMax())) {
 				//if demand <= remaining capacity then
 					demandFits = true;
 					reseau.ajouterConnexion(maison.getNom(), gen.getNom(), true);

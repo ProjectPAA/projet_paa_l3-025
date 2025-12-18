@@ -440,24 +440,6 @@ public class InterfaceTextuelle {
 	 * @param network Le réseau à optimiser.
 	 */
 	private static void handleResolutionAutomatique(Reseau network) {
-		System.out.println("\n--- Résolution Automatique ---");
-		System.out.println("Choississez l'algorithme à utiliser :");
-		System.out.println("1. Algorithme Naïf (Aléatoire - Sujet)");
-		System.out.println("2. Algorithme Glouton (Greedy-Générateur - Bonus)");
-		System.out.println("3. Algorithme Glouton (Greedy-Maison - Bonus)");
-		System.out.println("4. Algorithme Branch and Bound (Bonus)");
-		System.out.print("Votre choix :");
-
-		int choixAlgo = 1; // Par défaut
-		try {
-			String input = scan.nextLine().trim();
-			if (!input.isEmpty()) {
-				choixAlgo = Integer.parseInt(input);
-			}
-		} catch (NumberFormatException e) {
-			System.out.println("-> Saisie invalide. Utilisation de l'algorithme Naïf par défaut");
-		}
-
 		// --- Paramètres communs ---
 		double lambda = 10.0;
 		/*
@@ -466,7 +448,7 @@ public class InterfaceTextuelle {
 		 * fait ça alors on doit gérer l'exception aussi try {...} ...
 		 * 
 		 */
-
+		
 		// Calcul du coût AVANT optimisation
 		double coutAvant = network.calculerCout(lambda);
 		System.out.println("\nCoût initial du réseau : " + String.format("%.4f", coutAvant));
@@ -474,43 +456,57 @@ public class InterfaceTextuelle {
 
 		long startTime = System.currentTimeMillis();
 
-		// --- Excécution de l'algorithme choisi ---
-		if (choixAlgo == 2) {
-			// --- Algorithme GLOUTON (Greedy - Générateur) ---
-			System.out.println(">> Lancement du SolverGreedyGenerateur...");
-			Solver solver = new SolverGreedyGenerateur(network, lambda);
-			solver.solve();
-
-		} else if (choixAlgo == 3) {
-			// --- Algorithme GLOUTON (Greedy - Maison) ---
-			System.out.println(">> Lancement du SolverGreedyMaison...");
-			Solver solver = new SolverGreedyMaison(network, lambda);
-			solver.solve();
-		} else if (choixAlgo == 4) {
-			// --- Algorithme Branch and Bound ---
-			System.out.println(">> Lancement du Branch and Bound...");
-			Solver solver = new SolverBranchBound(network, lambda);
-			solver.solve();
-		} else {
-			// --- Algorithme NAÏF (Par défaut) ---
-			System.out.println(">> Lancement du SolverNaive...");
-
-			// Demande de k (nombre d'itérations) pour Naif seulement.
-			System.out.println("Entrez le nombre d'essaies 'k' (par défaut 10000)");
-			int k = 10000;
-			try {
-				String inputK = scan.nextLine().trim();
-				if (!inputK.isEmpty()) {
-					k = Integer.parseInt(inputK);
-				}
-			} catch (NumberFormatException e) {
-				System.out.println("-> Saisie invalide. Utilisation de k=10_000");
-			}
-
-			SolverNaive solver = new SolverNaive(network, lambda);
-			solver.solve(k);
+		//Execution des algorithmes en parallele
+		//HARDCODED
+		
+		Reseau[] networks = {network.clone(), network.clone(), network.clone(), network.clone()};
+		Solver[] solvers = {new SolverNaive(networks[0], lambda), new SolverGreedyGenerateur(networks[1], lambda), new SolverGreedyMaison(networks[2], lambda), new SolverBranchBound(networks[3], lambda)};
+		Thread[] solverThreads = new Thread[4];
+		System.out.println("Lancement des algorithmes (veuillez attendre au plus une minute)");
+		for (int i=0; i<4; i++) {
+			solverThreads[i] = new Thread(solvers[i]);
+			solverThreads[i].run();
 		}
-
+		//On attend au plus une minute, mais moins si tous les threads se terminent.
+		boolean allDone = false;
+		int i_sleep=0;
+		while (i_sleep<59 && !allDone && !Thread.currentThread().isInterrupted()) {	//59 secondes pour que les threads ayent le temps de se quitter et qu'on puisse faire des comparaisons dans la minute
+			allDone = true;
+			for (int j=0; j<4; j++) { 		//This for could be a while, but then the counter variable would escalate in scope.
+				if (solverThreads[j].getState() != Thread.State.TERMINATED) {
+					allDone = false;
+				}
+			}
+			if (!allDone) {
+				System.out.println("Encore en cours. " + (i_sleep+1) + " d'au plus 60 secondes passées.");
+				try{Thread.sleep(1000);}
+				catch (InterruptedException ie) {
+					Thread.currentThread().interrupt();	//thrower may clear Interrupted status.
+					//TODO interrupt other threads and break from the for. This should never execute, because of how the Thread hierarchy is laid out.
+				}
+			}
+			i_sleep++;
+		}
+		if (i_sleep == 59) {
+		// if we left after working the time allotted.
+			for (int j=0; j<4; j++) {
+				solverThreads[j].interrupt();
+			}
+			for (int j=0; j<4; j++) {
+				try{solverThreads[j].join();}
+				catch(InterruptedException ie) {}
+					//TODO if we are interrupted while recovering exiting threads.
+			}
+		}
+		
+		//Compare results
+		for (Reseau solvedNetwork:networks) {
+			if (solvedNetwork.verifierConnexions() && solvedNetwork.calculerCout(lambda) < network.calculerCout(lambda)) {
+				network = solvedNetwork;
+			}
+		}
+		System.out.println("Résolution automatique terminée.");
+		
 		long endTime = System.currentTimeMillis();
 
 		// --- Résultats ---

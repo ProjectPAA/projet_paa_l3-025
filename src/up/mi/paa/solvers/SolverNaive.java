@@ -1,9 +1,9 @@
 package up.mi.paa.solvers;
 
-import up.mi.paa.pbl.algo.Reseau;
-import up.mi.paa.pbl.algo.Generateur;
-
 import java.util.Random;
+
+import up.mi.paa.pbl.Generateur;
+import up.mi.paa.pbl.Reseau;
 
 /**
  * Cette classe implémente l'algorithme naif donné dans la description de la seconde partie du projet.

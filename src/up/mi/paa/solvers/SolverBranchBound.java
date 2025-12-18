@@ -1,13 +1,13 @@
 package up.mi.paa.solvers;
 
-import up.mi.paa.pbl.algo.Generateur;
-import up.mi.paa.pbl.algo.Maison;
-import up.mi.paa.pbl.algo.Reseau;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+
+import up.mi.paa.pbl.Generateur;
+import up.mi.paa.pbl.Maison;
+import up.mi.paa.pbl.Reseau;
 
 /**
  * <p>Cette classe implémente un algorithme augmentatif, basé sur la recherche bornée dans l'espace des possibilités.</p>

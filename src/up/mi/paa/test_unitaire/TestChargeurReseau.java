@@ -3,8 +3,8 @@ package up.mi.paa.test_unitaire;
 import up.mi.paa.io.ChargeurReseau;
 import up.mi.paa.io.FormatParentheseInvalideException;
 import up.mi.paa.io.NombreArgumentIncorrectException;
-import up.mi.paa.pbl.algo.Reseau;
-import up.mi.paa.pbl.algo.TypeConsommation;
+import up.mi.paa.pbl.Reseau;
+import up.mi.paa.pbl.TypeConsommation;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;

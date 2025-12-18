@@ -1,5 +1,5 @@
 package up.mi.paa.solvers;
-import up.mi.paa.pbl.algo.Reseau;
+import up.mi.paa.pbl.Reseau;
 
 /**
  * <p>Cette classe abstraite est la généralisation de tout algorithme/approche permettant de résoudre ou approcher la solution du problème de la minimisation du coût d'un {@link Reseau}.</p>

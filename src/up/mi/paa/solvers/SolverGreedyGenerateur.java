@@ -1,10 +1,11 @@
 package up.mi.paa.solvers;
 
-import up.mi.paa.pbl.algo.Reseau;
-import up.mi.paa.pbl.algo.Maison;
-import up.mi.paa.pbl.algo.Generateur;
-
 import java.util.Iterator;
+
+import up.mi.paa.pbl.Generateur;
+import up.mi.paa.pbl.Maison;
+import up.mi.paa.pbl.Reseau;
+
 import java.util.ArrayList;
 
 

@@ -482,22 +482,27 @@ public class InterfaceTextuelle {
 				try{Thread.sleep(1000);}
 				catch (InterruptedException ie) {
 					Thread.currentThread().interrupt();	//thrower may clear Interrupted status.
-					//TODO interrupt other threads and break from the for. This should never execute, because of how the Thread hierarchy is laid out.
+					//Setting this breaks from the for. This should never execute, because of how the Thread hierarchy is laid out.
+					
 				}
 			}
 			i_sleep++;
 		}
-		if (i_sleep == 59) {
-		// if we left after working the time allotted.
+		// Either we left after working the time allotted, or we were interrupted. In any case, we should interrupt child threads.
 			for (int j=0; j<4; j++) {
 				solverThreads[j].interrupt();
 			}
 			for (int j=0; j<4; j++) {
 				try{solverThreads[j].join();}
-				catch(InterruptedException ie) {}
-					//TODO if we are interrupted while recovering exiting threads.
+				catch(InterruptedException ie) {
+					//if we are interrupted while recovering an exiting thread
+					j--; //We'll try again. We cannot leave threads executing when we go to compare costs, as Reseau is not thread-safe.
+					Thread.interrupted(); //clears currentThread Interrupted status.
+					/*Our Thread hierarchy means that no other thread should be interrupting us, and thus this shouldn't cause an infinite loop.
+					 *The exception to this are things like Ctrl+C. TODO
+					 *TODO Test this*/
+				}
 			}
-		}
 		
 		//Compare results
 		for (Reseau solvedNetwork:networks) {

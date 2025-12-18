@@ -518,7 +518,7 @@ public class InterfaceTextuelle {
 		double coutApres = network.calculerCout(lambda);
 
 		System.out.println("\n--- RESULTATS DE L'OPTIMISATION ---");
-		System.out.println("Algorithme temriné en " + (endTime - startTime) + " ms.");
+		System.out.println("Algorithme terminé en " + (endTime - startTime) + " ms.");
 		System.out.println("Coût AVANT : " + String.format("%.4f", coutAvant));
 		System.out.println("Coût APRES : " + String.format("%.4f", coutApres));
 

@@ -465,7 +465,7 @@ public class InterfaceTextuelle {
 		System.out.println("Lancement des algorithmes (veuillez attendre au plus une minute)");
 		for (int i=0; i<4; i++) {
 			solverThreads[i] = new Thread(solvers[i]);
-			solverThreads[i].run();
+			solverThreads[i].start();
 		}
 		//On attend au plus une minute, mais moins si tous les threads se terminent.
 		boolean allDone = false;

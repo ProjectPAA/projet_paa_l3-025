@@ -69,7 +69,10 @@ Nous avons implémenté l'ensemble des fonctionnalités demandées dans le sujet
 
 ## 5\. Algorithmes de Résolution
 
-Le programme propose deux approches pour optimiser le réseau:
+Le programme propose une approche "en portfolio" pour optimiser le réseau. Il exécute quatre algorithmes différents (le naïf, deux gloutons basés sur deux heuristiques différents, et un algorithme de type Branch & Bound (Brancher entre Bornes)) en parallèle et retient le meillure résultat obtenu. 
+Si le programme (au moins un des algorithmes) travaillerait plus d'une minute, on les force à arrêter, et on prend en compte le(s) résultat(s) partiel(s) obtenu(s) (s'il est(sont) valide(s)). Dans tous les cas, le programme ne travail pas comme ça plus que soixante secondes.
+
+Voici une description briève des algorithmes qu'on exécute lors de cette phase: 
 
 ### A. Algorithme Naïf (Random Local Search) - *Demandé par le sujet*
 

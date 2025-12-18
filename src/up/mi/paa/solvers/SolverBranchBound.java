@@ -108,6 +108,10 @@ public class SolverBranchBound extends Solver {
      * @param surchargePartielle Le coût dû à la surcharge déjà présent sur la branche courante.
      */
     private void backtrack(int index, double lambda, double surchargePartielle) {
+    	
+    	if (Thread.currentThread().isInterrupted()) {
+    		return;
+    	}
 
         // Si la surcharge seule dépasse déjà le record, on stoppe.
         if (surchargePartielle * lambda >= this.meilleurCoutGlobal) {

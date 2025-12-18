@@ -478,19 +478,19 @@ public class InterfaceTextuelle {
 		if (choixAlgo == 2) {
 			// --- Algorithme GLOUTON (Greedy - Générateur) ---
 			System.out.println(">> Lancement du SolverGreedyGenerateur...");
-			Solver solver = new SolverGreedyGenerateur(network);
-			solver.solve(lambda);
+			Solver solver = new SolverGreedyGenerateur(network, lambda);
+			solver.solve();
 
 		} else if (choixAlgo == 3) {
 			// --- Algorithme GLOUTON (Greedy - Maison) ---
 			System.out.println(">> Lancement du SolverGreedyMaison...");
-			Solver solver = new SolverGreedyMaison(network);
-			solver.solve(lambda);
+			Solver solver = new SolverGreedyMaison(network, lambda);
+			solver.solve();
 		} else if (choixAlgo == 4) {
 			// --- Algorithme Branch and Bound ---
 			System.out.println(">> Lancement du Branch and Bound...");
-			Solver solver = new SolverBranchBound(network);
-			solver.solve(lambda);
+			Solver solver = new SolverBranchBound(network, lambda);
+			solver.solve();
 		} else {
 			// --- Algorithme NAÏF (Par défaut) ---
 			System.out.println(">> Lancement du SolverNaive...");
@@ -507,8 +507,8 @@ public class InterfaceTextuelle {
 				System.out.println("-> Saisie invalide. Utilisation de k=10_000");
 			}
 
-			SolverNaive solver = new SolverNaive(network);
-			solver.solve(lambda, k);
+			SolverNaive solver = new SolverNaive(network, lambda);
+			solver.solve(k);
 		}
 
 		long endTime = System.currentTimeMillis();

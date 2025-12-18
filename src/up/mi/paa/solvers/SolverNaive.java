@@ -14,6 +14,10 @@ import java.util.Random;
  */
 public class SolverNaive extends Solver {
 	
+	/**
+	 * @param reseau Le {@link Reseau} à traiter.
+	 * @param lambda Le λ donnant la pénalisation de surcharge dans le calcul du coût.
+	 */
 	public SolverNaive(Reseau reseau, double lambda) {
 		super(reseau, lambda);
 	}
@@ -23,7 +27,6 @@ public class SolverNaive extends Solver {
 	 * 
 	 * <p>Execute un nombre par défaut d'itérations.</p>
 	 *
-	 * @param lambda λ dans le calcul du coût
 	 */
 	public void solve() {
 		this.solve(1000);	//Un k est nécéssaire pour cet algorithme, si on est appelé sans, on choisi un valeur par défaut.
@@ -32,7 +35,6 @@ public class SolverNaive extends Solver {
 	/**
 	 * <p>Implémentation de l'algorithme naif donné en description du projet. Ne change pas le reseau si on n'a pas réussi a faire moins cher.</p>
 	 * 
-	 * @param lambda λ dans le calcul du coût
 	 * @param k nombre d'itérations a executer avant de s'arreter
 	 */
 	public void solve(int k) {

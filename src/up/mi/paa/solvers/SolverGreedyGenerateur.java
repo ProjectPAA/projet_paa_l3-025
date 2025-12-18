@@ -24,6 +24,7 @@ public class SolverGreedyGenerateur extends Solver {
 	/**
 	 * Constructeur à partir du {@link Reseau} à traiter.
 	 * @param reseau Le {@link Reseau} à traiter.
+	 * @param lambda Le λ donnant la pénalisation de surcharge dans le calcul du coût. (Non utilisé par cet algorithme.)
 	 */
 	public SolverGreedyGenerateur(Reseau reseau, double lambda) {
 		super(reseau, lambda);
@@ -35,8 +36,6 @@ public class SolverGreedyGenerateur extends Solver {
 	  * <p>Son heuristique se résume en : minimiser le surcharge ajouté à chaque connexion par le triage des générateurs.</p>
 	  * <p>VIDE les {@linkplain Reseau#getConnexions() connexions} avant de commencer.</p>
 	  * <p>En O(n<sup>2</sup>).</p>
-	 * 
-	 * @param lambda coût du surcharge (non-utilisé par cet algorithme)
 	 */
 	public void solve() {
 		reseau.getConnexions().clear();

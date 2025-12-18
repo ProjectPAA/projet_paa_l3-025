@@ -51,6 +51,7 @@ public class SolverBranchBound extends Solver {
     /**
      * Constructeur à partir du {@link Reseau} à traiter.
 	 * @param reseau Le {@link Reseau} à traiter.
+	 * @param lambda Le λ donnant la pénalisation de surcharge dans le calcul du coût.
      */
     public SolverBranchBound(Reseau reseau, double lambda) {
     	super(reseau, lambda);
@@ -60,7 +61,6 @@ public class SolverBranchBound extends Solver {
      * <p>Algorithme augmentatif, basé sur la recherche bornée dans l'espace des possibilités.</p>
      * <p>Il explore systèmatiquement (en profondeur) les connexions possibles, gardant en mémoire le surcharge sur la branche courante. Dès que cela dépasse le meilleure coût total vu avant, on arête d'explorer la branche courante : elle ne peut pas contenir la solution optimale.</p>
  	 * <p>Note: Il est très lent. (Plusieurs minutes sur les réseaux exemples).</p>
- 	 * @param lambda coût du surcharge.
      */
     @Override
     public void solve() {

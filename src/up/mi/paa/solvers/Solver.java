@@ -16,6 +16,9 @@ public abstract class Solver implements Runnable {
 	 * Le {@link Reseau} sur lequel le Solver va travailler.
 	 */
 	protected Reseau reseau;
+	/**
+	 * Le coefficient de pénalisation du surcharge pour le {@linkplain Reseau} que le Solver va utiliser.
+	 */
 	protected double lambda;
 	
 	/**
@@ -36,11 +39,14 @@ public abstract class Solver implements Runnable {
 	}
 	
 	/**
-	 * La méthode qui va modifier {@link #reseau} pour qu'il contienne les connexions d'une configuration (plus) optimale en termes de coût.
-	 * @param lambda La valeur de λ à utiliser pour pénaliser la surcharge.
+	 * La méthode qui va <i>modifier</i> {@link #reseau} pour qu'il contienne les connexions d'une configuration (plus) optimale en termes de coût.
 	 */
 	public abstract void solve();	//Tout algorithme aura besoin de lambda car lambda intervient dans la fonction d'utilité.
 	
+	/**
+	 *	Exécute solve() de la classe concrète sur le {@linkplain Reseau réseau} en attribut.
+	 */
+	@Override
 	public void run() {
 		this.solve();	//"this" relance la résolution des références depuis l'objet courant, pour assurer qu'on utilise le bon lambda et la bonne implémentation. Au moment où j'écris ça, c'est overkill de faire ça, mais pour l'extensibilité.
 	}

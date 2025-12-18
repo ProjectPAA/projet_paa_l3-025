@@ -365,6 +365,12 @@ public class Reseau {
 		}
 	}
 
+	/**
+	 * <p>Retourne un nouveau {@code Reseau} contenant les mêmes {@link #maisons}, les mêmes {@link #générateurs} et les mêmes {@link #connexions} entre eux qui ceci.</p>
+	 * <p>En particulier, elle crée des nouveaux attributs {@linkplain #maisons}, {@linkplain #generateurs} et {@linkplain #connexions} contenant les mêmes (non pas de copies) des clés et valeurs.</p>
+	 * <p>Cette méthode ne permet pas de construire des {@code Reseau}x différents dans la demande des maisons ou la capacité des générateurs. Tout changement sur un sera refleté sur toutes ses copies.</p>
+	 * @return un nouveau {@code Reseau} contenant les mêmes {@link #maisons}, les mêmes {@link #générateurs} et les mêmes {@link #connexions} entre eux qui ceci.
+	 */
 	@Override
 	public Reseau clone() {
 		Reseau cloneOfThis = new Reseau();

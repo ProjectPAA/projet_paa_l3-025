@@ -26,6 +26,7 @@ public class SolverGreedyMaison extends Solver {
     /**
      * Constructeur à partir du {@link Reseau} à traiter.
 	 * @param reseau Le {@link Reseau} à traiter.
+	 * @param lambda Le λ donnant la pénalisation de surcharge dans le calcul du coût. (Non utilisé par cet algorithme.)
      */
     public SolverGreedyMaison(Reseau reseau, double lambda) {
     	super(reseau, lambda);
@@ -37,7 +38,6 @@ public class SolverGreedyMaison extends Solver {
      * <p>Son heuristique se résume en : minimiser les taux de surcharge par le triage par masion.</p>
      * <p>VIDE les {@linkplain Reseau#getConnexions() connexions} avant de commencer.</p>
      * <p>En O(n<sup>2</sup>).</p>
-     * @param lambda coût du surcharge (non-utilisé par cet algorithme)
      */
     @Override
     public void solve() {

@@ -499,8 +499,8 @@ public class InterfaceTextuelle {
 					j--; //We'll try again. We cannot leave threads executing when we go to compare costs, as Reseau is not thread-safe.
 					Thread.interrupted(); //clears currentThread Interrupted status.
 					/*Our Thread hierarchy means that no other thread should be interrupting us, and thus this shouldn't cause an infinite loop.
-					 *The exception to this are things like Ctrl+C. TODO
-					 *TODO Test this*/
+					 *The exception to this are things like Ctrl+C. 
+					 */
 				}
 			}
 		

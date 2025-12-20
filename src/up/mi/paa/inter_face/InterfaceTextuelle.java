@@ -23,10 +23,10 @@ import up.mi.paa.solvers.SolverBranchBound;
  * Classe principale gérant l'intégration textuelle avec l'utilisateur (CLI).
  * Cette classe permet de lancer soit le mode manuel (Partie 1), soit le mode fichier (Partie 2)
  * en fonction des arguments passés au programme.
- * * Elle gère les menus, la saisie utilisateur et l'appel aux diférentes focntionnalité
+ * * Elle gère les menus, la saisie utilisateur et l'appel aux différentes focntionnalités
  * (chargement, sauvegarde, modification du réseau, algorithmes de résolution).
  * @author Jacques ZHENG
- * @author Mamadou NIMAGA DIT
+ * @author Mamadou NIMAGA
  * @author Zalán MOLNÁR
  */
 public class InterfaceTextuelle {
@@ -43,7 +43,7 @@ public class InterfaceTextuelle {
 
 	/**
 	 * Gère l'ajout interactif d'un générateur au réseau.
-	 * Demande à l'utiliateur le nom et la capacité maximale du générateur.
+	 * Demande à l'utilisateur le nom et la capacité maximale du générateur.
 	 */
 	private static void handleAjouterGenerateur() {
 
@@ -58,7 +58,7 @@ public class InterfaceTextuelle {
 		} catch (NumberFormatException e) {
 			System.out.println("=> ERREUR : La capacité doit être un nombre");
 		} catch (ArrayIndexOutOfBoundsException e) {
-			System.out.println("=> ERREUR : Vous devez entrer un nom ET une capacité.");
+			System.out.println("=> ERREUR : Vous devez entrer un nom et une capacité.");
 
 		}
 
@@ -80,9 +80,9 @@ public class InterfaceTextuelle {
 
 			reseau.ajouterMaison(nomMaison, type);
 		} catch (IllegalArgumentException e) {
-			System.out.println("=> ERREUR : Type de consommation invalid. Utilisez BASSE, NORMALE ou FORTE");
+			System.out.println("=> ERREUR : Type de consommation invalide. Utilisez BASSE, NORMAL ou FORTE");
 		} catch (ArrayIndexOutOfBoundsException e) {
-			System.out.println("=> ERREUR : Vous devez entrer un non ET un type (ex: M1 NORMALE).");
+			System.out.println("=> ERREUR : Vous devez entrer un non ET un type (ex: M1 NORMAL).");
 		}
 
 	}
@@ -92,7 +92,7 @@ public class InterfaceTextuelle {
 	 * L'utlisateur peut saisir les noms dans n'importe quel ordre.
 	 */
 	private static void handleAjouterConnexion() {
-		System.out.println("Donner de la maison et du générateur ex : M1 G1");
+		System.out.println("Donner le nom de la maison et du générateur ex : M1 G1");
 		String[] ligne = scan.nextLine().trim().split("\\s+");
 		try {
 			if (ligne.length < 2)
@@ -109,7 +109,7 @@ public class InterfaceTextuelle {
 				System.out.println("=> ERREUR : La maison ou le générateur n'existe pas.");
 			}
 		} catch (ArrayIndexOutOfBoundsException e) {
-			System.out.println("=> ERREUR : Vous devez entrer une maison ET un générateur.");
+			System.out.println("=> ERREUR : Vous devez entrer une maison et un générateur.");
 		}
 	}
 
@@ -312,7 +312,7 @@ public class InterfaceTextuelle {
 				enCours = false;
 				break;
 			default:
-				System.out.println("Saisir incorrect !");
+				System.out.println("Saisie incorrect !");
 				break;
 
 			}
@@ -355,17 +355,17 @@ public class InterfaceTextuelle {
 					enCours = false;
 					lancerMenuSecondaire(); // Menu Secondaire
 				} else {
-					System.out.println("La (es) configuration(s) n'est (ne sont) pas correct ! Veuillez corriger.");
+					System.out.println("La (es) configuration(s) n'est (ne sont) pas correcte (s) ! Veuillez corriger.");
 				}
 				break;
 			default:
-				System.out.println("Saisir incorrect !");
+				System.out.println("Saisie incorrecte !");
 				break;
 
 			}
 		}
 
-		System.out.println("\nVous avez quitter le menu principal.");
+		System.out.println("\nVous avez quitté le menu principal.");
 	}
 
 	/*
@@ -395,7 +395,7 @@ public class InterfaceTextuelle {
 				choix = scan.nextInt();
 				scan.nextLine();
 			} catch (InputMismatchException e) {
-				System.out.println("-> ERREUR : Entré Invalide. Veuillez saisir un nombre entier valide.");
+				System.out.println("-> ERREUR : Entrée Invalide. Veuillez saisir un nombre entier valide.");
 				scan.nextLine(); // Clean input invalid
 				continue;
 			}
@@ -442,8 +442,8 @@ public class InterfaceTextuelle {
 
 	/**
 	 * Gère le menu de sélection de l'algorithme de résolution automatique.
-	 * Propose différents algorithmes (Naïf, Gloutons, Branch and Bound) et excécution celui choisi par l'utilisateur.
-	 * Affiche ensuite les statistiques de performance (temps, gain, de coût).
+	 * Propose différents algorithmes (Naïf, Gloutons, Branch and Bound) et excécute celui choisi par l'utilisateur.
+	 * Affiche ensuite les statistiques de performance (temps, gain de coût).
 	 * @param reseau Le réseau à optimiser.
 	 */
 	private static void handleResolutionAutomatique(Reseau reseau, double lambda) {
@@ -576,14 +576,14 @@ public class InterfaceTextuelle {
 						lambda = Double.parseDouble(args[1]);
 					}
 					catch(NumberFormatException nfe){
-						System.out.println("\nERREUR : Le seconde paramètre (lambda) n'est pas un nombre valid. Valeur par défaut de 10.0 sera utilisée.");
+						System.out.println("\nERREUR : Le second paramètre (lambda) n'est pas un nombre valid. Valeur par défaut de 10.0 sera utilisée.");
 						if (args[1].contains(",")){
 							System.out.println("Tentez avec . au lieu de ,");
 						}
 					}
 				}
 				else {
-					System.out.println("\nUn seconde paramètre (lambda) n'était pas passé. La valeur par défaut de 10.0 sera utilisée.");
+					System.out.println("\nUn second paramètre (lambda) n'a pas été passé. La valeur par défaut de 10.0 sera utilisée.");
 	
 				}
 				lancerMenuPartie2(reseauPartie2, lambda);

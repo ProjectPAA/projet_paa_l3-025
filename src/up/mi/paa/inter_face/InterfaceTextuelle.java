@@ -251,11 +251,18 @@ public class InterfaceTextuelle {
 	}
 
 	/**
-	 * Calcule affiche les coûts du réseau (Dispersion, Surcharge et Coût Total).
-	 * Utilise une valeur de pénalité lambda fixée à 10.0.
+	 * Calcule et affiche les coûts du réseau (Dispersion, Surcharge et Coût Total).
+	 * Utilise une valeur de pénalité lambda fixée à 10.0 car il n'est appelé que lors de la partie 1
 	 */
 	private static void handleCalculerCout() {
-		double lambda = 10.0;
+		handleCalculerCout(10.0);
+	}
+	
+	/**
+	 * Calcule et affiche les coûts du réseau (Dispersion, Surcharge et Coût Total).
+	 * @param lambda La valeur de pénalité à utiliser pour le calcul.
+	 */
+	private static void handleCalculerCout(double lambda) {
 
 		System.out.println("Calcul du coût du réseau (avec lambda = " + lambda + ")...");
 		// Appelle la méthode disp()
@@ -371,7 +378,7 @@ public class InterfaceTextuelle {
 	 * Permet la résolution automatique et la sauvegarde d'un réseau chargé depuis un fichier.
 	 * @param reseauPartie2 Le réseau chargé depuis le fichier.
 	 */
-	private static void lancerMenuPartie2(Reseau reseauPartie2) {
+	private static void lancerMenuPartie2(Reseau reseauPartie2, double lambda) {
 
 		boolean enCours = true; // Si enCours est false on quitte le menu.
 
@@ -394,7 +401,7 @@ public class InterfaceTextuelle {
 			}
 			switch (choix) {
 			case 1:
-				handleResolutionAutomatique(reseauPartie2);
+				handleResolutionAutomatique(reseauPartie2, lambda);
 				break;
 			case 2:
 				System.out.println("Sauvegarder...");
@@ -439,15 +446,7 @@ public class InterfaceTextuelle {
 	 * Affiche ensuite les statistiques de performance (temps, gain, de coût).
 	 * @param reseau Le réseau à optimiser.
 	 */
-	private static void handleResolutionAutomatique(Reseau reseau) {
-		// --- Paramètres communs ---
-		double lambda = 10.0;
-		/*
-		 * (TODO Si necesssaire => Optionnel : On peut demander à l'utilisateur
-		 * System.out.println("Entrez la pénalité Lambda (défaut 10) : "); Si jamais on
-		 * fait ça alors on doit gérer l'exception aussi try {...} ...
-		 * 
-		 */
+	private static void handleResolutionAutomatique(Reseau reseau, double lambda) {
 		
 		// Calcul du coût AVANT optimisation
 		double coutAvant = reseau.calculerCout(lambda);
@@ -571,7 +570,23 @@ public class InterfaceTextuelle {
 				Reseau reseauPartie2 = chargeur.charger(cheminFichier);
 
 				// Si le chargement réussit, on lance le menu 2
-				lancerMenuPartie2(reseauPartie2);
+				double lambda = 10.0; //par défaut
+				if (args.length >= 2) {
+					try {
+						lambda = Double.parseDouble(args[1]);
+					}
+					catch(NumberFormatException nfe){
+						System.out.println("\nERREUR : Le seconde paramètre (lambda) n'est pas un nombre valid. Valeur par défaut de 10.0 sera utilisée.");
+						if (args[1].contains(",")){
+							System.out.println("Tentez avec . au lieu de ,");
+						}
+					}
+				}
+				else {
+					System.out.println("\nUn seconde paramètre (lambda) n'était pas passé. La valeur par défaut de 10.0 sera utilisée.");
+	
+				}
+				lancerMenuPartie2(reseauPartie2, lambda);
 			} catch (FileNotFoundException | IllegalArgumentException | NombreArgumentIncorrectException
 					| FormatParentheseInvalideException e) {
 				// Gestion propre des erreurs de chargement

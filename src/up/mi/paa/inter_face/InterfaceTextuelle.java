@@ -437,9 +437,9 @@ public class InterfaceTextuelle {
 	 * Gère le menu de sélection de l'algorithme de résolution automatique.
 	 * Propose différents algorithmes (Naïf, Gloutons, Branch and Bound) et excécution celui choisi par l'utilisateur.
 	 * Affiche ensuite les statistiques de performance (temps, gain, de coût).
-	 * @param network Le réseau à optimiser.
+	 * @param reseau Le réseau à optimiser.
 	 */
-	private static void handleResolutionAutomatique(Reseau network) {
+	private static void handleResolutionAutomatique(Reseau reseau) {
 		// --- Paramètres communs ---
 		double lambda = 10.0;
 		/*
@@ -450,17 +450,17 @@ public class InterfaceTextuelle {
 		 */
 		
 		// Calcul du coût AVANT optimisation
-		double coutAvant = network.calculerCout(lambda);
+		double coutAvant = reseau.calculerCout(lambda);
 		System.out.println("\nCoût initial du réseau : " + String.format("%.4f", coutAvant));
 		System.out.println("Optimisation en cours...");
 
-		long startTime = System.currentTimeMillis();
+		long heureAuDebut = System.currentTimeMillis();
 
 		//Execution des algorithmes en parallele
 		//HARDCODED
 		
-		Reseau[] networks = {network.clone(), network.clone(), network.clone(), network.clone()};
-		Solver[] solvers = {new SolverNaive(networks[0], lambda), new SolverGreedyGenerateur(networks[1], lambda), new SolverGreedyMaison(networks[2], lambda), new SolverBranchBound(networks[3], lambda)};
+		Reseau[] reseauClones = {reseau.clone(), reseau.clone(), reseau.clone(), reseau.clone()};
+		Solver[] solvers = {new SolverNaive(reseauClones[0], lambda), new SolverGreedyGenerateur(reseauClones[1], lambda), new SolverGreedyMaison(reseauClones[2], lambda), new SolverBranchBound(reseauClones[3], lambda)};
 		Thread[] solverThreads = new Thread[4];
 		System.out.println("Lancement des algorithmes (veuillez attendre au plus une minute)");
 		for (int i=0; i<4; i++) {
@@ -468,16 +468,16 @@ public class InterfaceTextuelle {
 			solverThreads[i].start();
 		}
 		//On attend au plus une minute, mais moins si tous les threads se terminent.
-		boolean allDone = false;
+		boolean toutEstTermine = false;
 		int i_sleep=0;
-		while (i_sleep<59 && !allDone && !Thread.currentThread().isInterrupted()) {	//59 secondes pour que les threads ayent le temps de se quitter et qu'on puisse faire des comparaisons dans la minute
-			allDone = true;
+		while (i_sleep<59 && !toutEstTermine && !Thread.currentThread().isInterrupted()) {	//59 secondes pour que les threads ayent le temps de se quitter et qu'on puisse faire des comparaisons dans la minute
+			toutEstTermine = true;
 			for (int j=0; j<4; j++) { 		//This for could be a while, but then the counter variable would escalate in scope.
 				if (solverThreads[j].getState() != Thread.State.TERMINATED) {
-					allDone = false;
+					toutEstTermine = false;
 				}
 			}
-			if (!allDone) {
+			if (!toutEstTermine) {
 				System.out.println("Encore en cours. " + (i_sleep+1) + " d'au plus 60 secondes passées.");
 				try{Thread.sleep(1000);}
 				catch (InterruptedException ie) {
@@ -505,20 +505,20 @@ public class InterfaceTextuelle {
 			}
 		
 		//Compare results
-		for (Reseau solvedNetwork:networks) {
-			if (solvedNetwork.verifierConnexions() && solvedNetwork.calculerCout(lambda) < network.calculerCout(lambda)) {
-				network = solvedNetwork;
+		for (Reseau reseauResolu:reseauClones) {
+			if (reseauResolu.verifierConnexions() && reseauResolu.calculerCout(lambda) < reseau.calculerCout(lambda)) {
+				reseau = reseauResolu;
 			}
 		}
 		System.out.println("Résolution automatique terminée.");
 		
-		long endTime = System.currentTimeMillis();
+		long heureALaFin = System.currentTimeMillis();
 
 		// --- Résultats ---
-		double coutApres = network.calculerCout(lambda);
+		double coutApres = reseau.calculerCout(lambda);
 
 		System.out.println("\n--- RESULTATS DE L'OPTIMISATION ---");
-		System.out.println("Algorithme terminé en " + (endTime - startTime) + " ms.");
+		System.out.println("Algorithme terminé en " + (heureALaFin - heureAuDebut) + " ms.");
 		System.out.println("Coût AVANT : " + String.format("%.4f", coutAvant));
 		System.out.println("Coût APRES : " + String.format("%.4f", coutApres));
 
@@ -539,7 +539,7 @@ public class InterfaceTextuelle {
 		}
 		System.out.println("--------------------------------------------");
 		System.out.println("Le nouveau réseau est :");
-		network.afficherReseau(lambda);
+		reseau.afficherReseau(lambda);
 	}
 
 	// --- MAIN ----

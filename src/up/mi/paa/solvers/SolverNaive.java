@@ -52,7 +52,7 @@ public class SolverNaive extends Solver {
 			double oldCost = reseau.calculerCout(lambda);
 			
 			reseau.modifierConnexion(chosenMaisonName, oldGenerateurName, chosenGenerateurName, true);
-			if (reseau.calculerCout(lambda) >= oldCost) { //If better then keep <=> if worse then undo. (eventually equivalent, but that's enough since we're not threading) Equal sign to keep behaviour where we only change the network if we can do better. 
+			if (reseau.calculerCout(lambda) >= oldCost) { //If better then keep <=> if worse then undo. (eventually equivalent, but that's enough since no other thread accesses these structures concurrently) Equal sign to keep behaviour where we only change the network if we can do better. 
 				reseau.modifierConnexion(chosenMaisonName, chosenGenerateurName, oldGenerateurName, true);
 			}
 			i++;

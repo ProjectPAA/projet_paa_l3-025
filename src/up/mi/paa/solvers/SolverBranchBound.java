@@ -77,7 +77,7 @@ public class SolverBranchBound extends Solver {
         this.meilleurCoutGlobal = this.reseau.calculerCout(lambda);
         this.meilleureConfiguration = new HashMap<>(this.reseau.getConnexions());
 
-        // on préparation des tableaux rapides
+        // on préparation des tableaux (plus rapides dans ce cas précis)
         this.reseau.getConnexions().clear();
         this.maisonsArr = this.reseau.getMaisons().values().toArray(new Maison[0]);
         this.generateursArr = this.reseau.getGenerateurs().values().toArray(new Generateur[0]);
@@ -87,7 +87,7 @@ public class SolverBranchBound extends Solver {
         // Trie les maisons (40kW -> 20kW -> 10kW) cela accélère la détection des impasses par x100
         Arrays.sort(maisonsArr, (m1, m2) -> Integer.compare(m2.getTypeConsommation().getDemande(), m1.getTypeConsommation().getDemande()));
 
-        backtrack(0, lambda, 0.0);
+        parcoursEnProfondeurEntreBornes(0, lambda, 0.0);
 
         // Application du résultat final
         if (!this.meilleureConfiguration.isEmpty()) {
@@ -104,7 +104,7 @@ public class SolverBranchBound extends Solver {
      * @param lambda le coût du surcharge
      * @param surchargePartielle Le coût dû à la surcharge déjà présent sur la branche courante.
      */
-    private void backtrack(int index, double lambda, double surchargePartielle) {
+    private void parcoursEnProfondeurEntreBornes(int index, double lambda, double surchargePartielle) {
     	
     	if (Thread.currentThread().isInterrupted()) {
     		return;
@@ -140,7 +140,7 @@ public class SolverBranchBound extends Solver {
             affectationsCourantes[index] = gen; // On note l'affectation
 
             // Récursion
-            backtrack(index + 1, lambda, surchargePartielle + (surchargeApres - surchargeAvant));
+            parcoursEnProfondeurEntreBornes(index + 1, lambda, surchargePartielle + (surchargeApres - surchargeAvant));
 
             // Backtrack (Annulation)
             chargesActuelles[i] = ancienneCharge;

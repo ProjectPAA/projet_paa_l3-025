@@ -50,7 +50,7 @@ public class SolverGreedyMaison extends Solver {
         // Tri décroissant sur la demande (FORTE > NORMALE > BASSE)
         maisonsTriees.sort((m1, m2) -> Integer.compare(m2.getTypeConsommation().getDemande(), m1.getTypeConsommation().getDemande()));
 
-        // Map pour suivre la charge actuelle des générateurs en temps réel
+        // Map pour suivre la charge actuelle des générateurs pendant l'exécution de l'algorithme
         Map<Generateur, Integer> chargeActuelle = new HashMap<>();
         for(Generateur g : this.reseau.getGenerateurs().values()) {
             chargeActuelle.put(g, 0);

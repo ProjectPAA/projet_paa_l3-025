@@ -75,7 +75,6 @@ class TestGenerateur {
     void testCompareTo() {
         Generateur petit = new Generateur("Petit", 10);
         Generateur grand = new Generateur("Grand", 100);
-        Generateur moyen = new Generateur("Moyen", 50);
 
         // Test < 0 (Petit est plus petit que Grand)
         assertTrue(petit.compareTo(grand) < 0, "10 comparé à 100 devrait être négatif");

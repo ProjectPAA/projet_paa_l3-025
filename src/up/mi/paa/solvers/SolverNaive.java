@@ -2,7 +2,6 @@ package up.mi.paa.solvers;
 
 import java.util.Random;
 
-import up.mi.paa.pbl.Generateur;
 import up.mi.paa.pbl.Reseau;
 
 /**

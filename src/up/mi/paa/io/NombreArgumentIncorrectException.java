@@ -10,6 +10,11 @@ package up.mi.paa.io;
  */
 public class NombreArgumentIncorrectException extends Exception{
 	/**
+	 * Version de cette classe pour la compatibilité des objets sérialisés.
+	 */
+	static final long serialVersionUID = 2;
+	
+	/**
 	 * Exception signalant que le nombre d'arguments dans une ligne de {@link java.io.File fichier} est incorrect.
 	 * @see ChargeurReseau#traiterLigne(String, Reseau)
 	 * @param message Texte de l'exception

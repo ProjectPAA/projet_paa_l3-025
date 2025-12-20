@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 import up.mi.paa.pbl.Generateur;
-import up.mi.paa.pbl.Maison;
 import up.mi.paa.pbl.Reseau;
 import up.mi.paa.pbl.TypeConsommation;
 

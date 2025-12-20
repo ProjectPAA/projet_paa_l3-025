@@ -1,7 +1,6 @@
 package up.mi.paa.test_unitaire;
 
-import up.mi.paa.pbl.Generateur;
-import up.mi.paa.pbl.Maison;
+
 import up.mi.paa.pbl.Reseau;
 import up.mi.paa.pbl.TypeConsommation;
 import up.mi.paa.solvers.SolverNaive;

@@ -77,8 +77,8 @@ public class Maison {
 	}
 	
 	/**
-	 * Retourne une représentation en {@linkplain String} de cette Maison.
-	 * @return Une représentation en {@linkplain String} de cette Maison.
+	 * Retourne une représentation en {@linkplain String} de cette {@code Maison}.
+	 * @return Une représentation en {@linkplain String} de cette {@code Maison}.
 	 */
 	@Override
     public String toString() {

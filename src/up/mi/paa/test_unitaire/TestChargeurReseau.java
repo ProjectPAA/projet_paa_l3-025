@@ -97,8 +97,9 @@ class TestChargeurReseau {
     }
 
     /**
-     * Vérifie la détection d'une instruction inconnue dans le fichier.
-     * Exemple : "centrale(C1, 1000)." au lieu de "generateur".
+     * Vérifie que le programme rejette une instruction qui n'existe pas dans la syntaxe.
+     * Le code ne connaît que "generateur", "maison" et "connexion".
+     * Tout autre mot doit provoquer une erreur.
      */
     @Test
     void testInstructionInconnue() throws IOException {
@@ -146,7 +147,7 @@ class TestChargeurReseau {
      */
     @Test
     void testConnexionEntiteInexistante() throws Exception {
-        // On définit une maison mais on essaie de la connecter à un générateur inconnu
+        // On définit une maison, mais on essaie de la connecter à un générateur inconnu
         String chemin = creerFichierTest(List.of(
                 "maison(M1, BASSE).",
                 "connexion(M1, G_Fantome)."

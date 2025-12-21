@@ -73,7 +73,7 @@ public class SolverGreedyMaison extends Solver {
                 double chargeSiAjout = chargeActuelle.get(gen) + demandeMaison;
                 double tauxSiAjout = chargeSiAjout / gen.getCapaciteMax();
 
-                // On cherche à minimiser le taux max (pour équilibrer)
+                // On cherche à minimiser le taux max (pour équilibrer).
                 if (tauxSiAjout < meilleurTauxPrevisionnel) {
                     meilleurTauxPrevisionnel = tauxSiAjout;
                     meilleurGen = gen;

@@ -84,10 +84,10 @@ class TestReseau {
     /**
      * Teste 1 : sur la Dispersion et Coût.
      * Scénario contrôlé :
-     * - G1 (Capacité 100) avec M1 (10) -> Taux 0.1
-     * - G2 (Capacité 100) avec M2 (10) -> Taux 0.1
-     * -> Moyenne = 0.1
-     * -> Dispersion = |0.1 - 0.1| + |0.1 - 0.1| = 0
+     * G1 (Capacité 100) avec M1 (10) -> Taux 0.1
+     * G2 (Capacité 100) avec M2 (10) -> Taux 0.1
+     * Moyenne = 0.1
+     * Dispersion = |0.1 - 0.1| + |0.1 - 0.1| = 0
      */
     @Test
     void testCalculsEquilibres() {
@@ -100,16 +100,16 @@ class TestReseau {
         reseau.ajouterConnexion("M1", "G1");
         reseau.ajouterConnexion("M2", "G2");
 
-        // Test dispersion (le résultat doit être 0 car c'est parfaitement équilibré)
+        // Test dispersion (le résultat doit être 0, car c'est parfaitement équilibré)
         assertEquals(0.0, reseau.disp(), 0.0001, "La dispersion doit être 0 pour un réseau équilibré");
     }
 
     /**
-     * Teste 2: Calcul avec un déséquilibre.
-     * - G1 (Capacité 100) avec M1 (10) + M2 (10) -> Charge 20 -> Taux 0.2
-     * - G2 (Capacité 100) avec personne -> Charge 0 -> Taux 0.0
-     * -> Moyenne = (0.2 + 0.0) / 2 = 0.1
-     * -> Disp = |0.2 - 0.1| + |0.0 - 0.1| = 0.1 + 0.1 = 0.2
+     * Teste 2 : Calcul avec un déséquilibre.
+     * G1 (Capacité 100) avec M1 (10) + M2 (10) -> Charge 20 -> Taux 0.2
+     * G2 (Capacité 100) avec personne -> Charge 0 -> Taux 0.0
+     * Moyenne = (0.2 + 0.0) / 2 = 0.1
+     * Dispersion = |0.2 - 0.1| + |0.0 - 0.1| = 0.1 + 0.1 = 0.2
      */
     @Test
     void testCalculsDesequilibres() {

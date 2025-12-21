@@ -40,7 +40,7 @@ class TestSolverBranchBound {
 
     /**
      * Vérifie l'optimalité de la solution sur un cas trivial.
-     * Avec 2 maisons et 2 générateurs identiques, l'algorithme exact doit impérativement trouver
+     * Avec deux maisons et deux générateurs identiques, l'algorithme exact doit impérativement trouver
      * une dispersion nulle (équilibre parfait).
      */
     @Test

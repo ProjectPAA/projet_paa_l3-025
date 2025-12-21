@@ -22,17 +22,17 @@ public class SolverNaive extends Solver {
 	}
 	
 	/**
-	 * <p>Implémentation de l'algorithme naif donné en description du projet. Ne change pas le reseau si on n'a pas réussi a faire moins cher.</p> 
+	 * <p>Implémentation de l'algorithme naif donné en description du projet. Ne change pas le reseau si on n'a pas réussi à faire moins cher.</p>
 	 * 
 	 * <p>Execute un nombre par défaut d'itérations.</p>
 	 *
 	 */
 	public void solve() {
-		this.solve(1000);	//Un k est nécéssaire pour cet algorithme, si on est appelé sans, on choisi un valeur par défaut.
+		this.solve(1000);	//Un k est nécessaire pour cet algorithme, si on est appelé sans et on choisit une valeur par défaut.
 	}
 
 	/**
-	 * <p>Implémentation de l'algorithme naif donné en description du projet. Ne change pas le reseau si on n'a pas réussi a faire moins cher.</p>
+	 * <p>Implémentation de l'algorithme naif donné en description du projet. Ne change pas le réseau si on n'a pas réussi à faire moins cher.</p>
 	 * 
 	 * @param k nombre d'itérations a executer avant de s'arreter
 	 */

@@ -2,6 +2,8 @@ package up.mi.paa.solvers;
 
 import java.util.Random;
 
+import up.mi.paa.pbl.Generateur;
+import up.mi.paa.pbl.Maison;
 import up.mi.paa.pbl.Reseau;
 
 /**
@@ -47,12 +49,25 @@ public class SolverNaive extends Solver {
 		while (i < k && !Thread.currentThread().isInterrupted()) {
 			String chosenMaisonName = maisonNames[random.nextInt(maisonNames.length)];
 			String chosenGenerateurName = generateurNames[random.nextInt(generateurNames.length)];
-			String oldGenerateurName = reseau.getConnexions().get(reseau.getMaisons().get(chosenMaisonName)).getNom();
+			
+			// On verifie si la maison a déjà un générateur
+			Maison m = reseau.getMaisons().get(chosenMaisonName);
+			Generateur gActuel = reseau.getConnexions().get(m);
+			String oldGenerateurName = (gActuel != null) ? gActuel.getNom() : null;
 			double oldCost = reseau.calculerCout(lambda);
 			
-			reseau.modifierConnexion(chosenMaisonName, oldGenerateurName, chosenGenerateurName, true);
+			// On tente la nouvelle connexion
+			reseau.ajouterConnexion(chosenMaisonName, chosenGenerateurName, true);
+			
 			if (reseau.calculerCout(lambda) >= oldCost) { //If better then keep <=> if worse then undo. (eventually equivalent, but that's enough since no other thread accesses these structures concurrently) Equal sign to keep behaviour where we only change the network if we can do better. 
-				reseau.modifierConnexion(chosenMaisonName, chosenGenerateurName, oldGenerateurName, true);
+				// Echec : on doit remettre l'ancien état
+				if(oldGenerateurName != null) {
+					// Elle avait un générateur, on lui redonne
+					reseau.ajouterConnexion(chosenMaisonName, oldGenerateurName, true);
+				}else {
+					// Elle n'avait rien, on la déconnecte
+					reseau.getConnexions().remove(m);
+				}
 			}
 			i++;
 		}

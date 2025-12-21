@@ -23,7 +23,7 @@ import up.mi.paa.solvers.SolverBranchBound;
  * Classe principale gérant l'intégration textuelle avec l'utilisateur (CLI).
  * Cette classe permet de lancer soit le mode manuel (Partie 1), soit le mode fichier (Partie 2)
  * en fonction des arguments passés au programme.
- * * Elle gère les menus, la saisie utilisateur et l'appel aux différentes focntionnalités
+ * Elle gère les menus, la saisie utilisateur et l'appel aux différentes fonctionnalités
  * (chargement, sauvegarde, modification du réseau, algorithmes de résolution).
  * @author Jacques ZHENG
  * @author Mamadou NIMAGA
@@ -31,7 +31,7 @@ import up.mi.paa.solvers.SolverBranchBound;
  */
 public class InterfaceTextuelle {
 
-	/**  Scanner unique pour lire les entrées clavier tout au long de l'excécution du programme. */
+	/**  Scanner unique pour lire les entrées clavier tout au long de l'exécution du programme. */
 	private static Scanner scan = new Scanner(System.in);
 	
 	/** Instance du réseau manipulé par l'application. */
@@ -56,7 +56,7 @@ public class InterfaceTextuelle {
 
 			reseau.ajouterGenerateur(nomGenerateur, capaciteMax);
 		} catch (NumberFormatException e) {
-			System.out.println("=> ERREUR : La capacité doit être un nombre");
+			System.out.println("=> ERREUR : La capacité doit être un nombre.");
 		} catch (ArrayIndexOutOfBoundsException e) {
 			System.out.println("=> ERREUR : Vous devez entrer un nom et une capacité.");
 
@@ -66,7 +66,7 @@ public class InterfaceTextuelle {
 
 	/**
 	 * Gère l'ajout interactif d'une maison au réseau.
-	 * Demande à l'utiliateur le nom et le type de consommation (BASSE, NORMAL, FORTE).
+	 * Demande à l'utilisateur le nom et le type de consommation (BASSE, NORMAL, FORTE).
 	 */
 	private static void handleAjouterMaison() {
 
@@ -89,7 +89,7 @@ public class InterfaceTextuelle {
 
 	/**
 	 * Gère l'ajout interactif d'une connexion entre une maison et un générateur.
-	 * L'utlisateur peut saisir les noms dans n'importe quel ordre.
+	 * L'utilisateur peut saisir les noms dans n'importe quel ordre.
 	 */
 	private static void handleAjouterConnexion() {
 		System.out.println("Donner le nom de la maison et du générateur ex : M1 G1");
@@ -171,11 +171,114 @@ public class InterfaceTextuelle {
 	}
 
 	/**
+	 * Gère la modification interactive d'une connexion.
+	 * Permet de changer le générateur auquel une maison est connectée.
+	 */
+	private static void handleModifierConnexion() {
+		try {
+			// Ancienne connexion
+			System.out.println("Veuillez saisir la connexion que vous souhaitez modifier (ex: M1 G1 ou G1 M1):");
+			String[] ancienneSaisie = scan.nextLine().trim().split("\\s+");
+			if (ancienneSaisie.length < 2)
+				throw new ArrayIndexOutOfBoundsException();
+
+			Maison maison = null;
+			Generateur ancienGen = null;
+
+			// Identifie maison et générateur dans n'importe quel ordre
+			for (String nom : ancienneSaisie) {
+				if (reseau.getMaisons().containsKey(nom))
+					maison = reseau.getMaisons().get(nom);
+				if (reseau.getGenerateurs().containsKey(nom))
+					ancienGen = reseau.getGenerateurs().get(nom);
+			}
+
+			// Validation
+			if (maison == null || ancienGen == null || !ancienGen.equals(reseau.getConnexions().get(maison))) {
+				System.out.println("=> ERREUR : La connexion saisie n'existe pas ou est incorrecte.");
+				return;
+			}
+
+			// Nouvelle connexion
+			System.out.println("Veuillez saisir la nouvelle connexion (ex: M1 G2 ou G2 M1):");
+			String[] nouvelleSaisie = scan.nextLine().trim().split("\\s+");
+			if (nouvelleSaisie.length < 2)
+				throw new ArrayIndexOutOfBoundsException();
+
+			Maison maisonNouvelle = null;
+			Generateur nouveauGen = null;
+
+			// Identifie la maison et le nouveau générateur dans n'importe quel ordre
+			for (String nom : nouvelleSaisie) {
+				if (reseau.getMaisons().containsKey(nom))
+					maisonNouvelle = reseau.getMaisons().get(nom);
+				if (reseau.getGenerateurs().containsKey(nom))
+					nouveauGen = reseau.getGenerateurs().get(nom);
+			}
+
+			// Si aucune maison est trouvée dans la nouvelle saisie, on garde la même que l'ancienne
+			if (maisonNouvelle == null)
+				maisonNouvelle = maison;
+
+			// Validation du générateur
+			if (nouveauGen == null) {
+				System.out.println("=> ERREUR : Le nouveau générateur n'existe pas.");
+				return;
+			}
+
+// Supprime l'ancienne connexion et établie la nouvelle connexion
+			reseau.modifierConnexion(maison.getNom(), ancienGen.getNom(), nouveauGen.getNom());
+
+		} catch (ArrayIndexOutOfBoundsException e) {
+			System.out.println("=> ERREUR : Format incorrect. Vous devez entrer deux noms séparés par un espace.");
+		}
+	}
+
+	/**
 	 * Vérifie la validité des connexions du réseau.
-	 * @return true si toutes les connexions sont validés, false sinon.
+	 * @return {@code true} si toutes les connexions sont validés, {@code false} sinon.
 	 */
 	private static boolean verifierConnexion() {
 		return reseau.verifierConnexions();
+	}
+
+	/**
+	 * Affiche l'état du réseau dans la console (Générateurs, Maisons et Connexions).
+	 */
+	private static void handleAfficherReseau() {
+		reseau.afficherReseau();
+	}
+
+	/**
+	 * Calcule et affiche les coûts du réseau (Dispersion, Surcharge et Coût Total).
+	 * Utilise une valeur de pénalité lambda fixée à 10.0 car il n'est appelé que lors de la partie 1
+	 */
+	private static void handleCalculerCout() {
+		handleCalculerCout(10.0);
+	}
+	
+	/**
+	 * Calcule et affiche les coûts du réseau (Dispersion, Surcharge et Coût Total).
+	 * @param lambda La valeur de pénalité à utiliser pour le calcul.
+	 */
+	private static void handleCalculerCout(double lambda) {
+
+		System.out.println("Calcul du coût du réseau (avec lambda = " + lambda + ")...");
+		// Appelle la méthode disp()
+		double disp = reseau.disp();
+
+		// Appelle la méthode surcharge()
+		double surcharge = reseau.surcharge(lambda);
+
+		// Calcule le coût total
+		double coutTotal = disp + surcharge;
+
+		// Affiche les 3 résultats, comme demandé par le PDF
+		System.out.println("--------- RÉSULTAT DU CALCUL ---------");
+		System.out.println("Dispersion (Disp(S)) : " + disp);
+		System.out.println("Surcharge (Surcharge(S)) : " + surcharge);
+		System.out.println("COÛT TOTAL (Cout(S)) : " + coutTotal);
+		System.out.println("--------------------------------------");
 	}
 
 	
@@ -283,10 +386,10 @@ public class InterfaceTextuelle {
 
 	/**
 	 * Gère la sauvegarde du réseau actuel dans un fichier texte.
-	 * Demande à l'utilisateur le nom  du fichier de destionation.
-	 * @param network Le réseau à sauvegarder.
+	 * Demande à l'utilisateur le nom du fichier de destionation.
+	 * @param reseauPartie2 Le réseau à sauvegarder.
 	 */
-	private static void handleSauvegarderReseau(Reseau network) {
+	private static void handleSauvegarderReseau(Reseau reseauPartie2) {
 		System.out.println("Entrez le nom du fichier de sauvegarde (ex: save.txt) :");
 		String nomFichier = scan.nextLine().trim();
 
@@ -297,7 +400,7 @@ public class InterfaceTextuelle {
 
 		try {
 			SauvegardeurReseau sauvegardeur = new SauvegardeurReseau();
-			sauvegardeur.sauvegarder(network, nomFichier);
+			sauvegardeur.sauvegarder(reseauPartie2, nomFichier);
 		} catch (IOException e) {
 			System.out.println("=> ERREUR lors de la sauvegarde : " + e.getMessage());
 		}
@@ -305,7 +408,7 @@ public class InterfaceTextuelle {
 
 	/**
 	 * Gère le menu de sélection de l'algorithme de résolution automatique.
-	 * Propose différents algorithmes (Naïf, Gloutons, Branch and Bound) et excécute celui choisi par l'utilisateur.
+	 * Propose différents algorithmes (Naïf, Gloutons, Branch and Bound) et exécute celui choisi par l'utilisateur.
 	 * Affiche ensuite les statistiques de performance (temps, gain de coût).
 	 * @param reseau Le réseau à optimiser.
 	 * @param lambda Le coefficient de pénalisation de la surcharge.
@@ -393,7 +496,7 @@ public class InterfaceTextuelle {
 
 		} else if (coutApres == coutAvant) {
 			System.out.println(
-					"<!> Aucun changement : L'algorithme n'a pas trouvé de meilleur solution ou le réseau était déjà optimal.");
+					"<!> Aucun changement : L'algorithme n'a pas trouvé de meilleure solution ou le réseau était déjà optimal.");
 
 		} else {
 			// Théoriquement impossible ....
@@ -410,7 +513,7 @@ public class InterfaceTextuelle {
 	/**
 	 * Point d'entrée du programme.
 	 * Analyse les arguments de la ligne de commande pour déterminer le mode de lancement.
-	 * - Aucun argument : Lance le Mode Mannuel (Partie 1).
+	 * - Aucun argument : Lance le Mode Manuel (Partie 1).
 	 * - Un argument (chemin du fichier) : Lance le Mode Fichier (Partie 2).
 	 * @param args Arguments passés en ligne de commande.
 	 */
@@ -440,7 +543,7 @@ public class InterfaceTextuelle {
 						lambda = Double.parseDouble(args[1]);
 					}
 					catch(NumberFormatException nfe){
-						System.out.println("\nERREUR : Le second paramètre (lambda) n'est pas un nombre valid. Valeur par défaut de 10.0 sera utilisée.");
+						System.out.println("\nERREUR : Le second paramètre (lambda) n'est pas un nombre valide. La valeur par défaut de 10.0 sera utilisée.");
 						if (args[1].contains(",")){
 							System.out.println("Tentez avec . au lieu de ,");
 						}

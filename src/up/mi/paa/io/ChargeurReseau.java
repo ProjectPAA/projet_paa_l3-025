@@ -35,7 +35,7 @@ public class ChargeurReseau {
 	
 	/**
 	 * Lit le fichier et retourne un réseau rempli.
-	 * @param cheminFichier : le chemin du fichier avec .txt
+	 * @param cheminFichier : le chemin du fichier d'extension .txt
 	 * @throws FileNotFoundException : Si le fichier n'existe pas.
 	 * @return this.reseau : Retourne le réseau construit.
 	 * @throws FormatParentheseInvalideException 
@@ -71,8 +71,8 @@ public class ChargeurReseau {
 	}
 	
 	/**
-	 * Analyse une ligne unique et met-à-jour le réseau.
-	 * @param ligne : Ligne lu dans le fichier
+	 * Analyse une ligne unique et met à jour le réseau.
+	 * @param ligne : Ligne lue dans le fichier
 	 * @param reseau : Réseau à construire.
 	 * */
 	
@@ -87,7 +87,7 @@ public class ChargeurReseau {
 			
 			parserConnexion(ligne);
 		} else {
-			throw new IllegalArgumentException("Erreur syntaxe ligne " + this.numeroLigne + "Instruction inconnue.");
+			throw new IllegalArgumentException("Erreur de syntaxe à la ligne " + this.numeroLigne + "Instruction inconnue.");
 		}
 	}
 	
@@ -99,7 +99,7 @@ public class ChargeurReseau {
 		
 			String[] args = extraireArguments(ligne);
 			if(args.length != 2) {
-				throw new NombreArgumentIncorrectException("Erreur sur ligne " + this.numeroLigne +" : Nombre d'arguments incorrect pour un générateur.");
+				throw new NombreArgumentIncorrectException("Erreur à la ligne " + this.numeroLigne +" : Nombre d'arguments incorrect pour un générateur.");
 			}
 			
 			try {
@@ -107,7 +107,7 @@ public class ChargeurReseau {
 				int puissance = Integer.parseInt(args[1]);
 				this.reseau.ajouterGenerateur(nom, puissance, true);
 			}catch(NumberFormatException e) {
-				System.out.println("Erreur sur ligne " + this.numeroLigne +" : La puisscance doit être en nombre (ex : 60).");
+				System.out.println("Erreur à la ligne " + this.numeroLigne +" : La puissance doit être un nombre (ex : 60).");
 			}
 		
 	}
@@ -120,7 +120,7 @@ public class ChargeurReseau {
 		if(ligne.contains("(") && ligne.contains(")")) {
 			String[] args = extraireArguments(ligne);
 			if(args.length != 2) {
-				throw new NombreArgumentIncorrectException("Erreur sur ligne " + this.numeroLigne +" : Nombre d'arguments incorrect pour un Maison.");
+				throw new NombreArgumentIncorrectException("Erreur à la ligne " + this.numeroLigne +" : Nombre d'arguments incorrect pour une Maison.");
 			}
 			
 			try {
@@ -128,12 +128,12 @@ public class ChargeurReseau {
 				TypeConsommation type = TypeConsommation.valueOf(args[1].toUpperCase());
 				this.reseau.ajouterMaison(nom, type, true);
 			}catch(NumberFormatException e) {
-				System.out.println("Erreur sur ligne " + this.numeroLigne + " : La puisscance doit être en nombre (ex : 60).");
+				System.out.println("Erreur à la ligne " + this.numeroLigne + " : La puissance doit être un nombre (ex : 60).");
 			}
 		} else {
 			String[] args = ligne.trim().split("\\s+");
 			if(args.length != 2) {
-				throw new NombreArgumentIncorrectException("Erreur sur ligne " + this.numeroLigne + " : Nombre d'arguments incorrect pour un Maison.");
+				throw new NombreArgumentIncorrectException("Erreur à la ligne " + this.numeroLigne + " : Nombre d'arguments incorrect pour une Maison.");
 			}
 			
 			try {
@@ -141,20 +141,20 @@ public class ChargeurReseau {
 				TypeConsommation type = TypeConsommation.valueOf(args[1].trim().toUpperCase());
 				this.reseau.ajouterMaison(nom, type, true);
 			}catch(NumberFormatException e) {
-				System.out.println("Erreur sur ligne " + this.numeroLigne + " : La puisscance doit être un nombre (ex : 60).");
+				System.out.println("Erreur à la ligne " + this.numeroLigne + " : La puisscance doit être un nombre (ex : 60).");
 			}
 			
 		}
 	}
 	
 	/**
-	 * À partir d'une ligne contenant une {@link up.mi.paa.pbl.Reseau#getConnexions()} cette méthode construit l'objet {@linkplain up.mi.paa.pbl.Reseau#getConnexions()} correspondant.
-	 * @param ligne La ligne contenant une {@link up.mi.paa.pbl.Reseau#getConnexions()}.
+	 * À partir d'une ligne contenant une {@link up.mi.paa.pbl.Reseau#getConnexions() connexion} cette méthode construit la {@linkplain up.mi.paa.pbl.Reseau#getConnexions() connexion} correspondante.
+	 * @param ligne La ligne contenant une {@link up.mi.paa.pbl.Reseau#getConnexions() connexion}.
 	 * */
 	private void parserConnexion(String ligne) throws FormatParentheseInvalideException, NombreArgumentIncorrectException {
 		String[] args = extraireArguments(ligne);
 		if(args.length != 2) {
-			throw new NombreArgumentIncorrectException("Erreur sur ligne " + this.numeroLigne + " : Nombre d'arguments incorrect pour un générateur.");
+			throw new NombreArgumentIncorrectException("Erreur à la ligne " + this.numeroLigne + " : Nombre d'arguments incorrect pour un générateur.");
 		}
 		
 		try {
@@ -168,18 +168,18 @@ public class ChargeurReseau {
 				nomGenerateur = args[0].trim();
 			}
 			if(!this.reseau.getMaisons().containsKey(nomMaison) || !this.reseau.getGenerateurs().containsKey(nomGenerateur)) {
-				System.out.println("Erreur sur ligne " + this.numeroLigne + " : La maison ou le générateur n'existe pas dans le réseau chargé.");
+				System.out.println("Erreur à la ligne " + this.numeroLigne + " : La maison ou le générateur n'existe pas dans le réseau chargé.");
 				return;
 			}
 			// All is Ok.
 			this.reseau.ajouterConnexion(nomMaison, nomGenerateur, true);
 		}catch(NumberFormatException e) {
-			throw new NumberFormatException("Erreur sur ligne " + this.numeroLigne + " : La puissance doit être un entier valide.");
+			throw new NumberFormatException("Erreur à la ligne " + this.numeroLigne + " : La puissance doit être un entier valide.");
 		}
 	}
 	
 	/**
-	 * Extrait les arguments de l'objet donnés dans la lignes
+	 * Extrait les arguments de l'objet donnés dans la ligne
 	 * @param ligne La ligne à traiter.
 	 */
 	private String[] extraireArguments(String ligne) throws IllegalArgumentException, FormatParentheseInvalideException{
@@ -189,17 +189,17 @@ public class ChargeurReseau {
 			int indexParentheseOpen = ligne.indexOf('(');
 			int indexParentheseClose = ligne.indexOf(')');
 			if(indexParentheseClose == -1 || indexParentheseOpen == -1 || indexParentheseOpen > indexParentheseClose) {
-				throw new FormatParentheseInvalideException("Erreur sur ligne " + this.numeroLigne + ": La ligne ne contient pas de(s) parenthèse(s) ou la paranthèse fermante est avant parenthèse ouvrante.");
+				throw new FormatParentheseInvalideException("Erreur à la ligne " + this.numeroLigne + ": La ligne ne contient pas de(s) parenthèse(s) ou la parenthèse fermante est avant la parenthèse ouvrante.");
 			}
 			String chaine = ligne.substring(indexParentheseOpen + 1, indexParentheseClose);
 			
 			String[] chaineTab = chaine.trim().split("[,\\s]+");
 			chaineTabClean = new String[chaineTab.length];
 			for(int i = 0; i < chaineTab.length; i++) {
-				chaineTabClean[i] = chaineTab[i].trim(); // Netoyage des espace
+				chaineTabClean[i] = chaineTab[i].trim(); // Nettoyage des espaces
 			}
 		}else {
-			throw new IllegalArgumentException("Erreur sur la ligne " + this.numeroLigne + " : La ligne doit finir par un point (.).");
+			throw new IllegalArgumentException("Erreur à la ligne " + this.numeroLigne + " : La ligne doit finir par un point (.).");
 		}
 		return chaineTabClean;
 	}

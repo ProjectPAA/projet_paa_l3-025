@@ -11,8 +11,8 @@ import up.mi.paa.pbl.Reseau;
 import java.io.FileWriter;
 
 /**
- * Classe responsable de l'exportation (sauvegarde)d'un réseau électrique vers un fichier texte.
- * Le fichier génére resepcte strictement le format imposé par le sujet(PArtie 2) pour pouvoir être rechargé ultérieurement par le ChargeurReseau.
+ * Classe responsable de l'exportation (sauvegarde) d'un réseau électrique vers un fichier texte.
+ * Le fichier généré respecte strictement le format imposé par le sujet (Partie 2) pour pouvoir être rechargé ultérieurement par le ChargeurReseau.
  * @author Jacques ZHENG
  * @author Mamadou NIMAGA
  * @author Zalán MOLNÁR
@@ -25,7 +25,7 @@ public class SauvegardeurReseau {
 	 * L'écriture respecte l'ordre imposé :
 	 * </p>
 	 * <ol>
-	 * <li>Les génératuers : <code>generateur(nom,capacite).</code></li>
+	 * <li>Les générateurs : <code>generateur(nom,capacite).</code></li>
 	 * <li>Les maisons : <code>maison(nom, TYPE).</code></li>
 	 * <li>Les connexions : <code>connexion(gen,maison).</code></li>
 	 * </ol>
@@ -45,12 +45,12 @@ public class SauvegardeurReseau {
 				writer.println("generateur(" + gen.getNom() + "," + gen.getCapaciteMax() + ").");
 			}
 
-			// Ecriture des Maisons dans le fichier
+			// Écriture des Maisons dans le fichier
 			for (Maison maison : reseau.getMaisons().values()) {
 				writer.println("maison(" + maison.getNom() + "," + maison.getTypeConsommation().name() + ").");
 			}
 
-			// Ecriture des conexions entre générateurs et maisons dans le fichier
+			// Écriture des connexions entre générateurs et maisons dans le fichier
 			for (Map.Entry<Maison, Generateur> entree : reseau.getConnexions().entrySet()) {
 				Maison maison = entree.getKey();
 				Generateur generateur = entree.getValue();

@@ -16,6 +16,7 @@ import up.mi.paa.pbl.Reseau;
 public class SolverNaive extends Solver {
 	
 	/**
+	 * Constructeur à partir du {@link Reseau} à traiter.
 	 * @param reseau Le {@link Reseau} à traiter.
 	 * @param lambda Le λ donnant la pénalisation de surcharge dans le calcul du coût.
 	 */

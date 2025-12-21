@@ -343,6 +343,7 @@ public class InterfaceTextuelle {
 	 * Lance le menu principal du Mode Fichier (Partie 2).
 	 * Permet la résolution automatique et la sauvegarde d'un réseau chargé depuis un fichier.
 	 * @param reseauPartie2 Le réseau chargé depuis le fichier.
+	 * @param lambda Le coefficient de pénalisation de la surcharge.
 	 */
 	private static void lancerMenuPartie2(Reseau reseauPartie2, double lambda) {
 
@@ -411,6 +412,7 @@ public class InterfaceTextuelle {
 	 * Propose différents algorithmes (Naïf, Gloutons, Branch and Bound) et excécute celui choisi par l'utilisateur.
 	 * Affiche ensuite les statistiques de performance (temps, gain de coût).
 	 * @param reseau Le réseau à optimiser.
+	 * @param lambda Le coefficient de pénalisation de la surcharge.
 	 */
 	private static void handleResolutionAutomatique(Reseau reseau, double lambda) {
 		

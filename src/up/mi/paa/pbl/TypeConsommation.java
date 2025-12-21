@@ -22,8 +22,15 @@ public enum TypeConsommation {
 	 */
 	FORTE(40);
 	
+	/**
+	 * Le nombre de kWh demandés par une {@link Maison} de ce {@code TypeConsommation}.
+	 */
 	private final int demande;
 	
+	/**
+	 * Constructeur privé qui crée les instances prédéfinies de {@code TypeConsommation}.
+	 * @param val Le nombre de kWh demandés par une {@link Maison} de ce {@code TypeConsommation}.
+	 */
 	private TypeConsommation(int val) {
 		this.demande = val;
 	}

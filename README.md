@@ -6,13 +6,13 @@
   * ZHENG Jacques
   * MOLNÁR Zalán
 
-**Date :** Le 13 Décembre 2025
+**Date :** Le 21 Décembre 2025
 **Université :** Université Paris Cité - Licence 3 Informatique/Mathématique - Informatique & Applications
 **UFR de Mathématiques et Informatique**
 
 ## 1\. Description du Projet
 
-Ce projet a pour but de modéliser et d'optimiser un réseau de distribution d'électricité. Il permet de connecter des maisons à des générateurs tout en minimisant le coût total du réseau (basé sur la dispersion des câbles et la surcharge des générateurs).
+Ce projet a pour but de modéliser et d'optimiser un réseau de distribution d'électricité. Il permet de connecter des maisons à des générateurs tout en minimisant le coût total du réseau (basé sur la dispersion équitable de la charge et la surcharge des générateurs).
 
 Le programme propose deux modes de fonctionnement :
 

@@ -12,7 +12,7 @@ import up.mi.paa.pbl.TypeConsommation;
  * Cette classe est responsable de charger un {@link up.mi.paa.pbl.Reseau} stocké en {@link File fichier} et de le transformer en objet de type {@linkplain up.mi.paa.pbl.Reseau}.
  * 
  * @author Jacques ZHENG
- * @author Mamadou NIMAGA DIT
+ * @author Mamadou NIMAGA
  * @author Zalán MOLNÁR
  */
 public class ChargeurReseau {
@@ -45,11 +45,12 @@ public class ChargeurReseau {
 	public Reseau charger(String cheminFichier) throws FileNotFoundException, IllegalArgumentException, NombreArgumentIncorrectException, FormatParentheseInvalideException {
 		
 		File fichier = new File(cheminFichier);
-		Scanner scanner = new Scanner(fichier);
 		
+		try (Scanner scanner = new Scanner(fichier)){
+			this.reseau = new Reseau(); 
+		    this.numeroLigne = 0;
 		System.out.println("Debut du chargement de : " + cheminFichier);
 		
-		try {
 			while(scanner.hasNextLine()) {
 				String ligne = scanner.nextLine().trim();
 				this.numeroLigne++;
@@ -58,17 +59,14 @@ public class ChargeurReseau {
 				
 				// Analyse de la ligne
 				traiterLigne(ligne, this.reseau);
-			}
-			
-		} finally{
-			scanner.close();
-		}
+			}	
 		
 		   System.out.println("\n=========== Réseau chargé avec succès. ===========================");
            System.out.println("Nombre de maisons : " + this.reseau.getMaisons().size());
            System.out.println("Nombre de générateurs : " + this.reseau.getGenerateurs().size());
            reseau.afficherReseau();
 		return this.reseau;
+		}
 		
 	}
 	

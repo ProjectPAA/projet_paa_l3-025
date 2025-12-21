@@ -46,6 +46,8 @@ class TestChargeurReseau {
     /**
      * Crée un fichier temporaire contenant les lignes données et retourne son chemin absolu.
      * Le fichier sera supprimé automatiquement à la fin du test.
+     * @param lignes La {@link List liste} des lignes que le fichier de teste doit contenir.
+     * @return Le chemin absolu du fichier de teste.
      */
     private String creerFichierTest(List<String> lignes) throws IOException {
         Path tempFile = Files.createTempFile("test_reseau", ".txt");

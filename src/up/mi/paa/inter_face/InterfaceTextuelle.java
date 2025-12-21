@@ -73,7 +73,7 @@ public class InterfaceTextuelle {
 		System.out.println("Entrez le nom et type de consommation ex: M1 (BASSE/NORMAL/FORTE) :");
 		String[] ligne = scan.nextLine().trim().split("\\s+");
 
-		// on gere les erreurs
+		// on gère les erreurs
 		try {
 			String nomMaison = ligne[0];
 			TypeConsommation type = TypeConsommation.valueOf(ligne[1].toUpperCase());
@@ -243,7 +243,7 @@ public class InterfaceTextuelle {
 	 */
 	private static void lancerMenuPartie2(Reseau reseauPartie2, double lambda) {
 
-		boolean enCours = true; // Si enCours est false on quitte le menu.
+		boolean enCours = true; // Si enCours est false, on quitte le menu.
 
 		while (enCours) {
 			System.out.println("\n============== Menu Principal Partie 2 =================");
@@ -341,8 +341,10 @@ public class InterfaceTextuelle {
 				}
 			}
 			if (!toutEstTermine) {
-				System.out.println("Encore en cours. " + (i_sleep+1) + " d'au plus 60 secondes passées.");
-				try{Thread.sleep(1000);}
+				System.out.println("Le calcul tourne depuis " + (i_sleep + 1) + " seconde(s) (arrêt forcé à 60 secondes).");
+				try{
+					Thread.sleep(1000);
+				}
 				catch (InterruptedException ie) {
 					Thread.currentThread().interrupt();	//thrower may clear Interrupted status.
 					//Setting this breaks from the for. This should never execute, because of how the Thread hierarchy is laid out.
@@ -433,7 +435,7 @@ public class InterfaceTextuelle {
 			try {
 				Reseau reseauPartie2 = chargeur.charger(cheminFichier);
 
-				// Si le chargement réussit, on lance le menu 2
+				// Si le chargement réussit, on lance le menu 2.
 				double lambda = 10.0; //par défaut
 				if (args.length >= 2) {
 					try {
@@ -456,7 +458,7 @@ public class InterfaceTextuelle {
 				// Gestion propre des erreurs de chargement
 				System.out.println("ERREUR FATALE lors du chargement :");
 				System.out.println(e.getMessage());
-				System.exit(1); // On quitte car le fichier est invalide
+				System.exit(1); // On quitte, car le fichier est invalide
 			} catch (Exception e) {
 				System.out.println("Erreur inattendue : " + e.getMessage());
 				e.printStackTrace();

@@ -484,7 +484,7 @@ public class Reseau {
 	 * @return {@code true} si et seulement si ce {@code Reseau} et {@code other} contiennent les mêmes {@link #generateurs} et les mêmes {@link #maisons} et si elles sont {@link #connexions connectées} aux mêmes générateurs dans les deux. Retourne {@code false} si {@code other} n'est pas une instance de {@code Reseau}.
 	 */
 	@Override
-	public boolean equals(Object other) {	//C'est pas vraiment nécessaire de redéfinir ça, mais vu qu'on est là...
+	public boolean equals(Object other) {	// Ce n'est pas vraiment nécessaire de redéfinir ça, mais vu qu'on est là...
 		if (other == null || !(other instanceof Reseau)) {
 			return Boolean.FALSE;
 		}
@@ -502,8 +502,8 @@ public class Reseau {
 	@Override
 	public Reseau clone() {
 		Reseau cloneOfThis = new Reseau();
-		/* On ne clone pas toutes les maisons et tous les générateurs individuellement. On se permet ça car notre clone sert qu'à permettre l'approche portfolio en parallèle sur notre Reseau. 
-		 * Si il y avait raison qu'un algorithme change les propriétés d'une maison ou un générateur, alors ça ne marcherait plus.*/
+		/* On ne clone pas toutes les maisons et tous les générateurs individuellement. On se permet ça, car notre clone sert qu'à permettre l'approche portfolio en parallèle sur notre Reseau.
+		 * S'il y avait raison qu'un algorithme change les propriétés d'une maison ou un générateur, alors ça ne marcherait plus.*/
 		cloneOfThis.getMaisons().putAll(this.maisons);
 		cloneOfThis.getGenerateurs().putAll(this.generateurs);
 		cloneOfThis.getConnexions().putAll(this.connexions);

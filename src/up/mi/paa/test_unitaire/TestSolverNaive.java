@@ -12,7 +12,7 @@ class TestSolverNaive {
 
     /**
      * Teste que le Solver ne fait jamais augmenter le coût.
-     * Test de l'algorithme Hill Climbing on ne garde que si c'est mieux ou égal (le coût).
+     * Test de l'algorithme Hill Climbing, on ne garde que si c'est mieux ou égal (le coût).
      */
     @Test
     void testNonRegression() {
@@ -31,7 +31,7 @@ class TestSolverNaive {
         double coutInitial = reseau.calculerCout(1.0);
 
         SolverNaive solver = new SolverNaive(reseau, 1.0);
-        // On lance 100 itérations (suffisant pour un petit réseau)
+        // On lance 100 itérations (suffisant pour un petit réseau).
         solver.solve(100);
 
         double coutFinal = reseau.calculerCout(1.0);

@@ -80,7 +80,7 @@ class TestSolverGreedyGenerateur {
         Maison m = reseau.getMaisons().get("M_Geante");
         Generateur g = reseau.getConnexions().get(m);
 
-        // Le choix doit se porter sur le générateur ayant la plus grande capacité (Mini_2)
+        // Le choix doit se porter sur le générateur ayant la plus grande capacité (Mini_2).
         assertEquals("Mini_2", g.getNom(), "En surcharge, le générateur de plus grande capacité doit être choisi.");
     }
 

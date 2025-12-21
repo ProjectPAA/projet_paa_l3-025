@@ -282,44 +282,7 @@ public class InterfaceTextuelle {
 		System.out.println("--------------------------------------");
 	}
 
-	/**
-	 * Lance le menu secondaire du Mode Manuel (Partie 1).
-	 * Permet de calculer le coût, modifier des connexions ou afficher le réseau une fois la construction terminée.
-	 */
-	public static void lancerMenuSecondaire() {
-		boolean enCours = true;
-		while (enCours) {
-			System.out.println("============== Menu Secondaire =================");
-			System.out.println("1. Calculer.");
-			System.out.println("2. Modifier.");
-			System.out.println("3. Afficher le réseau.");
-			System.out.println("4. Fin.");
-			System.out.println("============== Fin : Menu Secondaire =================");
-
-			String choix = scan.nextLine();
-			switch (choix) {
-			case "1":
-				handleCalculerCout();
-				break;
-			case "2":
-				handleModifierConnexion();
-				break;
-			case "3":
-				handleAfficherReseau();
-				;
-				break;
-			case "4":
-				enCours = false;
-				break;
-			default:
-				System.out.println("Saisie incorrect !");
-				break;
-
-			}
-		}
-		System.out.println("\nVous avez quitter le menu secondaire.");
-	}
-
+	
 	/**
 	 * Lance le menu principal du Mode Manuel (Partie 1).
 	 * Permet la construction pas à pas du réseau (ajout d'éléments).
@@ -353,7 +316,10 @@ public class InterfaceTextuelle {
 			case "5":
 				if (verifierConnexion()) {
 					enCours = false;
-					lancerMenuSecondaire(); // Menu Secondaire
+					System.out.println("\nConstruction manuelle terminée. Passage aux outils de résolution.");
+					System.out.println("Le réseau actuel : ");
+					reseau.afficherReseau();
+					lancerMenuPartie2(reseau, 10.0);
 				} else {
 					System.out.println("La (es) configuration(s) n'est (ne sont) pas correcte (s) ! Veuillez corriger.");
 				}

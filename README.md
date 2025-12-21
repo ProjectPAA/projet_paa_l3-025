@@ -25,10 +25,18 @@ Pour la documentation, veuillez vous référer au Javadoc dans le répertoire /d
 
 ## 3\. Comment exécuter le programme
 
-La classe principale contenant la méthode `main` est :
-**`up.mi.paa.inter_face.InterfaceTextuelle`**
+On propose un fichier exécutable, projet_praa_executable.jar à la racine de l'archive rendue. Pour l'exécuter, il suffit de faire (depuis la racine de l'arborescence) :
+
+```bash
+java -jar projet_praa_executable.jar
+```
+
+Mais si vous préférez, vous pouvez compiler vous-même notre projet : 
 
 ### Compilation
+
+La classe principale contenant la méthode `main` est :
+**`up.mi.paa.inter_face.InterfaceTextuelle`**
 
 Placez-vous à la racine du projet (dossier contenant `src`) et compilez avec :
 

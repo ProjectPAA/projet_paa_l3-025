@@ -1,8 +1,0 @@
-generateur(G1,50).
-generateur(G2,70).
-maison(M1,FORTE).
-maison(M2,FORTE).
-maison(M3,NORMAL).
-connexion(G1,M1).
-connexion(G1,M3).
-connexion(G2,M2).

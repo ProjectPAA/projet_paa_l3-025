@@ -4,8 +4,6 @@ import up.mi.paa.pbl.Reseau;
 /**
  * <p>Cette classe abstraite est la généralisation de tout algorithme/approche permettant de résoudre ou approcher la solution du problème de la minimisation du coût d'un {@link Reseau}.</p>
  * <p>Elle est aussi un exemple du patron de conception {@code Strategy}.</p>
- * <p>Les classes enfants <i>doivent</i> implémenter un constructeur se comportant comme :</p>
- * <p>{@code public ConcreteSolver(Reseau reseau) {this.reseau = reseau;}}</p>
  * 
  * @author Jacques ZHENG
  * @author Mamadou NIMAGA

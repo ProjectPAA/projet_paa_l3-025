@@ -17,7 +17,7 @@ import java.util.ArrayList;
  * <p>En O(n<sup>2</sup>).</p>
  * 
  * @author Jacques ZHENG
- * @author Mamadou NIMAGA DIT
+ * @author Mamadou NIMAGA
  * @author Zalán MOLNÁR
  */
 public class SolverGreedyGenerateur extends Solver {

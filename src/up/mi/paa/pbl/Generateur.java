@@ -2,9 +2,10 @@ package up.mi.paa.pbl;
 
 
 /**
- * <p>Classe qui représente les Generateurs en accord avec les contraintes posées dans la description du projet.</p>
+ * <p>Classe qui représente les générateurs en accord avec les contraintes posées dans la description du projet.</p>
+ * <p>Remarque : Cette classe possède un ordre naturel incohérent avec {@link Generateur#equals(Object) equals}.</p>
  * @author Jacques ZHENG
- * @author Mamadou NIMAGA DIT
+ * @author Mamadou NIMAGA
  * @author Zalán MOLNÁR
  */
 public class Generateur implements Comparable<Generateur>{ //Note: this class has a natural ordering that is inconsistent with equals.
@@ -13,16 +14,16 @@ public class Generateur implements Comparable<Generateur>{ //Note: this class ha
 	 */
 	private String nom;
 	/**
-	 * Le {@link Integer} donnant la capacité maximale du {@code Generateur}.
+	 * L'{@link Integer} donnant la capacité maximale du {@code Generateur}.
 	 */
 	private int capaciteMax;
 	
 	
 	/**
-	 * Constructeur du Generateur prennant en argument son nom et sa capacité.
+	 * Constructeur du {@code Generateur} prenant en argument son nom et sa capacité.
 	 * 
-	 * @param n Le nom du Generateur.
-	 * @param val La capacité maximale du Generateur.
+	 * @param n Le nom du {@code Generateur}.
+	 * @param val La capacité maximale du {@code Generateur}.
 	 */
 	public Generateur(String n, int val) {
 		this.nom = n;
@@ -30,10 +31,10 @@ public class Generateur implements Comparable<Generateur>{ //Note: this class ha
 	}
 
 	/**
-	 * Decide si ce Generateur est égal à {@code other} en respectant la spécification dans {@link Object#equals(Object) Object}.
+	 * Décide si ce Generateur est égal à {@code other} en respectant la spécification dans {@link Object#equals(Object) Object}.
 	 *
-	 *@param other L'objet auquel comparer ce Generateur.
-	 *@return {@code True} si et seulement si les noms et les capacités maximaux sont identiques. Si {@code other} n'est pas un Generateur, le retour est {@code False}.
+	 *@param other L'objet auquel comparer ce {@code Generateur}.
+	 *@return {@code True} si et seulement si les noms et les capacités maximaux sont identiques. Si {@code other} n'est pas un {@code Generateur}, le retour est {@code False}.
 	 */
 	@Override
 	public boolean equals(Object other) {
@@ -64,8 +65,8 @@ public class Generateur implements Comparable<Generateur>{ //Note: this class ha
 	}
 	
 	/**
-	 * Change le {@link Integer} donnant la capacité maximale du {@code Generateur}.
-	 * @param val Le {@link Integer} donnant la capacité maximale du {@code Generateur}.
+	 * Change l'{@link Integer} donnant la capacité maximale du {@code Generateur}.
+	 * @param val L'{@link Integer} donnant la capacité maximale du {@code Generateur}.
 	 */
 	public void setCapaciteMax(int val) {
 		this.capaciteMax = val;
@@ -90,9 +91,9 @@ public class Generateur implements Comparable<Generateur>{ //Note: this class ha
     }
 	
 	/**
-	 * Compare ce {@code Generateur} avec {@code other} selon leur capacités maximales. Remarque: implémentation incohérente avec {@link Generateur#equals(Object) equals}.
+	 * Compare ce {@code Generateur} avec {@code other} selon leurs capacités maximales. Remarque : implémentation incohérente avec {@link Generateur#equals(Object) equals}.
 	 * @param other Le {@code Generateur} avec lequel comparer le {@code Generateur} courant.
-	 * @return Le comparaison de leur capacités maximales selon {@link Integer#compareTo(Integer)}.
+	 * @return Le comparaison de leurs capacités maximales selon {@link Integer#compareTo(Integer)}.
 	 */
 	public int compareTo(Generateur other) {
 		return ((Integer) this.capaciteMax).compareTo((Integer) other.getCapaciteMax());

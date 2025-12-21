@@ -12,7 +12,7 @@ import java.util.Map;
  * 
  * 
  * @author Jacques ZHENG
- * @author Mamadou NIMAGA DIT
+ * @author Mamadou NIMAGA
  * @author Zalán MOLNÁR
  */
 public class Reseau {

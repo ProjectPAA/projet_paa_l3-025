@@ -3,7 +3,7 @@ package up.mi.paa.pbl;
 /**
  * <p>Classe qui représente les Maisons en accord avec les contraintes de la description du projet.</p> 
  * @author Jacques ZHENG
- * @author Mamadou NIMAGA DIT
+ * @author Mamadou NIMAGA
  * @author Zalán MOLNÁR
  */
 public class Maison {
@@ -77,8 +77,8 @@ public class Maison {
 	}
 	
 	/**
-	 * Retourne une représentation en {@linkplain String} de cette Maison.
-	 * @return Une représentation en {@linkplain String} de cette Maison.
+	 * Retourne une représentation en {@linkplain String} de cette {@code Maison}.
+	 * @return Une représentation en {@linkplain String} de cette {@code Maison}.
 	 */
 	@Override
     public String toString() {

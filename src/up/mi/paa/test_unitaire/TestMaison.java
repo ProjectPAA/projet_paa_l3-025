@@ -45,13 +45,13 @@ class TestMaison {
         Maison m4 = new Maison("Voisins", TypeConsommation.NORMAL);   // Nom différent
 
         // Test sur une égalité parfaite
-        assertEquals(m1, m2, "Deux maisons avec mêmes attributs doivent être égales");
+        assertEquals(m1, m2, "Deux maisons avec les mêmes attributs doivent être égales");
 
         // Test sur une inégalité
         assertNotEquals(m1, m3, "Le type différent doit rendre l'égalité fausse");
         assertNotEquals(m1, m4, "Le nom différent doit rendre l'égalité fausse");
         assertNotEquals(m1, null, "L'égalité avec null doit être fausse");
-        assertNotEquals(m1, "String", "L'égalité avec un autre type d'objet doit être fausse");
+        assertNotEquals(m1, "String", "L'égalité avec un autre type d'objets doit être fausse");
     }
 
     /**

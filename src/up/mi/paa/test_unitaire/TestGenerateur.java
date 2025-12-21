@@ -5,9 +5,6 @@ import org.junit.jupiter.api.Test;
 
 import up.mi.paa.pbl.Generateur;
 
-
-
-
 class TestGenerateur {
 
     /**
@@ -19,7 +16,6 @@ class TestGenerateur {
         Generateur gen = new Generateur("Gen1", 100);
 
         assertEquals("Gen1", gen.getNom(), "Le nom devrait être Gen1");
-        // Attention : j'utilise getCapaciteMAx (avec le A majuscule) comme dans votre code source
         assertEquals(100, gen.getCapaciteMax(), "La capacité devrait être 100");
     }
 
@@ -51,8 +47,8 @@ class TestGenerateur {
         // Cas d'inégalité
         assertNotEquals(g1, g3, "Des noms différents doivent rendre l'égalité fausse");
         assertNotEquals(g1, g4, "Des capacités différentes doivent rendre l'égalité fausse");
-        assertNotEquals(g1, null, "L'égalité avec null doit être fausse");
-        assertNotEquals(g1, "Une String", "L'égalité avec un autre type doit être fausse");
+        assertNotNull(g1, "L'objet ne devrait pas être null");
+        assertNotEquals("Un String", g1, "L'égalité avec un autre type doit être fausse");
     }
 
     /**
@@ -97,10 +93,10 @@ class TestGenerateur {
         Generateur g1 = new Generateur("Alpha", 100);
         Generateur g2 = new Generateur("Beta", 100);
 
-        // Générateur ont la même capacité, donc compareTo renvoie 0 (comme s'ils étaient égaux pour le tri)
+        // Générateurs ont la même capacité, donc compareTo renvoie 0 (comme s'ils étaient égaux pour le tri)
         assertEquals(0, g1.compareTo(g2), "compareTo doit renvoyer 0 car capacités identiques");
 
-        // Générateur ont des noms différents, donc equals renvoie false
+        // Générateurs ont des noms différents, donc equals renvoie false
         assertNotEquals(g1, g2, "equals doit renvoyer false car les noms sont différents");
     }
 }

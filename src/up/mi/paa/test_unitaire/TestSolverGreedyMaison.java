@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 class TestSolverGreedyMaison {
 
     /**
-     * Cas simple : 2 générateurs et 2 maisons identiques.
+     * Cas simple : Deux générateurs et deux maisons identiques.
      * La charge doit être parfaitement répartie (dispersion = 0).
      */
     @Test
@@ -90,7 +90,7 @@ class TestSolverGreedyMaison {
         reseau.ajouterGenerateur("G1", 50);
         reseau.ajouterGenerateur("G2", 50);
 
-        // 3 maisons moyennes (3 * 20 = 60 total) pour 100 de capacité totale
+        // 3 maisons moyennes (3 * 20 = 60 totales) pour 100 de capacité totale
         reseau.ajouterMaison("M1", TypeConsommation.NORMAL);
         reseau.ajouterMaison("M2", TypeConsommation.NORMAL);
         reseau.ajouterMaison("M3", TypeConsommation.NORMAL);
@@ -100,7 +100,7 @@ class TestSolverGreedyMaison {
 
         reseau.updateTauxUtilisation();
 
-        // On vérifie qu'aucun générateur n'est en surcharge (> 1.0)
+        // On vérifie qu'aucun générateur n'est en surcharge (> 1.0).
         double tauxG1 = reseau.getTauxUtilisation().get("G1");
         double tauxG2 = reseau.getTauxUtilisation().get("G2");
 

@@ -86,7 +86,7 @@ class TestSauvegardeurReseau {
 
     /**
      * Vérifie le comportement de la sauvegarde avec un réseau vide.
-     * Le fichier doit être créé mais ne doit contenir aucune instruction.
+     * Le fichier doit être créé mais, ne doit contenir aucune instruction.
      */
     @Test
     void testSauvegardeReseauVide() throws IOException {
@@ -112,7 +112,7 @@ class TestSauvegardeurReseau {
         Reseau reseau = new Reseau();
         SauvegardeurReseau sauvegardeur = new SauvegardeurReseau();
 
-        // Tentative d'écriture dans un chemin impossible (ex: un répertoire système ou vide sur certains OS)
+        // Tentative d'écriture dans un chemin impossible (ex : un répertoire système ou vide sur certains OS)
         // Sur Linux/Mac "/" est racine (lecture seule souvent), sur Windows "Z:/inconnu".
         // Une méthode fiable est de pointer vers un dossier qui n'existe pas.
         String cheminInvalide = "DossierInexistant/fichier.txt";

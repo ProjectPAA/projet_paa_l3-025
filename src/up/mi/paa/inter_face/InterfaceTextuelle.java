@@ -171,114 +171,11 @@ public class InterfaceTextuelle {
 	}
 
 	/**
-	 * Gère la modification interactive d'une connexion.
-	 * Permet de changer le générateur auquel une maison est connectée.
-	 */
-	private static void handleModifierConnexion() {
-		try {
-			// Ancienne connexion
-			System.out.println("Veuillez saisir la connexion que vous souhaitez modifier (ex: M1 G1 ou G1 M1):");
-			String[] ancienneSaisie = scan.nextLine().trim().split("\\s+");
-			if (ancienneSaisie.length < 2)
-				throw new ArrayIndexOutOfBoundsException();
-
-			Maison maison = null;
-			Generateur ancienGen = null;
-
-			// Identifie maison et générateur dans n'importe quel ordre
-			for (String nom : ancienneSaisie) {
-				if (reseau.getMaisons().containsKey(nom))
-					maison = reseau.getMaisons().get(nom);
-				if (reseau.getGenerateurs().containsKey(nom))
-					ancienGen = reseau.getGenerateurs().get(nom);
-			}
-
-			// Validation
-			if (maison == null || ancienGen == null || !ancienGen.equals(reseau.getConnexions().get(maison))) {
-				System.out.println("=> ERREUR : La connexion saisie n'existe pas ou est incorrecte.");
-				return;
-			}
-
-			// Nouvelle connexion
-			System.out.println("Veuillez saisir la nouvelle connexion (ex: M1 G2 ou G2 M1):");
-			String[] nouvelleSaisie = scan.nextLine().trim().split("\\s+");
-			if (nouvelleSaisie.length < 2)
-				throw new ArrayIndexOutOfBoundsException();
-
-			Maison maisonNouvelle = null;
-			Generateur nouveauGen = null;
-
-			// Identifie la maison et le nouveau générateur dans n'importe quel ordre
-			for (String nom : nouvelleSaisie) {
-				if (reseau.getMaisons().containsKey(nom))
-					maisonNouvelle = reseau.getMaisons().get(nom);
-				if (reseau.getGenerateurs().containsKey(nom))
-					nouveauGen = reseau.getGenerateurs().get(nom);
-			}
-
-			// Si aucune maison est trouvée dans la nouvelle saisie, on garde la même que l'ancienne
-			if (maisonNouvelle == null)
-				maisonNouvelle = maison;
-
-			// Validation du générateur
-			if (nouveauGen == null) {
-				System.out.println("=> ERREUR : Le nouveau générateur n'existe pas.");
-				return;
-			}
-
-// Supprime l'ancienne connexion et établie la nouvelle connexion
-			reseau.modifierConnexion(maison.getNom(), ancienGen.getNom(), nouveauGen.getNom());
-
-		} catch (ArrayIndexOutOfBoundsException e) {
-			System.out.println("=> ERREUR : Format incorrect. Vous devez entrer deux noms séparés par un espace.");
-		}
-	}
-
-	/**
 	 * Vérifie la validité des connexions du réseau.
 	 * @return {@code true} si toutes les connexions sont validés, {@code false} sinon.
 	 */
 	private static boolean verifierConnexion() {
 		return reseau.verifierConnexions();
-	}
-
-	/**
-	 * Affiche l'état du réseau dans la console (Générateurs, Maisons et Connexions).
-	 */
-	private static void handleAfficherReseau() {
-		reseau.afficherReseau();
-	}
-
-	/**
-	 * Calcule et affiche les coûts du réseau (Dispersion, Surcharge et Coût Total).
-	 * Utilise une valeur de pénalité lambda fixée à 10.0 car il n'est appelé que lors de la partie 1
-	 */
-	private static void handleCalculerCout() {
-		handleCalculerCout(10.0);
-	}
-	
-	/**
-	 * Calcule et affiche les coûts du réseau (Dispersion, Surcharge et Coût Total).
-	 * @param lambda La valeur de pénalité à utiliser pour le calcul.
-	 */
-	private static void handleCalculerCout(double lambda) {
-
-		System.out.println("Calcul du coût du réseau (avec lambda = " + lambda + ")...");
-		// Appelle la méthode disp()
-		double disp = reseau.disp();
-
-		// Appelle la méthode surcharge()
-		double surcharge = reseau.surcharge(lambda);
-
-		// Calcule le coût total
-		double coutTotal = disp + surcharge;
-
-		// Affiche les 3 résultats, comme demandé par le PDF
-		System.out.println("--------- RÉSULTAT DU CALCUL ---------");
-		System.out.println("Dispersion (Disp(S)) : " + disp);
-		System.out.println("Surcharge (Surcharge(S)) : " + surcharge);
-		System.out.println("COÛT TOTAL (Cout(S)) : " + coutTotal);
-		System.out.println("--------------------------------------");
 	}
 
 	

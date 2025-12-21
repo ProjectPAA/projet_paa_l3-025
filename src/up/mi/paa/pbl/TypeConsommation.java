@@ -4,7 +4,7 @@ package up.mi.paa.pbl;
 /**
  * Enumération des possibles types de consommation des {@link Maison}s en accord avec les contraintes de la description du projet.
  * @author Jacques ZHENG
- * @author Mamadou NIMAGA DIT
+ * @author Mamadou NIMAGA
  * @author Zalán MOLNÁR
  */
 public enum TypeConsommation {

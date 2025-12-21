@@ -5,7 +5,7 @@ package up.mi.paa.pbl;
  * <p>Classe qui représente les générateurs en accord avec les contraintes posées dans la description du projet.</p>
  * <p>Remarque : Cette classe possède un ordre naturel incohérent avec {@link Generateur#equals(Object) equals}.</p>
  * @author Jacques ZHENG
- * @author Mamadou NIMAGA DIT
+ * @author Mamadou NIMAGA
  * @author Zalán MOLNÁR
  */
 public class Generateur implements Comparable<Generateur>{ //Note: this class has a natural ordering that is inconsistent with equals.

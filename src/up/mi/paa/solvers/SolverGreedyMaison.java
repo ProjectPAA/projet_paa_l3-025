@@ -18,7 +18,7 @@ import up.mi.paa.pbl.Reseau;
  * <p>En O(n<sup>2</sup>).</p>
  * 
  * @author Jacques ZHENG
- * @author Mamadou NIMAGA DIT
+ * @author Mamadou NIMAGA
  * @author Zalán MOLNÁR
  */
 public class SolverGreedyMaison extends Solver {

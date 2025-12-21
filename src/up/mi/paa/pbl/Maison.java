@@ -3,7 +3,7 @@ package up.mi.paa.pbl;
 /**
  * <p>Classe qui représente les Maisons en accord avec les contraintes de la description du projet.</p> 
  * @author Jacques ZHENG
- * @author Mamadou NIMAGA DIT
+ * @author Mamadou NIMAGA
  * @author Zalán MOLNÁR
  */
 public class Maison {

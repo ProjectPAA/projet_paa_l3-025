@@ -14,7 +14,7 @@ import java.io.FileWriter;
  * Classe responsable de l'exportation (sauvegarde)d'un réseau électrique vers un fichier texte.
  * Le fichier génére resepcte strictement le format imposé par le sujet(PArtie 2) pour pouvoir être rechargé ultérieurement par le ChargeurReseau.
  * @author Jacques ZHENG
- * @author Mamadou NIMAGA DIT
+ * @author Mamadou NIMAGA
  * @author Zalán MOLNÁR
  */
 public class SauvegardeurReseau {

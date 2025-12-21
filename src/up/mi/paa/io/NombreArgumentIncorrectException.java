@@ -5,7 +5,7 @@ package up.mi.paa.io;
  * Exception signalant que le nombre d'arguments dans une ligne de {@linkplain java.io.File fichier} est incorrect (différent de deux).
  * @see ChargeurReseau#traiterLigne(String, Reseau)
  * @author Jacques ZHENG
- * @author Mamadou NIMAGA DIT
+ * @author Mamadou NIMAGA
  * @author Zalán MOLNÁR
  */
 public class NombreArgumentIncorrectException extends Exception{

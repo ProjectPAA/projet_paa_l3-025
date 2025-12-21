@@ -14,7 +14,7 @@ import up.mi.paa.pbl.Reseau;
  * <p>Note : Il est très lent. (Plusieurs minutes sur les réseaux exemples).</p>
  * 
  * @author Jacques ZHENG
- * @author Mamadou NIMAGA DIT
+ * @author Mamadou NIMAGA
  * @author Zalán MOLNÁR
  */
 public class SolverBranchBound extends Solver {

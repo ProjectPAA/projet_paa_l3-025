@@ -10,7 +10,7 @@ import up.mi.paa.pbl.Reseau;
  * Cette classe implémente l'algorithme naif donné dans la description de la seconde partie du projet.
  * 
  * @author Jacques ZHENG
- * @author Mamadou NIMAGA DIT
+ * @author Mamadou NIMAGA
  * @author Zalán MOLNÁR
  */
 public class SolverNaive extends Solver {

@@ -8,7 +8,7 @@ import up.mi.paa.pbl.Reseau;
  * <p>{@code public ConcreteSolver(Reseau reseau) {this.reseau = reseau;}}</p>
  * 
  * @author Jacques ZHENG
- * @author Mamadou NIMAGA DIT
+ * @author Mamadou NIMAGA
  * @author Zalán MOLNÁR
  */
 public abstract class Solver implements Runnable {
